@@ -1,34 +1,16 @@
-<p align="center">
-    <img src="https://i.imgur.com/q4awiMm.png" alt="UNIT3D Logo">
-</p>
-<p align="center">
-    <b>A Special Thanks To All Our <a href="https://github.com/UNIT3D/UNIT3D/graphs/contributors">Contributors</a></b>
-</p>
-<hr>
-
-<p align="center">
-<a href="https://github.com/HDVinnie/UNIT3D"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" /></a> <a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a> <a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://cdn.rawgit.com/Hyleus/237f9903320939eb4f7615633a8fb221/raw/dca104edf34eabaca1016e633f06a52a346a7700/chat-Discord-blue.svg" /></a> <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.6.16-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
-</p>
-
-
+# Concertos
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Some Features](#features)
-3. [Requirements](#requirements)
-4. [Installation](#installation)
-5. [Packages](#packages)
-6. [Security](#security)
-7. [Contributing](#contributing)
-8. [License](#license)
-9. [Screenshots](#screenshots)
-10. [Homestead](#homestead)
-11. [Patreon](#patreon)
-
-
-## <a name="introduction"></a> Introduction
-
-I have been developing a Nex-Gen Torrent Tracker Script called "UNIT3D." This is a PHP script based off the lovely Laravel Framework -- currently Laravel Framework 5.6.16, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+1. [Some Features](#features)
+2. [Requirements](#requirements)
+3. [Installation](#installation)
+4. [Packages](#packages)
+5. [Security](#security)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Screenshots](#screenshots)
+9. [Homestead](#homestead)
+10. [Patreon](#patreon)
 
 ## <a name="features"></a> Some Features
 
@@ -175,7 +157,7 @@ If you discover any security related issues, please email unit3d@protonmail.com 
 
 ## <a name="contributing"></a> Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## <a name="license"></a> License
 
@@ -234,11 +216,3 @@ databases:
 8. run `php artisan migrate:refresh --seed`
 9. visit <a href="http://unit3d.site">unit3d.site</a>
 10. Login u: `UNIT3D` p: `UNIT3D`
-
-## <a name="patreon"></a> Support me on patreon
-
-You can support me on patreon if you are enjoying UNIT3D, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane.
-
-<p align="center">
-<a href="https://www.patreon.com/UNIT3D"><img src="https://i.imgur.com/ZTLPSt5.png"></a>
-</p>

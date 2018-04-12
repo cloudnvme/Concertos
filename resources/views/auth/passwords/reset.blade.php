@@ -28,30 +28,11 @@
             {{ session('status') }}
         </div>
     @endif
-    <svg viewBox="0 0 1320 100">
 
-      <!-- Symbol -->
-      <symbol id="s-text">
-        <text text-anchor="middle"
-              x="50%" y="50%" dy=".35em">
-          {{ config('other.title') }}
-        </text>
-      </symbol>
-
-      <!-- Duplicate symbols -->
-      <use xlink:href="#s-text" class="text"
-           ></use>
-      <use xlink:href="#s-text" class="text"
-           ></use>
-      <use xlink:href="#s-text" class="text"
-           ></use>
-      <use xlink:href="#s-text" class="text"
-           ></use>
-      <use xlink:href="#s-text" class="text"
-           ></use>
-
-    </svg>
   <div id="formContent">
+    <div class="text">
+      {{ config('other.title') }}
+    </div>
     <!-- Tabs Titles -->
     <a href="{{ route('login') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }} </h2></a>
     <a href="{{ route('register') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }} </h2></a>

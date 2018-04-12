@@ -76,15 +76,27 @@
 				</thead>
 				<tbody>
 					@foreach($groups as $g)
-						<tr>
-							<td>{{ $g->name }}</td>
-							<td><input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1"></td>
-							<td><input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1"></td>
-							<td><input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1"></td>
-							<td><input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1"></td>
-							<td><input type="checkbox" name="permissions[{{ $g->id }}][upload]" value="1"></td>
-							<td><input type="checkbox" name="permissions[{{ $g->id }}][download]" value="1"></td>
-						</tr>
+						@if ($g->name == "Banned")
+							<tr>
+								<td>{{ $g->name }}</td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1"></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1"></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1"></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1"></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][upload]" value="1"></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][download]" value="1"></td>
+							</tr>
+						@else
+							<tr>
+								<td>{{ $g->name }}</td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1" checked></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1" checked></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1" checked></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1" checked></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][upload]" value="1" checked></td>
+								<td><input type="checkbox" name="permissions[{{ $g->id }}][download]" value="1" checked></td>
+							</tr>
+						@endif
 					@endforeach
 				</tbody>
 			</table>

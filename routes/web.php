@@ -94,8 +94,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/report', 'ReportController@postReport')->name('postReport');
 
         // Bug Report
-        Route::get('/bug', 'BugController@bug')->name('bug');
-        Route::post('/bug', 'BugController@bug')->name('bug');
+        //Route::get('/bug', 'BugController@bug')->name('bug');
+        //Route::post('/bug', 'BugController@bug')->name('bug');
 
         // Category
         Route::get('/categories', 'CategoryController@categories')->name('categories');

@@ -79,13 +79,6 @@
       </a>
     </li>
     <li>
-      <a href="{{ route('bug') }}">
-        <i class="livicon" data-name="bug" data-c="#E74C3C" data-hc="#E74C3C" data-size="18" data-loop="true"></i>
-        <span class="menu-text">{{ trans('common.bug') }}</span>
-        <span class="selected"></span>
-      </a>
-    </li>
-    <li>
       <a href="{{ route('home') }}/p/rules.1">
         <i class="livicon" data-name="info" data-c="#ecf0f1" data-hc="#ecf0f1" data-size="18" data-loop="true"></i>
         <span class="menu-text">{{ trans('common.rules') }}</span>

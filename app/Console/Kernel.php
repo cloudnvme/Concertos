@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\autoNerdStat::class,
+        //\App\Console\Commands\autoNerdStat::class,
         \App\Console\Commands\bonAllocation::class,
         \App\Console\Commands\autoSeedbox::class,
         //\App\Console\Commands\autoPreWarning::class,
@@ -40,7 +40,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('autoNerdStat')->hourly();
+        //$schedule->command('autoNerdStat')->hourly();
         $schedule->command('bonAllocation')->hourly();
         $schedule->command('autoSeedbox')->hourly();
         //$schedule->command('autoPreWarning')->hourly();

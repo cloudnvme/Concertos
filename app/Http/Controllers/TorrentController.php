@@ -245,13 +245,12 @@ class TorrentController extends Controller
                 return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             }
             // Deplace and decode the torrent temporarily
-            TorrentTools::moveAndDecode($requestFile);
-            // Array decoded from torrent
-            $decodedTorrent = TorrentTools::$decodedTorrent;
-            // Tmp filename
-            $fileName = TorrentTools::$fileName;
-            // Torrent Info
-            $info = Bencode::bdecode_getinfo(getcwd() . '/files/torrents/' . $fileName, true);
+            $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
+            $infohash = Bencode::get_infohash($decodedTorrent);
+            $meta = Bencode::get_meta($decodedTorrent);
+            $fileName = $infohash . '.torrent';
+            file_put_contents(getcwd() . '/files/torrents/' . $fileName, Bencode::bencode($decodedTorrent));
+
             // Find the right category
             $category = Category::findOrFail($request->input('category_id'));
             // Create the torrent (DB)
@@ -262,11 +261,11 @@ class TorrentController extends Controller
                 'slug' => str_slug($name),
                 'description' => $request->input('description'),
                 'mediainfo' => $mediainfo,
-                'info_hash' => $info['info_hash'],
+                'info_hash' => $infohash,
                 'file_name' => $fileName,
-                'num_file' => $info['info']['filecount'],
+                'num_file' => $meta['count'],
                 'announce' => $decodedTorrent['announce'],
-                'size' => $info['info']['size'],
+                'size' => $meta['size'],
                 'nfo' => ($request->hasFile('nfo')) ? TorrentTools::getNfo($request->file('nfo')) : '',
                 'category_id' => $category->id,
                 'user_id' => $user->id,

@@ -201,25 +201,30 @@ class Bencode
         return self::bdecode($f);
     }
 
-    public static function bdecode_getinfo($filename, $need_info_hash = false)
-    {
-        $t = self::bdecode_file($filename);
-        $t['info_hash'] = $need_info_hash ? sha1(self::bencode($t['info'])) : null;
+    public static function get_infohash($t) {
+        return sha1(self::bencode($t['info']));
+    }
 
-        if (isset($t['info']['files']) && is_array($t['info']['files'])) { //multifile
-            $t['info']['size'] = 0;
-            $t['info']['filecount'] = 0;
+    public static function get_meta($t) {
+        $result = [];
+        $size = 0;
+        $count = 0;
 
+        // Multifile
+        if (isset($t['info']['files']) && is_array($t['info']['files'])) {
             foreach ($t['info']['files'] as $file) {
-                $t['info']['filecount']++;
-                $t['info']['size'] += $file['length'];
+                $count++;
+                $size += $file['length'];
             }
         } else {
-            $t['info']['size'] = $t['info']['length'];
-            $t['info']['filecount'] = 1;
+            $size= $t['info']['length'];
+            $count = 1;
             $t['info']['files'][0]['path'] = $t['info']['name'];
             $t['info']['files'][0]['length'] = $t['info']['length'];
         }
-        return $t;
+
+        $result['count'] = $count;
+        $result['size'] = $size;
+        return $result;
     }
 }

@@ -70,8 +70,6 @@
 						<th>Read topics</th>
 						<th>Start new topic</th>
 						<th>Reply to topics</th>
-						<th>Upload</th>
-						<th>Download</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -83,8 +81,6 @@
 								<td><input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1"></td>
 								<td><input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1"></td>
 								<td><input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1"></td>
-								<td><input type="checkbox" name="permissions[{{ $g->id }}][upload]" value="1"></td>
-								<td><input type="checkbox" name="permissions[{{ $g->id }}][download]" value="1"></td>
 							</tr>
 						@else
 							<tr>
@@ -93,8 +89,6 @@
 								<td><input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1" checked></td>
 								<td><input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1" checked></td>
 								<td><input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1" checked></td>
-								<td><input type="checkbox" name="permissions[{{ $g->id }}][upload]" value="1" checked></td>
-								<td><input type="checkbox" name="permissions[{{ $g->id }}][download]" value="1" checked></td>
 							</tr>
 						@endif
 					@endforeach

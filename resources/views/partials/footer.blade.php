@@ -51,12 +51,6 @@
         <li><a href="{{ route('home') }}/p/terms_of_use.7">{{ trans('common.terms') }}</a></li>
       </ul>
     </div>
-
-    <div class="col-md-1 l-footer-section">
-      <h2 class="l-footer-section-title">{{ trans('common.other') }}</h2>
-      <a href="https://anon.to/?https://www.patreon.com/UNIT3D" class="btn btn-xs btn-primary">{{ trans('common.patron') }}</a>
-      <a href="https://anon.to/?https://github.com/UNIT3D/UNIT3D" class="btn btn-xs btn-primary">{{ trans('common.powered-by') }}</a>
-    </div>
   </div>
 </div>
 

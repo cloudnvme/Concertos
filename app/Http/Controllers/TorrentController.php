@@ -274,9 +274,7 @@ class TorrentController extends Controller
                 'tmdb' => $request->input('tmdb'),
                 'mal' => $request->input('mal'),
                 'type' => $request->input('type'),
-                'anon' => $request->input('anonymous'),
-                'stream' => $request->input('stream'),
-                'sd' => $request->input('sd')
+                'anon' => $request->input('anonymous')
             ]);
             // Validation
             $v = validator($torrent->toArray(), $torrent->rules);

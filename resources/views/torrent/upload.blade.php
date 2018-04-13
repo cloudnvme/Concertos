@@ -127,28 +127,7 @@
       <div class="radio-inline">
           <label><input type="radio" name="anonymous" checked="checked" value="0">NO</label>
       </div>
-
-        <br>
-
-      <label for="stream" class="control-label">Stream Optimized?</label>
-        <div class="radio-inline">
-            <label><input type="radio" name="stream" value="1">YES</label>
-          </div>
-        <div class="radio-inline">
-            <label><input type="radio" name="stream" checked="checked" value="0">NO</label>
-        </div>
-
-        <br>
-
-        <label for="sd" class="control-label">SD Content?</label>
-          <div class="radio-inline">
-              <label><input type="radio" name="sd" value="1">YES</label>
-            </div>
-          <div class="radio-inline">
-              <label><input type="radio" name="sd" checked="checked" value="0">NO</label>
-          </div>
-
-          <br>
+      <br>
 
       <center>
         <button type="submit" name="preview" value="true" id="preview" class="btn btn-warning">Preview</button>

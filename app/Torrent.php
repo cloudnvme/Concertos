@@ -55,9 +55,7 @@ class Torrent extends Model
         'tvdb' => 'required|numeric',
         'tmdb' => 'required|numeric',
         'type' => 'required',
-        'anon' => 'required',
-        'stream' => 'required',
-        'sd' => 'required'
+        'anon' => 'required'
     ];
 
     public $sortable = ['id', 'name', 'size', 'seeders', 'leechers', 'times_completed', 'created_at'];

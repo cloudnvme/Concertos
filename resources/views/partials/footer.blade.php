@@ -47,7 +47,6 @@
       <ul>
         <li><a href="{{ route('staff') }}">{{ trans('common.staff') }}</a></li>
         <li><a href="{{ route('internal') }}">{{ trans('common.internal') }}</a></li>
-        <li><a href="{{ route('about') }}">{{ trans('common.about') }}</a></li>
         <li><a href="{{ route('home') }}/p/terms_of_use.7">{{ trans('common.terms') }}</a></li>
       </ul>
     </div>

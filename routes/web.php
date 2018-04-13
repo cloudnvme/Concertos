@@ -116,7 +116,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/blacklist', 'PageController@blacklist')->name('blacklist');
 
         // About Us
-        Route::any('/aboutus', 'PageController@about')->name('about');
+        //Route::any('/aboutus', 'PageController@about')->name('about');
 
         // Comments
         Route::any('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');

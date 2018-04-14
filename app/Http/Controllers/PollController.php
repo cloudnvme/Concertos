@@ -68,13 +68,10 @@ class PollController extends Controller
             return redirect('poll/' . $poll->slug . '/result')->with(Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']));
         }
 
-        if ($poll->ip_checking == 1) {
-            $voter = Voter::create([
-                'poll_id' => $poll->id,
-                'user_id' => $user->id,
-                'ip_address' => $request->ip()
-            ]);
-        }
+        $voter = Voter::create([
+            'poll_id' => $poll->id,
+            'user_id' => $user->id,
+        ]);
 
         $slug = $poll->slug;
         $url = config('app.url');

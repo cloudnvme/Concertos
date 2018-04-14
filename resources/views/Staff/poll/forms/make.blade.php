@@ -36,12 +36,6 @@
 	<hr>
 
 	<div class="checkbox">
-    	<label>
-      		<input type="checkbox" name="ip_checking" value="1">Enable duplicate IP checking <span class="text-red">(NEEDED TO PREVENT DUPLICATE VOTING FROM USERS!)</span>
-    	</label>
-  	</div>
-
-	<div class="checkbox">
 		<label>
 			<input type="checkbox" name="multiple_choice" value="1">Allow multiple answers
 		</label>

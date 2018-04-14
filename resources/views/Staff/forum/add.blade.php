@@ -74,7 +74,7 @@
 				</thead>
 				<tbody>
 					@foreach($groups as $g)
-						@if ($g->name == "Banned" || $g->name == "Validating")
+						@if ($g->name === "Banned" || $g->name === "Validating")
 							<tr>
 								<td>{{ $g->name }}</td>
 								<td><input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1"></td>

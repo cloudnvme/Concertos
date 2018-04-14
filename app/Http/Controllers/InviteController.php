@@ -40,8 +40,8 @@ class InviteController extends Controller
     {
         $current = new Carbon();
         $user = auth()->user();
-        $invites_restricted = config('config.invites_restriced', false);
-        $invite_groups = config('config.invite_groups', []);
+        $invites_restricted = config('other.invites_restriced', false);
+        $invite_groups = config('other.invite_groups', []);
         if ($invites_restricted && !in_array($user->group->name, $invite_groups)) {
             return redirect()->route('invite')->with(Toastr::error('Invites are currently disabled for your userclass.', 'Whoops!', ['options']));
         }

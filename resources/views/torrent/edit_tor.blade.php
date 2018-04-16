@@ -24,6 +24,11 @@
                 <input type="text" class="form-control" name="name" value="{{ $tor->name }}" required>
             </div>
 
+            <div class="form-group">
+                <label for="name">Tags</label>
+                <input type="text" class="form-control" name="tags" value="{{ $tor->tags->implode('name', ', ') }}" required>
+            </div>
+
            <div class="form-group">
               <label for="name">IMDB ID ({{ trans('common.required') }})</label>
               <input type="number" name="imdb" value="{{ $tor->imdb }}" class="form-control" required>

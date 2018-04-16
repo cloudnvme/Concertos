@@ -896,6 +896,15 @@ class TorrentController extends Controller
                 $stream = $request->input('stream');
                 $sd = $request->input('sd');
 
+                Tag::where('torrent_id', $torrent->id)->delete();
+                $tags = self::parseTags($request->input('tags'));
+                foreach ($tags as $tag) {
+                    $t = new Tag();
+                    $t->torrent_id = $torrent->id;
+                    $t->name = $tag;
+                    $t->save();
+                }
+
                 $torrent->name = $name;
                 $torrent->imdb = $imdb;
                 $torrent->tvdb = $tvdb;

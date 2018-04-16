@@ -238,13 +238,6 @@
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>{{ trans('torrent.stream-optimized') }}?</strong></td>
-          <td>
-            @if($torrent->stream == "1") {{ trans('common.yes') }} @else {{ trans('common.no') }} @endif
-          </td>
-        </tr>
-
-        <tr>
           <td class="col-sm-2"><strong>Info Hash</strong></td>
           <td>{{ $torrent->info_hash }}</td>
         </tr>

@@ -83,24 +83,6 @@
             </div>
             <br>
             <br>
-            <label for="hidden" class="control-label">{{ trans('torrent.stream-optimized') }}?</label>
-            <div class="radio-inline">
-                <label><input type="radio" name="stream" @if($tor->stream == 1) checked @endif value="1">{{ trans('common.yes') }}</label>
-              </div>
-            <div class="radio-inline">
-                <label><input type="radio" name="stream" @if($tor->stream == 0) checked @endif value="0">{{ trans('common.no') }}</label>
-            </div>
-            <br>
-            <br>
-            <label for="hidden" class="control-label">{{ trans('torrent.sd-content') }}?</label>
-            <div class="radio-inline">
-                <label><input type="radio" name="sd" @if($tor->sd == 1) checked @endif value="1">{{ trans('common.yes') }}</label>
-              </div>
-            <div class="radio-inline">
-                <label><input type="radio" name="sd" @if($tor->sd == 0) checked @endif value="0">{{ trans('common.no') }}</label>
-            </div>
-            <br>
-            <br>
             <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
         {{ Form::close() }}
     </div>

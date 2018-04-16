@@ -870,8 +870,6 @@ class TorrentController extends Controller
                 $category = $request->input('category_id');
                 $type = $request->input('type');
                 $anon = $request->input('anonymous');
-                $stream = $request->input('stream');
-                $sd = $request->input('sd');
 
                 $torrent->name = $name;
                 $torrent->imdb = $imdb;
@@ -883,8 +881,8 @@ class TorrentController extends Controller
                 $torrent->description = $request->input('description');
                 $torrent->mediainfo = $request->input('mediainfo');
                 $torrent->anon = $anon;
-                $torrent->stream = $stream;
-                $torrent->sd = $sd;
+                $torrent->stream = 0;
+                $torrent->sd = 0;
                 $torrent->save();
 
                 // Activity Log

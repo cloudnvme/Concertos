@@ -20,13 +20,16 @@ class LogActivity
 
     public static function addToLog($subject)
     {
+        $user = auth()->user();
+        $has_privacy = $user->group->has_privacy;
+
         $log = [];
         $log['subject'] = $subject;
         $log['url'] = Request::fullUrl();
         $log['method'] = Request::method();
-        $log['ip'] = Request::ip();
+        $log['ip'] = $has_privacy ? "0.0.0.0" : Request::ip();
         $log['agent'] = Request::header('user-agent');
-        $log['user_id'] = auth()->check() ? auth()->user()->id : 0;
+        $log['user_id'] = auth()->check() ? $user->id : 0;
         LogActivityModel::create($log);
     }
 

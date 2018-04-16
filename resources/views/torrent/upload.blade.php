@@ -70,6 +70,11 @@
                 <input type="text" name="name" id="title" class="form-control" required>
             </div>
 
+            <div class="form-group">
+                <label for="name">Tags</label>
+                <input type="text" name="tags" class="form-control">
+            </div>
+
              <div class="form-group">
                 <label for="name">IMDB ID <b>(Required)</b></label>
                 <input type="number" name="imdb" value="0" class="form-control" required>

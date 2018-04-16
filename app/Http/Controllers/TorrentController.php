@@ -42,6 +42,7 @@ use App\Services\FanArt;
 use App\Bots\IRCAnnounceBot;
 use Carbon\Carbon;
 use Decoda\Decoda;
+use App\Tag;
 use \Toastr;
 
 /**
@@ -210,6 +211,20 @@ class TorrentController extends Controller
         return $mediainfo;
     }
 
+    private static function parseTags($text) {
+        $parts = explode(',', $text);
+        $len = count($parts);
+        $result = [];
+        foreach ($parts as $part) {
+            $part = trim($part);
+            if ($part != "") {
+                array_push($result, $part);
+            }
+        }
+
+        return $result;
+    }
+
     /**
      * Upload A Torrent
      *
@@ -255,6 +270,7 @@ class TorrentController extends Controller
             $category = Category::findOrFail($request->input('category_id'));
             // Create the torrent (DB)
             $name = $request->input('name');
+            $tags = self::parseTags($request->input('tags'));
             $mediainfo = self::anonymizeMediainfo($request->input('mediainfo'));
             $torrent = new Torrent([
                 'name' => $name,
@@ -314,6 +330,13 @@ class TorrentController extends Controller
                 // check for trusted user and update torrent
                 if ($user->group->is_trusted) {
                     TorrentHelper::approveHelper($torrent->slug, $torrent->id);
+                }
+
+                foreach ($tags as $tag) {
+                    $t = new Tag();
+                    $t->torrent_id = $torrent->id;
+                    $t->name = $tag;
+                    $t->save();
                 }
 
                 return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
@@ -870,6 +893,15 @@ class TorrentController extends Controller
                 $category = $request->input('category_id');
                 $type = $request->input('type');
                 $anon = $request->input('anonymous');
+
+                Tag::where('torrent_id', $torrent->id)->delete();
+                $tags = self::parseTags($request->input('tags'));
+                foreach ($tags as $tag) {
+                    $t = new Tag();
+                    $t->torrent_id = $torrent->id;
+                    $t->name = $tag;
+                    $t->save();
+                }
 
                 $torrent->name = $name;
                 $torrent->imdb = $imdb;

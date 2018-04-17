@@ -79,7 +79,7 @@ class PrivateMessageController extends Controller
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
 
         // If the message is not read, change the the status
-        if ($pm->read == 0) {
+        if ($user->id === $pm->reciever_id && $pm->read === 0) {
             $pm->read = 1;
             $pm->save();
         }

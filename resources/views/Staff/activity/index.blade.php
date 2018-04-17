@@ -51,7 +51,7 @@
 				<td><label class="label label-info">{{ $log->method }}</label></td>
 				<td class="text-danger">{{ $log->ip }}</td>
 				<td class="text-warning">{{ $log->agent }}</td>
-				<td>{{ $log->user->username }}</td>
+				<td>{{ $log->user->username ?? "System" }}</td>
 				<td><button class="btn btn-danger btn-sm">Delete</button></td>
 			</tr>
 			@endforeach

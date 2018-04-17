@@ -26,7 +26,7 @@
 
             <div class="form-group">
                 <label for="name">Tags</label>
-                <input type="text" class="form-control" name="tags" value="{{ $tor->tags->implode('name', ', ') }}" required>
+                <input type="text" class="form-control" name="tags" value="{{ $tor->tags->implode('name', ', ') }}">
             </div>
 
            <div class="form-group">

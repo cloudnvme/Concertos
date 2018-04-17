@@ -78,6 +78,11 @@ class PrivateMessageController extends Controller
         $user = auth()->user();
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
 
+        if ($user->id !== $pm->sender_id && $user->id !== $pm->reciever_id) {
+            Toastr::error('This isn\\\'t your PM.');
+            return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id]);
+        }
+
         // If the message is not read, change the the status
         if ($user->id === $pm->reciever_id && $pm->read === 0) {
             $pm->read = 1;

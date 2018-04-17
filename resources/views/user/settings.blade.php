@@ -59,8 +59,8 @@
           <label for="theme" class="control-label">Theme</label>
             <select class="form-control" id="theme" name="theme">
               <option @if($user->style == 0) selected @endif value="0">Light Theme</option>
-              <option @if($user->style == 1) selected @endif value="1">Dark Theme</option>
-              <option @if($user->style == 2) selected @endif value="2">Blur Theme</option>
+              <option @if($user->style == 1) selected @endif value="1">Dark Theme (Deprecated)</option>
+              <option @if($user->style == 2) selected @endif value="2">Blur Theme (Deprecated)</option>
               <option @if($user->style == 3) selected @endif value="3">Galactic Theme</option>
             </select>
         </div>

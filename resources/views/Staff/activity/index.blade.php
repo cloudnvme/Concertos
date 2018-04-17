@@ -35,9 +35,9 @@
 			<th>Subject</th>
 			<th>URL</th>
 			<th>Method</th>
-			<th>Ip</th>
+			<th>IP</th>
 			<th width="300px">User Agent</th>
-			<th>User Id</th>
+			<th>Username</th>
 			<th>Action</th>
 		</tr>
   </thead>
@@ -51,7 +51,7 @@
 				<td><label class="label label-info">{{ $log->method }}</label></td>
 				<td class="text-danger">{{ $log->ip }}</td>
 				<td class="text-warning">{{ $log->agent }}</td>
-				<td>{{ $log->user_id }}</td>
+				<td>{{ $log->user->username }}</td>
 				<td><button class="btn btn-danger btn-sm">Delete</button></td>
 			</tr>
 			@endforeach

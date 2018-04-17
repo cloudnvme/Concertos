@@ -208,15 +208,11 @@
   <h3>{{ trans('bon.gift') }}</h3>
     <form role="form" method="POST" action="{{ route('bongift') }}" id="send_bonus">
         {{ csrf_field() }}
-
+        
         <div class="form-group">
             <label for="to_username" class="col-sm-3 control-label">{{ trans('bon.gift-to') }}</label>
             <div class="col-sm-9">
-                <select class="form-control user-select-placeholder-single" name="to_username">
-                  @foreach($users as $user)
-                    <option value="{{ $user->username }}">{{ $user->username }}</option>
-                  @endforeach
-                </select>
+                <input class="form-control" placeholder="User" name="to_username" required>
             </div>
         </div>
 

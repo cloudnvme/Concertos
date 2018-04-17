@@ -99,17 +99,7 @@
       <div class="col-sm-10">
         <span class="badge-user">
         <label class="inline">
-            {{ Form::checkbox('stream','1',false,['id'=>'stream']) }}   <span class="fa fa-play text-red"></span> Stream Optimized
-        </label>
-        </span>
-        <span class="badge-user">
-        <label class="inline">
             {{ Form::checkbox('highspeed','1',false,['id'=>'highspeed']) }}   <span class="fa fa-tachometer text-red"></span> High Speeds
-        </label>
-        </span>
-        <span class="badge-user">
-        <label class="inline">
-            {{ Form::checkbox('sd','1',false,['id'=>'sd']) }}   <span class="fa fa-ticket text-orange"></span> SD Content
         </label>
         </span>
       </div>

@@ -26,13 +26,9 @@
         <h2>Gifts</h2>
         {{ Form::open(['route' => 'sendSystemGift' , 'method' => 'post' , 'role' => 'form' , 'class' => 'form-horizontal']) }}
             <div class="form-group">
-              <label for="users">Select a User</label>
-                <select class="form-control user-select-placeholder-single" name="username">
-                  @foreach($users as $user)
-                    <option value="{{ $user->username }}">{{ $user->username }}</option>
-                  @endforeach
-                </select>
-              </div>
+              <label for="username">Select a User</label>
+              <input class="form-control" placeholder="User" name="username" required>
+            </div>
 
             <div class="form-group">
                 <label for="name">BON</label>

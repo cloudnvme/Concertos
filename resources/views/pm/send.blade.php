@@ -35,14 +35,11 @@
             <div class="block">
                   <form role="form" method="POST" action="{{ route('send-pm') }}">
                   {{ csrf_field() }}
+
                   <div class="form-group">
-                    <label for="users">{{ trans('pm.select') }}</label>
-                    <select class="js-example-basic-single form-control" name="reciever_id">
-                      @foreach($usernames as $username)
-                        <option value="{{ $username->id }}">{{ $username->username }}</option>
-                      @endforeach
-                    </select>
-                    </div>
+                    <label for="receiver">User</label>
+                    <input name="receiver" class="form-control" placeholder="User" required>
+                  </div>
 
                   <div class="form-group">
                     <label for="">{{ trans('pm.subject') }}</label>

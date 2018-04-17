@@ -128,10 +128,15 @@ class PrivateMessageController extends Controller
     public function sendPrivateMessage(Request $request)
     {
         $user = auth()->user();
+        $receiver = User::where('username', $request->input('receiver'))->first();
+        if ($receiver === null) {
+            Toastr::error("The user couldn\\'t be found.", 'Error');
+            return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id]);
+        }
 
         $attributes = [
             'sender_id' => $user->id,
-            'reciever_id' => $request->input('reciever_id'),
+            'reciever_id' => $receiver->id,
             'subject' => $request->input('subject'),
             'message' => $request->input('message'),
             'read' => 0,
@@ -139,7 +144,8 @@ class PrivateMessageController extends Controller
 
         $pm = PrivateMessage::create($attributes);
 
-        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+        Toastr::success('Your PM was sent successfully!', 'Yay!');
+        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id]);
     }
 
     /**

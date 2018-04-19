@@ -15,6 +15,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Hootlex\Moderation\Moderatable;
 use Kyslik\ColumnSortable\Sortable;
+use Carbon\Carbon;
 
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
@@ -227,5 +228,9 @@ class Torrent extends Model
     {
         $pfree = $user ? $user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;
         return $this->free || config('other.freeleech') || $pfree;
+    }
+
+    public function age() {
+        return Carbon::parse($this->created_at)->diffForHumans();
     }
 }

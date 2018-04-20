@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'subject' => 'Welcome to UNIT3D',
+    'subject' => 'Welcome to Concertos',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'message' => 'Welcome To [b]UNIT3D[/b].
+    'message' => 'Welcome To [b]Concertos[/b].
 
-    - UNIT3D :space_invader:',
+    - Concertos staff :musical_note:',
 ];

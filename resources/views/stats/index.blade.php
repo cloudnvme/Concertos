@@ -39,18 +39,6 @@
           </div>
 
           <div class="stat">
-            <p>{{ $num_hd }}</p>
-            <span class="badge-extra">HD {{ trans('torrent.torrents') }}</span>
-          </div>
-
-          <div class="stat">
-            <p>{{ $num_sd }}</p>
-            <span class="badge-extra">SD {{ trans('torrent.torrents') }}</span>
-          </div>
-
-          <br>
-
-          <div class="stat">
             <p>{{ $num_user }}</p>
             <span class="badge-extra">{{ trans('common.users') }}</span>
           </div>

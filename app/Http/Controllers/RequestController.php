@@ -136,8 +136,14 @@ class RequestController extends Controller
 
         $requests = $requests->paginate(25);
         $repository = $this->repository;
+        $map = [
+            'requests' => $requests,
+            'repository' => $repository,
+            'user' => $user,
+            'num_req' => $num_req
+        ];
 
-        return view('requests.requests', ['requests' => $requests, 'torrentRequest' => $torrentRequest, 'repository' => $repository, 'user' => $user, 'num_req' => $num_req, 'num_fil' => $num_fil, 'num_unfil' => $num_unfil, 'total_bounty' => $total_bounty, 'claimed_bounty' => $claimed_bounty, 'unclaimed_bounty' => $unclaimed_bounty]);
+        return view('requests.requests', $map);
     }
 
     public function faceted(Request $request, TorrentRequest $torrentRequest)

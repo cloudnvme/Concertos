@@ -15,19 +15,19 @@
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group">
         <span class="col-sm-1 label label-default">ID</span>
-        <input type="text" name="id" value="{{ $torrent->id }}"/>
+        <input type="text" class="bar" name="id" value="{{ $torrent->id }}"/>
       </div>
       <div class="form-group">
         <span class="col-sm-1 label label-default">Name</span>
-        <input type="text" name="name" value="{{ $torrent->name }}"/>
+        <input type="text" class="bar" name="name" value="{{ $torrent->name }}"/>
       </div>
       <div class="form-group">
         <span class="col-sm-1 label label-default">Slug</span>
-        <input type="text" name="slug" value="{{ $torrent->slug }}"/>
+        <input type="text" class="bar" name="slug" value="{{ $torrent->slug }}"/>
       </div>
       <div class="form-group">
         <span class="col-sm-1 label label-default">Message</span>
-        <input type="text" name="message" placeholder="Message"/>
+        <input type="text" class="bar" name="message" placeholder="Message"/>
       </div>
       <input type="submit" value="Delete!"/>
     </form>

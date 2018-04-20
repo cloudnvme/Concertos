@@ -14801,3 +14801,21 @@ input[type="submit"],
 .page h1.title {
     font-size: 3em;
 }
+
+.danger.box {
+    display: flex;
+    position: relative;
+    align-items: center;
+    border: 1px dotted #ccc;
+    padding: 0.25em;
+}
+
+.danger.box p {
+    text-align: justify;
+}
+
+.danger-symbol {
+    font-size: 4em;
+    margin-right: 0.4em;
+    margin-left: 0.25em;
+}

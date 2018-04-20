@@ -42,15 +42,17 @@
   </div>
   @endif
 <div class="torrent box container">
-  <div class="alert alert-danger">
-  <h2 class="mt-10"><strong>Announce URL:</strong> {{ route('announce', ['passkey' => $user->passkey]) }}</h2>
-  <p>Please use the announce URL above when creating a new torrent. If you want to use your torrent without downloading it from the site you need to set the private flag and the source to {{config('torrent.source')}}.</p>
+  <div class="danger box">
+    <i class="danger-symbol fa fa-exclamation-triangle"></i>
+    <p>
+      Please use
+      <a href="{{ route('announce', ['passkey' => $user->passkey]) }}">{{ route('announce', ['passkey' => $user->passkey]) }}</a>
+      as URL when creating a new torrent. If you want to use your torrent without downloading it from the site you need
+      to set the private flag and the source to {{config('torrent.source')}}. TMDB or IMDB is required for all uploads
+      when available! It is used to grab posters/backdrops and extra info! Remember to set the source to {{config('other.source')}}
+      if you want to use it directly without redownloading! MAKE SURE TO FILL IN ALL FIELDS!
+    </p>
   </div>
-  <br>
-<center><p class="text-success">Having Trouble? See Our Guide <a href="{{ url('p/upload-guide.5') }}">HERE</a></p></center>
-<center><p class="text-danger">TMDB or IMDB is required for all uploads when available! It is used to grab posters/backdrops and extra info!</p></center>
-<center><p class="text-danger">Remember to set the source to {{config('other.source')}} if you want to use it directly without redownloading!</p></center>
-<center><p class="text-danger"><i>MAKE SURE TO FILL IN ALL FIELDS!</i></p></center>
 
   <div class="upload col-md-12">
     <h3 class="upload-title">Upload A Torrent</h3>
@@ -135,9 +137,9 @@
       <br>
 
       <center>
-        <button type="submit" name="preview" value="true" id="preview" class="btn btn-warning">Preview</button>
-        <button id="add" class="btn btn-default">Add MediaInfo Parser</button>
-        <button type="submit" name="post" value="true" id="post" class="btn btn-primary">Upload</button>
+        <button type="submit" name="preview" value="true" id="preview" class="v-button">Preview</button>
+        <button id="add" class="v-button">Add MediaInfo Parser</button>
+        <button type="submit" name="post" value="true" id="post" class="v-button">Upload</button>
       </center>
         <br>
     {{ Form::close() }}

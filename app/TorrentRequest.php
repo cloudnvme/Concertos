@@ -14,6 +14,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
+use Carbon\Carbon;
 
 /**
  * Torrent Requests
@@ -143,5 +144,10 @@ class TorrentRequest extends Model
     public function getDescriptionHtml()
     {
         return Bbcode::parse($this->description);
+    }
+
+    public function age()
+    {
+        return Carbon::parse($this->created_at)->diffForHumans();
     }
 }

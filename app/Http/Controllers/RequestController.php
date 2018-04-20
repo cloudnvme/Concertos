@@ -52,8 +52,10 @@ class RequestController extends Controller
      * @access public
      * @return view::make requests.requests
      */
-    public function requests()
+    public function requests(Request $request)
     {
+        $category_identifier = 'category_';
+        $type_identifier = 'type_';
         $user = auth()->user();
         $num_req = TorrentRequest::count();
         $num_fil = TorrentRequest::whereNotNull('filled_by')->count();
@@ -62,10 +64,86 @@ class RequestController extends Controller
         $claimed_bounty = TorrentRequest::whereNotNull('filled_by')->sum('bounty');
         $unclaimed_bounty = TorrentRequest::whereNull('filled_by')->sum('bounty');
 
-        $torrentRequest = TorrentRequest::query();
-        $repository = $this->repository;
+        $title = $request->input('title', null);
+        $imdb = $request->input('imdb', null);
+        $tmdb = $request->input('tmdb', null);
+        $my_requests = $request->input('my_requests', false);
+        $unfilled = $request->input('unfilled', false);
+        $claimed = $request->input('claimed', false);
+        $pending = $request->input('pending', false);
+        $filled = $request->input('filled', false);
+        $categories = [];
+        $types = [];
 
-        return view('requests.requests', ['torrentRequest' => $torrentRequest, 'repository' => $repository, 'user' => $user, 'num_req' => $num_req, 'num_fil' => $num_fil, 'num_unfil' => $num_unfil, 'total_bounty' => $total_bounty, 'claimed_bounty' => $claimed_bounty, 'unclaimed_bounty' => $unclaimed_bounty]);
+        $torrentRequest = TorrentRequest::query();
+        $requests = TorrentRequest::query();
+
+        if ($title !== null) {
+            $terms = explode(' ', $title);
+            $search = '';
+            foreach ($terms as $term) {
+                $search .= '%' . trim($term) . '%';
+            }
+
+            $requests = $requests->where('name', 'like', $search);
+        }
+
+        foreach ($request->all() as $key => $value) {
+            if (substr($key, 0, strlen($category_identifier)) === $category_identifier) {
+                $category_id = substr($key, strlen($category_identifier));
+                array_push($categories, $category_id);
+            } else if (substr($key, 0, strlen($type_identifier)) === $type_identifier) {
+                $type_id = substr($key, strlen($type_identifier));
+                array_push($types, Type::where('id', $type_id)->first()->name);
+            }
+        }
+
+        if (!empty($categories)) {
+            $requests = $requests->whereIn('category_id', $categories);
+        }
+
+        if (!empty($types)) {
+            $requests = $requests->whereIn('type', $types);
+        }
+
+        if ($imdb !== null) {
+            $requests = $requests->where('imdb', $imdb);
+        }
+
+        if ($tmdb !== null) {
+            $requests = $requests->where('tmdb', $tmdb);
+        }
+
+        if ($my_requests) {
+            $requests = $requests->where('user_id', auth()->user()->id);
+        }
+
+        if ($unfilled) {
+            $requests = $requests->where('filled_hash', null);
+        }
+
+        if ($claimed) {
+            $requests = $requests->where('claimed'. '!=', null)->where('filled_hash', null);
+        }
+
+        if ($pending) {
+            $requests = $requests->where('filled_hash', '!=', null)->where('approved_by', null);
+        }
+
+        if ($filled) {
+            $requests = $requests->where('filled_hash', '!=', null)->where('approved_by', '!=', null);
+        }
+
+        $requests = $requests->paginate(25);
+        $repository = $this->repository;
+        $map = [
+            'requests' => $requests,
+            'repository' => $repository,
+            'user' => $user,
+            'num_req' => $num_req
+        ];
+
+        return view('requests.requests', $map);
     }
 
     public function faceted(Request $request, TorrentRequest $torrentRequest)

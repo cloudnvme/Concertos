@@ -288,7 +288,7 @@ a:hover {
 }
 
 .label-default {
-    background-color: #6f6f6f
+    background-color: #222;
 }
 
 .btn-warning {
@@ -696,7 +696,6 @@ div.topic-new-post {
 #subject,
 input,
 textarea {
-    margin-bottom: 1em
 }
 
 .mentioned {
@@ -705,4 +704,43 @@ textarea {
 
 .mentions {
     background-color: rgba(10, 255, 64, 0.28);
+}
+
+.bar {
+    background-color: #222;
+    border-radius: 20px;
+    padding-left: 1em;
+}
+
+.v-checkbox span {
+    border: 1px solid #2bb673;
+}
+
+.v-checkbox input:checked + span {
+    background-color: #2bb673;
+}
+
+input[type="submit"],
+.v-button {
+    background-color: #288653;
+    margin-bottom: 0.5em;
+}
+
+.torrents tr {
+    border-bottom: unset;
+}
+
+.torrents th {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    background-color: unset;
+}
+
+.torrents td,
+.torrents th {
+    padding-left: 0.5em;
+}
+
+.badge-extra {
+    border-color: #444;
 }

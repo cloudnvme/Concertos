@@ -353,14 +353,101 @@ class TorrentController extends Controller
      *
      * @return page.torrents
      */
-    public function torrents()
+    public function torrents(Request $request)
     {
+        $category_identifier = "category_";
+        $type_identifier = 'type_';
         $user = auth()->user();
-        $torrents = Torrent::query();
         $alive = Torrent::where('seeders', '>=', 1)->count();
         $dead = Torrent::where('seeders', 0)->count();
+        $count = Torrent::count();
         $repository = $this->repository;
-        return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead'));
+        $torrents = Torrent::query();
+        $freeleech = $request->input('freeleech', false);
+        $doubleup = $request->input('doubleup', false);
+        $featured = $request->input('featured', false);
+        $uploader = $request->input('uploader', null);
+        $tmdb = $request->input('tmdb', null);
+        $imdb = $request->input('imdb', null);
+        $title = $request->input('title'. null);
+        $categories = [];
+        $types = [];
+        $tags_raw = $request->input('tags', null);
+        $tags = [];
+
+        if($tags_raw !== null) {
+            foreach (explode(",", $tags_raw) as $tag) {
+                array_push($tags, trim($tag));
+            }
+        }
+
+        if ($title !== null) {
+            $terms = explode(' ', $title);
+            $search = '';
+            foreach ($terms as $term) {
+                $search .= '%' . trim($term) . '%';
+            }
+
+            $torrents = $torrents->where('name', 'like', $search);
+        }
+
+        if ($request->has('search') && $request->input('search') != null) {
+            $torrents->where('name', 'like', $search);
+        }
+
+        foreach ($request->all() as $key => $value) {
+            if (substr($key, 0, strlen($category_identifier)) === $category_identifier) {
+                $category_id = substr($key, strlen($category_identifier));
+                array_push($categories, $category_id);
+            } else if (substr($key, 0, strlen($type_identifier)) === $type_identifier) {
+                $type_id = substr($key, strlen($type_identifier));
+                array_push($types, Type::where('id', $type_id)->first()->name);
+            }
+        }
+
+
+        if (!empty($categories)) {
+            $torrents = $torrents->whereIn('category_id', $categories);
+        }
+
+        if (!empty($types)) {
+            $torrents = $torrents->whereIn('type', $types);
+        }
+
+        if ($uploader != null) {
+            $uploader_id = User::where('username', $uploader)->firstOrFail()->id;
+            $torrents = $torrents->where('user_id', $uploader_id);
+        }
+
+        if ($tmdb != null) {
+            $torrents = $torrents->where('tmdb', $tmdb);
+        }
+
+        if ($imdb != null) {
+            $torrents = $torrents->where('imdb', $imdb);
+        }
+
+        if ($freeleech) {
+            $torrents = $torrents->where('free', 1);
+        }
+
+        if ($doubleup) {
+            $torrents = $torrents->where('doubleup', 1);
+        }
+
+        if ($featured) {
+            $torrents = $torrents->where('featured', 1);
+        }
+
+        if (!empty($tags)) {
+            $torrents = $torrents->whereHas('tags', function ($query) use ($tags) {
+               $query->whereIn('name', $tags);
+            });
+        }
+
+        $torrents = $torrents->orderBy('created_at', 'desc')->paginate(25);
+
+        return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead', 'count'));
     }
 
     /**
@@ -523,7 +610,7 @@ class TorrentController extends Controller
      *
      * @return View of Torrent details
      */
-    public function torrent($slug, $id)
+    public function torrent(Request $request, $slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $similar = Torrent::where('imdb', $torrent->imdb)->where('status', 1)->latest('seeders')->get();
@@ -531,26 +618,11 @@ class TorrentController extends Controller
         $user = auth()->user();
         $freeleech_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
         $personal_freeleech = PersonalFreeleech::where('user_id', $user->id)->first();
-        $comments = $torrent->comments()->latest()->paginate(6);
+        $comments = $torrent->comments()->latest()->paginate(10);
         $thanks = $torrent->thanks()->count();
         $total_tips = BonTransactions::where('torrent_id', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', $id)->where('sender', auth()->user()->id)->sum('cost');
         $last_seed_activity = History::where('info_hash', $torrent->info_hash)->where('seeder', 1)->latest('updated_at')->first();
-
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
-        if ($torrent->category_id == 2) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $movie = $client->scrape('tv', null, $torrent->tmdb);
-            } else {
-                $movie = $client->scrape('tv', 'tt'. $torrent->imdb);
-            }
-        } else {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $movie = $client->scrape('movie', null, $torrent->tmdb);
-            } else {
-                $movie = $client->scrape('movie', 'tt'. $torrent->imdb);
-            }
-        }
 
         if ($torrent->featured == 1) {
             $featured = FeaturedTorrent::where('torrent_id', $id)->first();
@@ -587,7 +659,7 @@ class TorrentController extends Controller
         }
 
         return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar, 'personal_freeleech' => $personal_freeleech, 'freeleech_token' => $freeleech_token,
-            'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client, 'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs, 'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
+            'total_tips' => $total_tips, 'user_tips' => $user_tips, 'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs, 'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
             'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings, 'uploader' => $uploader, 'last_seed_activity' => $last_seed_activity]);
     }
 
@@ -1026,5 +1098,19 @@ class TorrentController extends Controller
         } else {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.', 'Whoops!', ['options']));
         }
+    }
+
+    public function confirmDelete($id, Request $request)
+    {
+        if (!auth()->user()->group->is_modo) {
+            abort(403, "Not authorized");
+        }
+
+        $map = [
+            'torrent' => Torrent::where('id', $id)->firstOrFail(),
+            'user' => auth()->user()
+        ];
+
+        return view('Staff.torrent.confirm_delete', $map);
     }
 }

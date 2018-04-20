@@ -198,6 +198,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/torrents/{slug}.{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
         Route::any('/torrents/{slug}.{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
         Route::any('/torrents/{slug}.{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
+        Route::get('/torrent/{id}/confirm_delete', 'TorrentController@confirmDelete')->name('confirm_delete');
 
         // User
         Route::get('/members', 'UserController@members')->name('members');

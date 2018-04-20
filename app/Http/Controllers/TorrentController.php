@@ -610,7 +610,7 @@ class TorrentController extends Controller
      *
      * @return View of Torrent details
      */
-    public function torrent($slug, $id)
+    public function torrent(Request $request, $slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $similar = Torrent::where('imdb', $torrent->imdb)->where('status', 1)->latest('seeders')->get();
@@ -618,26 +618,11 @@ class TorrentController extends Controller
         $user = auth()->user();
         $freeleech_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
         $personal_freeleech = PersonalFreeleech::where('user_id', $user->id)->first();
-        $comments = $torrent->comments()->latest()->paginate(6);
+        $comments = $torrent->comments()->latest()->paginate(2);
         $thanks = $torrent->thanks()->count();
         $total_tips = BonTransactions::where('torrent_id', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', $id)->where('sender', auth()->user()->id)->sum('cost');
         $last_seed_activity = History::where('info_hash', $torrent->info_hash)->where('seeder', 1)->latest('updated_at')->first();
-
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
-        if ($torrent->category_id == 2) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $movie = $client->scrape('tv', null, $torrent->tmdb);
-            } else {
-                $movie = $client->scrape('tv', 'tt'. $torrent->imdb);
-            }
-        } else {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
-                $movie = $client->scrape('movie', null, $torrent->tmdb);
-            } else {
-                $movie = $client->scrape('movie', 'tt'. $torrent->imdb);
-            }
-        }
 
         if ($torrent->featured == 1) {
             $featured = FeaturedTorrent::where('torrent_id', $id)->first();
@@ -674,7 +659,7 @@ class TorrentController extends Controller
         }
 
         return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar, 'personal_freeleech' => $personal_freeleech, 'freeleech_token' => $freeleech_token,
-            'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client, 'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs, 'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
+            'total_tips' => $total_tips, 'user_tips' => $user_tips, 'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs, 'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
             'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings, 'uploader' => $uploader, 'last_seed_activity' => $last_seed_activity]);
     }
 
@@ -1113,5 +1098,19 @@ class TorrentController extends Controller
         } else {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.', 'Whoops!', ['options']));
         }
+    }
+
+    public function confirmDelete($id, Request $request)
+    {
+        if (!auth()->user()->group->is_modo) {
+            abort(403, "Not authorized");
+        }
+
+        $map = [
+            'torrent' => Torrent::where('id', $id)->firstOrFail(),
+            'user' => auth()->user()
+        ];
+
+        return view('Staff.torrent.confirm_delete', $map);
     }
 }

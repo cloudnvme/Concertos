@@ -14724,3 +14724,60 @@ input[type="submit"],
     margin-bottom: 0.5em;
     margin-left: 0.25em;
 }
+
+.torrent td:first-child {
+    width: 10em;
+    font-weight: bold;
+}
+
+.torrent .v-button {
+    width: unset;
+    padding: 0.1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.comment,
+.mediainfo {
+    border: 1px dotted #aaa;
+    padding-left: 0.5em;
+}
+
+.mediainfo {
+    white-space: pre-wrap;
+    font-family: "Hack";
+
+}
+
+.comment {
+    margin-bottom: 1em;
+}
+
+.comment-editor {
+    margin-top: 1em;
+}
+
+.comment.editor :first-child {
+    margin-bottom: 0.25em;
+}
+
+#confirm-delete .label {
+    margin-right: 1em;
+}
+
+#confirm-delete .form-group {
+    position: relative;
+}
+
+#confirm-delete .form-group span {
+    max-width: 10%;
+}
+
+#confirm-delete .form-group input {
+    display: inline-block;
+    width: 90%;
+}
+
+.m.v-button {
+    margin: 0.25em;
+}

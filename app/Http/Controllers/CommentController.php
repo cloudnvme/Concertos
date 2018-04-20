@@ -53,7 +53,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -66,9 +66,9 @@ class CommentController extends Controller
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
             cache()->forget('shoutbox_messages');
             $comment->save();
-            Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
+            Toastr::success('Your Comment has Been Added!', 'Yay!', ['options']);
         } else {
-            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Whoops!', ['options']);
+            Toastr::error('An Error has Occured and Your Comment was not Posted!', 'Whoops!', ['options']);
         }
         return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id]);
     }
@@ -86,7 +86,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -121,7 +121,7 @@ class CommentController extends Controller
             // Auto Shout
             $appurl = config('app.url');
             if ($comment->anon == 0) {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
             } else {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
@@ -146,7 +146,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('request', ['id' => $request->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+            return redirect()->route('request', ['id' => $request->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -157,7 +157,7 @@ class CommentController extends Controller
         $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'requests_id' => 'required']);
         if ($v->passes()) {
             $comment->save();
-            Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
+            Toastr::success('Your Comment has Been Added!', 'Yay!', ['options']);
 
             // Achievements
             $user->unlock(new UserMadeComment(), 1);
@@ -177,19 +177,19 @@ class CommentController extends Controller
 
             // Auto PM
             if ($user->id != $request->user_id) {
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has a New Comment!", 'message' => $comment->user->username . " Has Left a Comment on [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
             }
 
             // Auto Shout
             if ($comment->anon == 0) {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
             } else {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
             }
         } else {
-            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
+            Toastr::error('An Error has Occured and Your Comment was not Posted!', 'Sorry.', ['options']);
         }
         return redirect()->route('request', ['id' => $torrentRequest->id]);
     }
@@ -208,11 +208,11 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
-        $thankArray = ["Thanks for the upload! :thumbsup_tone2:", "Time and effort is much appreciated :thumbsup_tone2:", "Great upload! :fire:", "Thankyou :smiley:"];
+        $thankArray = ["Thanks for the upload! :thumbsup_tone2:", "Time and effort is much appreciated. :thumbsup_tone2:", "Great upload! :fire:", "Thank you! :smiley:"];
         $selected = mt_rand(0, count($thankArray) - 1);
         $comment->content = $thankArray[$selected];
         $comment->user_id = $user->id;
@@ -220,7 +220,7 @@ class CommentController extends Controller
         $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'torrent_id' => 'required']);
         if ($v->passes()) {
             $comment->save();
-            Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
+            Toastr::success('Your Comment has Been Added!', 'Yay!', ['options']);
 
             // Achievements
             $user->unlock(new UserMadeComment(), 1);
@@ -243,10 +243,10 @@ class CommentController extends Controller
 
             // Auto Shout
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
             cache()->forget('shoutbox_messages');
         } else {
-            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Whoops!', ['options']);
+            Toastr::error('An Error has Occured and Your Comment was not Posted!', 'Whoops!', ['options']);
         }
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
@@ -268,7 +268,7 @@ class CommentController extends Controller
             $comment->content = $content;
             $comment->save();
 
-            return back()->with(Toastr::success('Comment Has Been Edited.', 'Yay!', ['options']));
+            return back()->with(Toastr::success('Comment has Been Edited.', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -288,7 +288,7 @@ class CommentController extends Controller
         if ($user->group->is_modo || $user->id == $comment->user_id) {
             $comment->delete();
 
-            return back()->with(Toastr::success('Comment Has Been Deleted.', 'Yay!', ['options']));
+            return back()->with(Toastr::success('Comment has Been Deleted.', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }

@@ -14797,3 +14797,7 @@ input[type="submit"],
 .torrent-tags a {
     color: unset;
 }
+
+.page h1.title {
+    font-size: 3em;
+}

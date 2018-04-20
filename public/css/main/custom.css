@@ -14745,7 +14745,7 @@ input[type="submit"],
 
 .mediainfo {
     white-space: pre-wrap;
-    font-family: "Hack";
+    font-family: "monospace";
 
 }
 

@@ -120,7 +120,11 @@
         <tr>
           <td>Tags</td>
           <td>
-            {{ $torrent->tags->implode('name', ', ') }}
+            <div class="torrent-tags">
+            @foreach ($torrent->tags as $tag)
+                <a href="/torrents/?tags={{$tag->name}}"><span class="tag">{{ $tag->name }}</span></a>
+            @endforeach
+            </div>
           </td>
         </tr>
       @endif

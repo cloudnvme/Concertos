@@ -14781,3 +14781,19 @@ input[type="submit"],
 .m.v-button {
     margin: 0.25em;
 }
+
+.torrent-tags a:after {
+    content: ',';
+}
+
+.torrent-tags :last-child:after {
+    content: '';
+}
+
+.tag a {
+    color: unset;
+}
+
+.torrent-tags a {
+    color: unset;
+}

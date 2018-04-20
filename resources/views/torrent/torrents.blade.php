@@ -144,7 +144,7 @@
                 <div>
                   @foreach($torrent->tags as $tag)
                     <span class="tag badge-user">
-                      <a href="/torrents/tags={{ $tag->name }}">{{ $tag->name }}</a>
+                      <a href="/torrents/?tags={{ $tag->name }}">{{ $tag->name }}</a>
                     </span>
                   @endforeach
                 </div>

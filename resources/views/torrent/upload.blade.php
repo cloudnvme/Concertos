@@ -48,7 +48,7 @@
   </div>
   <br>
 <center><p class="text-success">Having Trouble? See Our Guide <a href="{{ url('p/upload-guide.5') }}">HERE</a></p></center>
-<center><p class="text-danger">TMDB and or IMDB is required for all uploads! It is used to grab Posters/Backdrops and ExtraInfo!</p></center>
+<center><p class="text-danger">TMDB or IMDB is required for all uploads when available! It is used to grab posters/backdrops and extra info!</p></center>
 <center><p class="text-danger">Remember to set the source to {{config('other.source')}} if you want to use it directly without redownloading!</p></center>
 <center><p class="text-danger"><i>MAKE SURE TO FILL IN ALL FIELDS!</i></p></center>
 

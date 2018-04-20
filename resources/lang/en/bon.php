@@ -13,7 +13,7 @@ return [
     'gift-to' => 'Gift Bonus Points To?',
     'gift' => 'Gift Bonus Points',
     'exchange' => 'Exchange',
-    'exchange-warning' => 'Exchanges are final, Please double check your choices before making an exchange.',
+    'exchange-warning' => 'Exchanges are final. Please double check your choices before making an exchange.',
     'no-refund' => 'NO REFUNDS!',
     'active' => 'Activated!',
     'earning' => 'Earning',

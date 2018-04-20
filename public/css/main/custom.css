@@ -3942,6 +3942,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: .25em;
+    padding-top: 0.5em;
 }
 
 a.label:focus,
@@ -9910,7 +9911,7 @@ th.torrents-icon {
 
 i.torrent-icon {
     color: #325d88;
-    font-size: 32px
+    font-size: 2em
 }
 
 i.torrent-icon-adult {
@@ -10307,7 +10308,6 @@ img.emojione {
     border: 1px solid rgba(186, 205, 225, 0.61);
     border-radius: 10px;
     background: rgba(76, 79, 80, 0.14);
-    margin-top: 5px;
 }
 
 .group-su,
@@ -14573,7 +14573,8 @@ div.header div.inner_content h1 {
     }
 }
 
-table.torrents {
+table.torrents,
+table.requests {
     border-collapse: true;
     width: 100%;
     height: 100%;
@@ -14585,10 +14586,10 @@ table.torrents {
     width: 3em;
 }
 
-.torrents th.category {
+th.category {
     width: 0;
     padding-right: 8em;
-    margin-left: 0.5em;
+    margin-left: 0.25em;
 }
 
 .torrents th.size {
@@ -14614,11 +14615,13 @@ table.torrents {
     flex-grow: 1;
 }
 
-.torrent-search > .form-group > * {
+.torrent-search > .form-group > *,
+.request-search > .form-group > * {
     margin-right: 0.5em;
 }
 
-.torrent-search .form-group {
+.torrent-search .form-group,
+.request-search .form-group {
     display: flex;
     flex-wrap: wrap;
 }
@@ -14656,14 +14659,14 @@ input[type="checkbox"], input[type="radio"] {
 
 #stats > span {
     margin-right: 0.5em;
-
 }
 
 #stats > span > * {
     font-weight: bold;
 }
 
-input[type="submit"] {
+input[type="submit"],
+.v-button {
     border: none;
     color: #fff;
     background-color: #555;
@@ -14685,4 +14688,39 @@ input[type="submit"] {
 
 .v-checkbox input:checked + span {
     background-color: #555;
+}
+
+.category,
+.type {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.requests th.category {
+    width: 10em;
+}
+
+.requests th.age {
+    width: 8em;
+}
+
+.requests th.bounty {
+    width: 6em;
+}
+
+.requests th.votes {
+    width: 4em;
+}
+
+.requests th.author {
+    width: 8em;
+}
+
+.requests th.title {
+    min-width: 16em;
+}
+
+.requests .torrent-icon {
+    margin-bottom: 0.5em;
+    margin-left: 0.25em;
 }

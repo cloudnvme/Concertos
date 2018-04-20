@@ -720,7 +720,8 @@ textarea {
     background-color: #2bb673;
 }
 
-input[type="submit"] {
+input[type="submit"],
+.v-button {
     background-color: #222;
     margin-bottom: 0.5em;
 }
@@ -738,4 +739,8 @@ input[type="submit"] {
 .torrents td,
 .torrents th {
     padding-left: 0.5em;
+}
+
+.badge-extra {
+    border-color: #444;
 }

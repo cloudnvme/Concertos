@@ -353,14 +353,101 @@ class TorrentController extends Controller
      *
      * @return page.torrents
      */
-    public function torrents()
+    public function torrents(Request $request)
     {
+        $category_identifier = "category_";
+        $type_identifier = 'type_';
         $user = auth()->user();
-        $torrents = Torrent::query();
         $alive = Torrent::where('seeders', '>=', 1)->count();
         $dead = Torrent::where('seeders', 0)->count();
+        $count = Torrent::count();
         $repository = $this->repository;
-        return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead'));
+        $torrents = Torrent::query();
+        $freeleech = $request->input('freeleech', false);
+        $doubleup = $request->input('doubleup', false);
+        $featured = $request->input('featured', false);
+        $uploader = $request->input('uploader', null);
+        $tmdb = $request->input('tmdb', null);
+        $imdb = $request->input('imdb', null);
+        $title = $request->input('title'. null);
+        $categories = [];
+        $types = [];
+        $tags_raw = $request->input('tags', null);
+        $tags = [];
+
+        if($tags_raw !== null) {
+            foreach (explode(",", $tags_raw) as $tag) {
+                array_push($tags, trim($tag));
+            }
+        }
+
+        if ($title !== null) {
+            $terms = explode(' ', $title);
+            $search = '';
+            foreach ($terms as $term) {
+                $search .= '%' . trim($term) . '%';
+            }
+
+            $torrents = $torrents->where('name', 'like', $search);
+        }
+
+        if ($request->has('search') && $request->input('search') != null) {
+            $torrents->where('name', 'like', $search);
+        }
+
+        foreach ($request->all() as $key => $value) {
+            if (substr($key, 0, strlen($category_identifier)) === $category_identifier) {
+                $category_id = substr($key, strlen($category_identifier));
+                array_push($categories, $category_id);
+            } else if (substr($key, 0, strlen($type_identifier)) === $type_identifier) {
+                $type_id = substr($key, strlen($type_identifier));
+                array_push($types, Type::where('id', $type_id)->first()->name);
+            }
+        }
+
+
+        if (!empty($categories)) {
+            $torrents = $torrents->whereIn('category_id', $categories);
+        }
+
+        if (!empty($types)) {
+            $torrents = $torrents->whereIn('type', $types);
+        }
+
+        if ($uploader != null) {
+            $uploader_id = User::where('username', $uploader)->firstOrFail()->id;
+            $torrents = $torrents->where('user_id', $uploader_id);
+        }
+
+        if ($tmdb != null) {
+            $torrents = $torrents->where('tmdb', $tmdb);
+        }
+
+        if ($imdb != null) {
+            $torrents = $torrents->where('imdb', $imdb);
+        }
+
+        if ($freeleech) {
+            $torrents = $torrents->where('free', 1);
+        }
+
+        if ($doubleup) {
+            $torrents = $torrents->where('doubleup', 1);
+        }
+
+        if ($featured) {
+            $torrents = $torrents->where('featured', 1);
+        }
+
+        if (!empty($tags)) {
+            $torrents = $torrents->whereHas('tags', function ($query) use ($tags) {
+               $query->whereIn('name', $tags);
+            });
+        }
+
+        $torrents = $torrents->orderBy('created_at', 'desc')->paginate(25);
+
+        return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead', 'count'));
     }
 
     /**

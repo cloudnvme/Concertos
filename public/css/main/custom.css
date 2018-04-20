@@ -507,7 +507,7 @@ p {
 dt,
 kbd kbd,
 label {
-    font-weight: 700
+    font-weight: 400
 }
 
 @media(min-width:768px) {
@@ -2191,8 +2191,6 @@ textarea.form-control {
 .radio {
     position: relative;
     display: block;
-    margin-top: 10px;
-    margin-bottom: 10px
 }
 
 .checkbox label,
@@ -3799,7 +3797,6 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
     background-color: #fff;
     border: 1px solid #c7c7c7;
     margin-left: -1px;
-    border-bottom-width: 4px
 }
 
 .pagination > li:first-child > a,
@@ -3939,14 +3936,12 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
     display: inline;
     padding: .2em .6em .3em;
     font-size: 75%;
-    font-weight: 700;
     line-height: 1;
     color: #fff;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: .25em;
-    border-bottom: 2px solid gray
 }
 
 a.label:focus,
@@ -3966,7 +3961,7 @@ a.label:hover {
 }
 
 .label-default {
-    background-color: #9f9f9f;
+    background-color: #555555;
     border-bottom-color: rgba(38, 36, 36, 0.66);
 }
 
@@ -10304,8 +10299,7 @@ img.emojione {
 }
 
 .badge-user {
-    border: 1px solid #b6daf2;
-    box-shadow: 0 5px 5px rgba(93, 93, 93, 0.2);
+    border: 1px solid #CCCCCC;
     border-radius: 5px;
 }
 
@@ -14577,4 +14571,118 @@ div.header div.inner_content h1 {
     100% {
         -ms-transform: scale(1)
     }
+}
+
+table.torrents {
+    border-collapse: true;
+    width: 100%;
+    height: 100%;
+}
+
+.torrents th.seeders,
+.torrents th.leechers,
+.torrents th.completed {
+    width: 3em;
+}
+
+.torrents th.category {
+    width: 0;
+    padding-right: 8em;
+    margin-left: 0.5em;
+}
+
+.torrents th.size {
+    width: 0;
+    padding-right: 5em;
+}
+
+.torrents th.time {
+    width: 10em;
+}
+
+.torrents tr {
+    text-align: left;
+    border-bottom: 1px solid #cccccc;
+
+}
+
+.torrents td {
+    padding-bottom: 1em !important;
+}
+
+.bar {
+    flex-grow: 1;
+}
+
+.torrent-search > .form-group > * {
+    margin-right: 0.5em;
+}
+
+.torrent-search .form-group {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.torrent-search #tmdb {
+    margin-right: 1em;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    margin-top: unset;
+}
+
+.torrent-search span {
+    width: 8.33%;
+}
+
+.torrent-search .badge-user {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+#hoeapp-wrapper {
+    line-height: unset;
+}
+
+#stats {
+    margin-bottom: 0;
+}
+
+.block,
+.container.box {
+    border: unset;
+    box-shadow: unset;
+}
+
+#stats > span {
+    margin-right: 0.5em;
+
+}
+
+#stats > span > * {
+    font-weight: bold;
+}
+
+input[type="submit"] {
+    border: none;
+    color: #fff;
+    background-color: #555;
+    width: 200px;
+    border-radius: 5px;
+}
+
+.v-checkbox input {
+    display: none;
+}
+
+.v-checkbox span {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border: 1px solid #555;
+    border-radius: 1em;
+}
+
+.v-checkbox input:checked + span {
+    background-color: #555;
 }

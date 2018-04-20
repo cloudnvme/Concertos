@@ -618,7 +618,7 @@ class TorrentController extends Controller
         $user = auth()->user();
         $freeleech_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
         $personal_freeleech = PersonalFreeleech::where('user_id', $user->id)->first();
-        $comments = $torrent->comments()->latest()->paginate(2);
+        $comments = $torrent->comments()->latest()->paginate(10);
         $thanks = $torrent->thanks()->count();
         $total_tips = BonTransactions::where('torrent_id', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', $id)->where('sender', auth()->user()->id)->sum('cost');

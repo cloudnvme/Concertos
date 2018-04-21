@@ -28,7 +28,7 @@ class PrivateMessageController extends Controller
      * @return View pm.inbox
      *
      */
-    public function searchPM(Request $request, $username, $id)
+    public function searchPM(Request $request, $id)
     {
         $user = auth()->user();
         $search = $request->input('subject');
@@ -46,7 +46,7 @@ class PrivateMessageController extends Controller
      * @return View pm.inbox
      *
      */
-    public function getPrivateMessages(Request $request, $username, $id)
+    public function getPrivateMessages(Request $request, $id)
     {
         $user = auth()->user();
         $pms = PrivateMessage::where('reciever_id', $request->user()->id)->latest()->paginate(25);
@@ -54,7 +54,7 @@ class PrivateMessageController extends Controller
         return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
     }
 
-    public function markAllAsRead(Request $request, $username, $id)
+    public function markAllAsRead(Request $request, $id)
     {
         $user = auth()->user();
         $pms = PrivateMessage::where('reciever_id', $request->user()->id)->get();
@@ -63,7 +63,7 @@ class PrivateMessageController extends Controller
             $pm->save();
         }
 
-        return $this->getPrivateMessages($request, $username, $id);
+        return $this->getPrivateMessages($request, $id);
     }
 
     /**
@@ -73,14 +73,14 @@ class PrivateMessageController extends Controller
      * @return View pm.message
      *
      */
-    public function getPrivateMessageById($username, $id, $pmid)
+    public function getPrivateMessageById($id, $pmid)
     {
         $user = auth()->user();
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
 
         if ($user->id !== $pm->sender_id && $user->id !== $pm->reciever_id) {
             Toastr::error('This isn\\\'t your PM.');
-            return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id]);
+            return redirect()->route('inbox', ['id' => $user->id]);
         }
 
         // If the message is not read, change the the status
@@ -115,7 +115,7 @@ class PrivateMessageController extends Controller
      * @return View pm.send
      *
      */
-    public function makePrivateMessage($username, $id)
+    public function makePrivateMessage($id)
     {
         $user = auth()->user();
         $usernames = User::oldest('username')->get();
@@ -136,7 +136,7 @@ class PrivateMessageController extends Controller
         $receiver = User::where('username', $request->input('receiver'))->first();
         if ($receiver === null) {
             Toastr::error("The user couldn\\'t be found.", 'Error');
-            return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id]);
+            return redirect()->route('inbox', ['id' => $user->id]);
         }
 
         $attributes = [
@@ -150,7 +150,7 @@ class PrivateMessageController extends Controller
         $pm = PrivateMessage::create($attributes);
 
         Toastr::success('Your PM was sent successfully!', 'Yay!');
-        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id]);
+        return redirect()->route('inbox', ['id' => $user->id]);
     }
 
     /**
@@ -177,7 +177,7 @@ class PrivateMessageController extends Controller
 
         $pm = PrivateMessage::create($attributes);
 
-        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+        return redirect()->route('inbox', ['id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
     }
 
     /**
@@ -193,6 +193,6 @@ class PrivateMessageController extends Controller
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
         $pm->delete();
 
-        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('PM Was Deleted Successfully!', 'Yay!', ['options']));
+        return redirect()->route('inbox', ['id' => $user->id])->with(Toastr::success('PM Was Deleted Successfully!', 'Yay!', ['options']));
     }
 }

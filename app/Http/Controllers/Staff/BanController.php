@@ -39,7 +39,7 @@ class BanController extends Controller
      * @param $id
      *
      */
-    public function ban(Request $request, $username, $id)
+    public function ban(Request $request, $id)
     {
         $user = User::findOrFail($id);
         if ($user->group->is_modo || auth()->user()->id == $user->id) {
@@ -86,7 +86,7 @@ class BanController extends Controller
      * @param $id
      *
      */
-    public function unban(Request $request, $username, $id)
+    public function unban(Request $request, $id)
     {
         $user = User::findOrFail($id);
         if ($user->group->is_modo || auth()->user()->id == $user->id) {

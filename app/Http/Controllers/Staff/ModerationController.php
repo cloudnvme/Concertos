@@ -45,7 +45,7 @@ class ModerationController extends Controller
      * @param $slug Slug of the torrent
      * @param $id Id of the torrent
      */
-    public function approve($slug, $id)
+    public function approve($id)
     {
         TorrentHelper::approveHelper($slug, $id);
 

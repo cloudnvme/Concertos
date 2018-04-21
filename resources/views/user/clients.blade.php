@@ -6,12 +6,12 @@
 
 @section('breadcrumb')
 <li>
-    <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="{{ route('profile', ['id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
     </a>
 </li>
 <li>
-    <a href="{{ route('user_clients', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="{{ route('user_clients', ['id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.my-seedboxes') }}</span>
     </a>
 </li>
@@ -22,7 +22,7 @@
   <div class="col-sm-2 col-sm-offset-1">
     <div class="well well-sm mt-0">
 		<h3>{{ trans('user.add-seedbox') }}</h3>
-    {{ Form::open(['route' => ['addcli', 'username' => $user->username, 'id' => $user->id], 'method' => 'post' , 'role' => 'form', 'class' => 'login-frm']) }}
+    {{ Form::open(['route' => ['addcli', 'id' => $user->id], 'method' => 'post' , 'role' => 'form', 'class' => 'login-frm']) }}
 			<div class="form-group input-group">
 				<input type="password" name="password" class="form-control" placeholder="{{ trans('user.current-password') }}" required>
 			</div>
@@ -63,7 +63,7 @@
 		<td>{{ $client->ip }}</td>
 		<td>{{ $client->created_at }}</td>
 		<td>
-            {{ Form::open(['route' => ['rmcli', 'username' => $user->username , 'id' => $user->id], 'role' => 'form', 'class' => 'login-frm']) }}
+            {{ Form::open(['route' => ['rmcli', 'id' => $user->id], 'role' => 'form', 'class' => 'login-frm']) }}
             <input type='hidden' name="cliid" value="{{ $client->id }}">
             <input type="hidden" name="userid" value="{{ $user->id }}">
             <button type="submit" class="btn btn-danger">{{ trans('common.delete') }}</button>

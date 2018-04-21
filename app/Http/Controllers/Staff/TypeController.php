@@ -60,7 +60,7 @@ class TypeController extends Controller
      *
      *
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $type = Type::findOrFail($id);
         if ($request->isMethod('POST')) {
@@ -84,7 +84,7 @@ class TypeController extends Controller
      *
      *
      */
-    public function delete($slug, $id)
+    public function delete($id)
     {
         $type = Type::findOrFail($id);
         $type->delete();

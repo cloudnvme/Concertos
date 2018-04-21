@@ -145,7 +145,7 @@
         </div>
         <div class="form-group">
           <div class="col-sm-10 col-sm-offset-2">
-            <a href="{{ route('user_delete', ['username' => $user->username, 'id' => $user->id]) }}"><input class="btn btn-danger" type="submit" value="Delete"></a>
+            <a href="{{ route('user_delete', ['id' => $user->id]) }}"><input class="btn btn-danger" type="submit" value="Delete"></a>
           </div>
         </div>
       </div>

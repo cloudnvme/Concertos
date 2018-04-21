@@ -210,7 +210,7 @@
               <strong>{{ trans('request.requested-by') }}</strong>
             </td>
             <td>
-              <span class="badge-user"><a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}" title="">{{ $torrentRequest->user->username }}</a></span>
+              <span class="badge-user"><a href="{{ route('profile', ['id' => $torrentRequest->user->id]) }}" title="">{{ $torrentRequest->user->username }}</a></span>
               <span class="badge-extra">{{ $torrentRequest->created_at->diffForHumans() }}</span>
             </td>
           </tr>
@@ -246,7 +246,7 @@
               <strong>{{ trans('request.filled-by') }}</strong>
             </td>
             <td>
-              <span class="badge-user"><a href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}" title="">{{ $torrentRequest->FillUser->username }}</a></span>
+              <span class="badge-user"><a href="{{ route('profile', ['id' => $torrentRequest->FillUser->id ]) }}" title="">{{ $torrentRequest->FillUser->username }}</a></span>
               <span class="badge-extra">{{ $torrentRequest->approved_when->diffForHumans() }}</span>
             </td>
           </tr>
@@ -264,7 +264,7 @@
               <strong>{{ trans('request.filled-by') }}</strong>
             </td>
             <td>
-              <span class="badge-user"><a href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}" title="">{{ $torrentRequest->FillUser->username }}</a></span>
+              <span class="badge-user"><a href="{{ route('profile', ['id' => $torrentRequest->FillUser->id ]) }}" title="">{{ $torrentRequest->FillUser->username }}</a></span>
               <span class="badge-extra">{{ $torrentRequest->filled_when->diffForHumans() }}</span>
               <span class="badge-extra"><a href="{{ route('approveRequest', ['id' => $torrentRequest->id]) }}">{{ trans('request.approve') }}</a></span>
               <span class="badge-extra"><a href="{{ route('rejectRequest', ['id' => $torrentRequest->id]) }}">{{ trans('request.reject') }}</a></span>
@@ -306,7 +306,7 @@
               @foreach($voters as $voter)
               <tr>
                 <td>
-                  <span class="badge-user"><a href="{{ route('profile', ['username' => $voter->user->username, 'id' => $voter->user->id ]) }}" title="">{{ $voter->user->username }}</a></span>
+                  <span class="badge-user"><a href="{{ route('profile', ['id' => $voter->user->id ]) }}" title="">{{ $voter->user->username }}</a></span>
                 </td>
                 <td>
                   {{ $voter->seedbonus }}
@@ -344,16 +344,16 @@
                   @if($comment->anon == 1)
                   <a href="#" class="pull-left">
                 <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48">
-                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)<a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
+                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)<a href="{{ route('profile', ['id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
                 @endif
                   @else
-                  <a href="{{ route('profile', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
+                  <a href="{{ route('profile', array('id' => $comment->user->id)) }}" class="pull-left">
                 @if($comment->user->image != null)
                 <img src="{{ url('files/img/' . $comment->user->image) }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                 @else
                   <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                   @endif
-                  <strong>{{ trans('common.author') }} <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong>
+                  <strong>{{ trans('common.author') }} <a href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong>
                   @endif
                   <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
                   @if($comment->user_id == auth()->id() || auth()->user()->group->is_modo)

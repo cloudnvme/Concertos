@@ -36,8 +36,8 @@
       <tr>
         <td>{{ $t->id }}</a>
         </td>
-        <td><a href="{{ route('edit', array('slug' => $t->slug, 'id' => $t->id)) }}">{{ $t->name }}</a></td>
-        <td><a href="{{ route('edit', array('slug' => $t->slug, 'id' => $t->id)) }}" class="btn btn-warning">Edit</a>
+        <td><a href="{{ route('edit', array('id' => $t->id)) }}">{{ $t->name }}</a></td>
+        <td><a href="{{ route('edit', array('id' => $t->id)) }}" class="btn btn-warning">Edit</a>
           <button data-target="#staffdelete-{{ $t->id }}" data-toggle="modal" class="btn btn-danger">Delete</button>
         <!-- Torrent Delete Modal -->
         {{-- Torrent Delete Modal --}}

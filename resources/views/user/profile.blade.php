@@ -10,7 +10,7 @@
 
 @section('breadcrumb')
 <li>
-  <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+  <a href="{{ route('profile', ['id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
   </a>
 </li>
@@ -48,11 +48,11 @@
         {{ $user->username }} - {{ trans('user.followers') }}:
           @foreach($followers as $f)
           @if($f->user->image != null)
-          <a href="{{ route('profile', ['username' => $f->user->username, 'id' => $f->user_id]) }}">
+          <a href="{{ route('profile', ['id' => $f->user_id]) }}">
           <img src="{{ url('files/img/' . $f->user->image) }}" data-toggle="tooltip" title="{{ $f->user->username }}" height="50px" data-original-title="{{ $f->user->username }}">
           </a>
           @else
-          <a href="{{ route('profile', ['username' => $f->user->username, 'id' => $f->user_id]) }}">
+          <a href="{{ route('profile', ['id' => $f->user_id]) }}">
           <img src="{{ url('img/profile.png') }}" data-toggle="tooltip" title="{{ $f->user->username }}" height="50px" data-original-title="{{ $f->user->username }}">
           </a>
           @endif
@@ -100,7 +100,7 @@
         @else
         <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_ban"><span class="fa fa-ban"></span> {{ trans('user.ban') }}</button>
         @endif
-        <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}" class="btn btn-xs btn-warning"><span class="fa fa-pencil"></span> {{ trans('user.edit') }} </a>
+        <a href="{{ route('user_setting', ['id' => $user->id]) }}" class="btn btn-xs btn-warning"><span class="fa fa-pencil"></span> {{ trans('user.edit') }} </a>
         <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_delete"><span class="fa fa-trash"></span> {{ trans('user.delete') }} </button>
         @endif
         @endif
@@ -246,7 +246,7 @@
     <td>
       <span class="badge-extra text-red text-bold"><strong>{{ trans('user.active-warnings') }}: {{ $warnings->count() }} / {!! config('hitrun.max_warnings') !!}</strong></span>
       @if(auth()->check() && auth()->user()->group->is_modo)
-      <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.warning-log') }}</strong></span></a>
+      <a href="{{ route('warninglog', ['id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.warning-log') }}</strong></span></a>
       @endif
       <div class="progress">
         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="width:.1%;border-bottom-color: #8c0408">
@@ -348,9 +348,9 @@
       <tr>
         <td> {{ trans('user.invites') }}</td>
         @if($user->invites > 0)
-        <td><span class="text-success text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a></td>
+        <td><span class="text-success text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a></td>
         @else
-        <td><span class="text-danger text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a></td>
+        <td><span class="text-danger text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a></td>
         @endif
       </tr>
     </tbody>
@@ -361,16 +361,16 @@
 @if(auth()->check() && auth()->user()->id == $user->id)
 <div class="block">
   <center>
-    <a href="{{ route('user_settings', ['username' => $user->username, 'id' => $user->id]) }}">
+    <a href="{{ route('user_settings', ['id' => $user->id]) }}">
       <button class="btn btn-primary"><span class="fa fa-cog"></span> {{ trans('user.account-settings') }}</button>
     </a>
-    <a href="{{ route('user_edit_profile', ['username' => $user->username, 'id' => $user->id]) }}">
+    <a href="{{ route('user_edit_profile', ['id' => $user->id]) }}">
       <button class="btn btn-primary"><span class="fa fa-user"></span> {{ trans('user.edit-profile') }}</button>
     </a>
     <a href="{{ route('invite') }}">
       <button class="btn btn-primary"><span class="fa fa-plus"></span> {{ trans('user.invites') }}</button>
     </a>
-    <a href="{{ route('user_clients', ['username' => $user->username, 'id' => $user->id]) }}">
+    <a href="{{ route('user_clients', ['id' => $user->id]) }}">
       <button class="btn btn-primary"><span class="fa fa-server"></span> {{ trans('user.my-seedboxes') }}</button>
     </a>
   </center>
@@ -380,13 +380,13 @@
 @if(auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
 <div class="block">
   <center>
-    <a href="{{ route('myuploads', ['username' => $user->username, 'id' => $user->id]) }}">
+    <a href="{{ route('myuploads', ['id' => $user->id]) }}">
       <button class="btn btn-success"><span class="fa fa-upload"></span> {{ trans('user.uploads-table') }} </button>
     </a>
-    <a href="{{ route('myactive', ['username' => $user->username, 'id' => $user->id]) }}">
+    <a href="{{ route('myactive', ['id' => $user->id]) }}">
       <button class="btn btn-success"><span class="fa fa-clock-o"></span> {{ trans('user.active-table') }} </button>
     </a>
-    <a href="{{ route('myhistory', ['username' => $user->username, 'id' => $user->id]) }}">
+    <a href="{{ route('myhistory', ['id' => $user->id]) }}">
       <button class="btn btn-success"><span class="fa fa-history"></span> {{ trans('user.history-table') }} </button>
     </a>
   </center>
@@ -416,7 +416,7 @@
           @foreach($hitrun as $hr)
           <tr>
             <td>
-              <a class="view-torrent" data-id="{{ $hr->torrenttitle->id }}" data-slug="{{ $hr->torrenttitle->slug }}" href="{{ route('torrent', array('slug' => $hr->torrenttitle->slug, 'id' => $hr->torrenttitle->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $hr->torrenttitle->name }}">{{ $hr->torrenttitle->name }}</a>
+              <a class="view-torrent" data-id="{{ $hr->torrenttitle->id }}" data-slug="{{ $hr->torrenttitle->slug }}" href="{{ route('torrent', array('id' => $hr->torrenttitle->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $hr->torrenttitle->name }}">{{ $hr->torrenttitle->name }}</a>
             </td>
             <td>
               {{ $hr->created_at }}

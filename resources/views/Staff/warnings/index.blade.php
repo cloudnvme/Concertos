@@ -51,7 +51,7 @@
 			<a class="view-user" data-id="{{ $warning->warneduser->id }}" data-slug="{{ $warning->warneduser->username }}" href="{{ route('profile', ['username' =>  $warning->warneduser->username, 'id' => $warning->warneduser->id]) }}">{{ $warning->warneduser->username }}</a>
         </td>
         <td>
-			<a class="view-torrent" data-id="{{ $warning->staffuser->id }}" data-slug="{{ $warning->staffuser->username }}" href="{{ route('profile', ['username' => $warning->staffuser->username, 'id' => $warning->staffuser->id]) }}">{{ $warning->staffuser->username }}</a>
+			<a class="view-torrent" data-id="{{ $warning->staffuser->id }}" data-slug="{{ $warning->staffuser->username }}" href="{{ route('profile', ['id' => $warning->staffuser->id]) }}">{{ $warning->staffuser->username }}</a>
         </td>
         <td>
 		  <a class="view-torrent" data-id="{{ $warning->torrenttitle->id }}" data-slug="{{ $warning->torrenttitle->name }}" href="{{ route('torrent', array('slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id)) }}">{{ $warning->torrenttitle->name }}</a>

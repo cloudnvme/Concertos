@@ -62,7 +62,7 @@ class CategoryController extends Controller
      *
      *
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $category = Category::findOrFail($id);
         if ($request->isMethod('POST')) {
@@ -87,7 +87,7 @@ class CategoryController extends Controller
      *
      *
      */
-    public function delete($slug, $id)
+    public function delete($id)
     {
         $category = Category::findOrFail($id);
         $category->delete();

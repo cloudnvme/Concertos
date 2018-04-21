@@ -32,12 +32,12 @@
                 @foreach($categories as $c)
                     <tr>
                         <td>{{ $c->position }}</td>
-                        <td><a href="{{ route('staff_category_edit', array('slug' => $c->slug, 'id' => $c->id)) }}">{{ $c->name }}</a></td>
+                        <td><a href="{{ route('staff_category_edit', array('id' => $c->id)) }}">{{ $c->name }}</a></td>
                         <td><i class="{{ $c->icon }}" aria-hidden="true"></i></td>
                         <td>@if($c->meta == 1) YES @else NO @endif</td>
                         <td>
-                            <a href="{{ route('staff_category_edit', array('slug' => $c->slug, 'id' => $c->id)) }}" class="btn btn-warning">Edit</a>
-                            <a href="{{ route('staff_category_delete', array('slug' => $c->slug, 'id' => $c->id)) }}" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('staff_category_edit', array('id' => $c->id)) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('staff_category_delete', array('id' => $c->id)) }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 @endforeach

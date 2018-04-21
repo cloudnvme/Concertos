@@ -20,7 +20,7 @@
   </a>
 </li>
 <li class="active">
-  <a href="{{ route('staff_article_edit', ['slug' => $post->slug, 'id' => $post->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+  <a href="{{ route('staff_article_edit', ['id' => $post->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
     <span itemprop="title" class="l-breadcrumb-item-link-title">Article Edit</span>
   </a>
 </li>
@@ -29,7 +29,7 @@
 @section('content')
 <div class="container box">
   <h2>Add a post</h2>
-  {{ Form::open(array('route' => array('staff_article_edit', 'slug' => $post->slug, 'id' => $post->id), 'files' => true)) }}
+  {{ Form::open(array('route' => array('staff_article_edit', 'id' => $post->id), 'files' => true)) }}
   <div class="form-group">
     <label for="title">Title</label>
     <input type="text" class="form-control" name="title" value="{{ $post->title }}" required>

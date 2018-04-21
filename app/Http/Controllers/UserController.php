@@ -59,7 +59,7 @@ class UserController extends Controller
         return view('user.members')->with('users', $users);
     }
 
-    public function profile($username, $id)
+    public function profile($id)
     {
         $user = User::findOrFail($id);
         $groups = Group::all();
@@ -71,7 +71,7 @@ class UserController extends Controller
         return view('user.profile', ['user' => $user, 'groups' => $groups, 'followers' => $followers, 'history' => $history, 'warnings' => $warnings, 'hitrun' => $hitrun]);
     }
 
-    public function editProfile(Request $request, $username, $id)
+    public function editProfile(Request $request, $id)
     {
         $user = auth()->user();
         // Requetes post only
@@ -96,19 +96,19 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member " . $user->username . " has updated there profile.");
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profile', ['id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         }
 
         return view('user.edit_profile', ['user' => $user]);
     }
 
-    public function settings($username, $id)
+    public function settings($id)
     {
         $user = auth()->user();
         return view('user.settings', ['user' => $user]);
     }
 
-    public function changeSettings(Request $request, $username, $id)
+    public function changeSettings(Request $request, $id)
     {
         $user = auth()->user();
         if ($request->isMethod('POST')) {
@@ -143,10 +143,10 @@ class UserController extends Controller
 
             // Activity Log
             \LogActivity::addToLog("Member " . $user->username . " has changed there account settings.");
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profile', ['id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         }
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+        return redirect()->route('profile', ['id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
     }
 
     protected function changePassword(Request $request)
@@ -164,13 +164,13 @@ class UserController extends Controller
                 ])->save();
                 return redirect('/')->with(Toastr::success('Your Password Has Been Reset', 'Yay!', ['options']));
             }
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
+            return redirect()->route('profile', ['id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
         }
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your New Password Is To Weak!', 'Whoops!', ['options']));
+        return redirect()->route('profile', ['id' => $user->id])->with(Toastr::error('Your New Password Is To Weak!', 'Whoops!', ['options']));
     }
 
-    protected function changeEmail(Request $request, $username, $id)
+    protected function changeEmail(Request $request, $id)
     {
         $user = auth()->user();
         $v = validator($request->all(), [
@@ -184,33 +184,33 @@ class UserController extends Controller
 
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has changed there email address on file.");
-                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
+                return redirect()->route('profile', ['id' => $user->id])->with(Toastr::success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
             }
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
+            return redirect()->route('profile', ['id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
         }
     }
 
-    public function changePID(Request $request, $username, $id)
+    public function changePID(Request $request, $id)
     {
         $user = auth()->user();
         if ($request->isMethod('post')) {
             $user->passkey = md5(uniqid() . time() . microtime());
             $user->save();
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profile', ['id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
         }
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+        return redirect()->route('profile', ['id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
     }
 
-    public function clients($username, $id)
+    public function clients($id)
     {
         $user = auth()->user();
         $cli = Client::where('user_id', $user->id)->get();
         return view('user.clients', ['user' => $user, 'clients' => $cli]);
     }
 
-    protected function authorizeClient(Request $request, $username, $id)
+    protected function authorizeClient(Request $request, $id)
     {
         $v = validator($request->all(), [
             'password' => 'required',
@@ -222,22 +222,22 @@ class UserController extends Controller
         if ($v->passes()) {
             if (Hash::check($request->input('password'), $user->password)) {
                 if (Client::where('user_id', $user->id)->get()->count() >= config('other.max_cli')) {
-                    return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Max Clients Reached!', 'Whoops!', ['options']));
+                    return redirect()->route('user_clients', ['id' => $user->id])->with(Toastr::error('Max Clients Reached!', 'Whoops!', ['options']));
                 }
                 $cli = new Client;
                 $cli->user_id = $user->id;
                 $cli->name = $request->input('client_name');
                 $cli->ip = $request->input('ip');
                 $cli->save();
-                return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Added!', 'Yay', ['options']));
+                return redirect()->route('user_clients', ['id' => $user->id])->with(Toastr::success('Client Has Been Added!', 'Yay', ['options']));
             }
-            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Password Invalid!', 'Whoops!', ['options']));
+            return redirect()->route('user_clients', ['id' => $user->id])->with(Toastr::error('Password Invalid!', 'Whoops!', ['options']));
         }
 
-        return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('All required values not received or IP is already registered by a member.', 'Whoops!', ['options']));
+        return redirect()->route('user_clients', ['id' => $user->id])->with(Toastr::error('All required values not received or IP is already registered by a member.', 'Whoops!', ['options']));
     }
 
-    protected function removeClient(Request $request, $username, $id)
+    protected function removeClient(Request $request, $id)
     {
         $v = validator($request->all(), [
             'cliid' => 'required|exists:clients,id',
@@ -248,13 +248,13 @@ class UserController extends Controller
         if ($v->passes()) {
             $cli = Client::where('id', $request->input('cliid'));
             $cli->delete();
-            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Removed!', 'Yay!', ['options']));
+            return redirect()->route('user_clients', ['id' => $user->id])->with(Toastr::success('Client Has Been Removed!', 'Yay!', ['options']));
         }
 
-        return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Unable to remove this client.', 'Whoops!', ['options']));
+        return redirect()->route('user_clients', ['id' => $user->id])->with(Toastr::error('Unable to remove this client.', 'Whoops!', ['options']));
     }
 
-    public function getWarnings($username, $id)
+    public function getWarnings($id)
     {
         if (auth()->user()->group->is_modo) {
             $user = User::findOrFail($id);
@@ -275,13 +275,13 @@ class UserController extends Controller
             $warning->active = 0;
             $warning->save();
             PrivateMessage::create(['sender_id' => $staff->id, 'reciever_id' => $warning->user_id, 'subject' => "Hit and Run Warning Deactivated", 'message' => $staff->username . " has decided to deactivate your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
-            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])->with(Toastr::success('Warning Was Successfully Deactivated', 'Yay!', ['options']));
+            return redirect()->route('warninglog', ['id' => $warning->warneduser->id])->with(Toastr::success('Warning Was Successfully Deactivated', 'Yay!', ['options']));
         }
 
         abort(403, 'Unauthorized action.');
     }
 
-    public function myUploads($username, $id)
+    public function myUploads($id)
     {
         $user = User::findOrFail($id);
         if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
@@ -292,7 +292,7 @@ class UserController extends Controller
         abort(403, 'Unauthorized action.');
     }
 
-    public function myActive($username, $id)
+    public function myActive($id)
     {
         $user = User::findOrFail($id);
         if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
@@ -303,7 +303,7 @@ class UserController extends Controller
         abort(403, 'Unauthorized action.');
     }
 
-    public function myHistory($username, $id)
+    public function myHistory($id)
     {
         $user = User::findOrFail($id);
         if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {

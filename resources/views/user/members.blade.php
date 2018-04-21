@@ -47,7 +47,7 @@
 								<img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}" class="members-table-img img-thumbnail">
 							@endif
 						</td>
-						<td><a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a></td>
+						<td><a href="{{ route('profile', ['id' => $user->id]) }}">{{ $user->username }}</a></td>
 						<td>{{ $user->group->name }}</td>
 						<td>{{ date('d M Y', strtotime($user->created_at)) }}</td>
 					</tr>

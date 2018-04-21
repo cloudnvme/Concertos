@@ -71,15 +71,15 @@ class TorrentHelper
                 $poster = "";
             }
 
-            $category_link = route('category', ['slug' => $list->category->slug, 'id' => $list->category->id]);
+            $category_link = route('category', ['id' => $list->category->id]);
 
             $category = "<i class='{$list->category->icon} torrent-icon' data-toggle='tooltip' title='' data-original-title='{$list->category->name} Torrent'></i>";
 
-            $torrent_link = route('torrent', ['slug' => $list->slug, 'id' => $list->id]);
-            $download_check_link = route('download_check', ['slug' => $list->slug, 'id' => $list->id]);
-            $user_link = route('profile', ['username' => $list->user->username, 'id' => $list->user->id]);
-            $peers_link = route('peers', ['slug' => $list->slug, 'id' => $list->id]);
-            $history_link = route('history', ['slug' => $list->slug, 'id' => $list->id]);
+            $torrent_link = route('torrent', ['id' => $list->id]);
+            $download_check_link = route('download_check', ['id' => $list->id]);
+            $user_link = route('profile', ['id' => $list->user->id]);
+            $peers_link = route('peers', ['id' => $list->id]);
+            $history_link = route('history', ['id' => $list->id]);
 
             $unbookmark_link = route('unbookmark', ['id' => $list->id]);
             $bookmark_link = route('bookmark', ['id' => $list->id]);

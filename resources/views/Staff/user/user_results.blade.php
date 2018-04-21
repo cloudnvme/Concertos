@@ -52,14 +52,14 @@
                     <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}" class="img-circle"> @else
                     <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}" class="name">{{ $user->username }}</a> <span>{{ $user->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['id' => $user->id]) }}" class="name">{{ $user->username }}</a> <span>{{ $user->group->name }}</span> </td>
                   @if(auth()->user()->group->is_modo)
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $user->email }}</span> </td>
                   <td class="user-id">
                     {{ $user->id }}
                   </td>
                   <td class="action-links">
-                    <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                    <a href="{{ route('user_setting', ['id' => $user->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
                     </a>
                   </td>
                   @endif

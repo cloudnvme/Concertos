@@ -48,13 +48,13 @@
           <tr>
             <td><img src="{{ url('img/forum.png') }}"></td>
 						<td>
-            <span><h4><a href="{{ route('forum_display', ['slug' => $categoryChild->slug, 'id' => $categoryChild->id]) }}"><span class="text-bold">{{ $categoryChild->name }}</span></a><h4></span>
+            <span><h4><a href="{{ route('forum_display', ['id' => $categoryChild->id]) }}"><span class="text-bold">{{ $categoryChild->name }}</span></a><h4></span>
 						<span class="">{{ $categoryChild->description }}</span>
             </td>
             <td>{{ $categoryChild->num_post }}</td>
             <td>{{ $categoryChild->num_topic }}</td>
             <td>
-              <span>{{ trans('forum.last-message') }} - {{ strtolower(trans('forum.author')) }} <i class="fa fa-user"></i> <a href="{{ route('profile', ['username' => $categoryChild->last_post_user_username, 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
+              <span>{{ trans('forum.last-message') }} - {{ strtolower(trans('forum.author')) }} <i class="fa fa-user"></i> <a href="{{ route('profile', ['id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
               <br>
               <span>{{ trans('forum.topic') }} <i class="fa fa-chevron-right"></i><a href="{{ route('forum_topic', array('slug' => $categoryChild->last_topic_slug, 'id' => $categoryChild->last_topic_id)) }}"> {{ $categoryChild->last_topic_name }}</a></span>
               <br>

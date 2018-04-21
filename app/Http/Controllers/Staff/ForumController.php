@@ -83,7 +83,7 @@ class ForumController extends Controller
      *
      *
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $categories = Forum::where('parent_id', 0)->get();
         $groups = Group::all();
@@ -129,7 +129,7 @@ class ForumController extends Controller
      *
      *
      */
-    public function delete($slug, $id)
+    public function delete($id)
     {
         // Forum to delete
         $forum = Forum::findOrFail($id);

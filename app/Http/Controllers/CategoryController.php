@@ -25,7 +25,7 @@ class CategoryController extends Controller
      * @param $id
      * @return category.category View
      */
-    public function category($slug, $id)
+    public function category($id)
     {
         $user = auth()->user();
         $category = Category::findOrFail($id);

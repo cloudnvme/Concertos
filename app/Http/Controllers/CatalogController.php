@@ -40,7 +40,7 @@ class CatalogController extends Controller
      * @param $id
      * @return catalogs.catalog View
      */
-    public function catalog($slug, $id)
+    public function catalog($id)
     {
         $user = auth()->user();
         $catalog = Catalog::findOrFail($id);

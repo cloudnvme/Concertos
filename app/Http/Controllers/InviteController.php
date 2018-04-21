@@ -78,7 +78,7 @@ class InviteController extends Controller
         }
     }
 
-    public function inviteTree($username, $id)
+    public function inviteTree($id)
     {
         if (auth()->user()->group->is_modo) {
             $user = User::findOrFail($id);

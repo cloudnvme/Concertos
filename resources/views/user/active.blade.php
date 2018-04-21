@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <li>
-    <a href="{{ route('myactive', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="{{ route('myactive', ['id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.active-table') }}</span>
     </a>
 </li>
@@ -34,10 +34,10 @@
         @foreach ($active as $p)
         <tr>
           <td>
-            <a class="view-torrent" data-id="{{ $p->torrent_id }}" data-slug="{{ $p->torrent->slug }}" href="{{ route('torrent', array('slug' => $p->torrent->slug, 'id' => $p->torrent_id)) }}" data-toggle="tooltip" title="{{ $p->torrent->name }}" data-original-title="{{ trans('user.moderated-by', ['mod' => App\User::find($p->torrent->moderated_by)->username]) }} {{ $p->torrent->moderated_at->diffForHumans() }}">{{ $p->torrent->name }}</a>
+            <a class="view-torrent" data-id="{{ $p->torrent_id }}" data-slug="{{ $p->torrent->slug }}" href="{{ route('torrent', array('id' => $p->torrent_id)) }}" data-toggle="tooltip" title="{{ $p->torrent->name }}" data-original-title="{{ trans('user.moderated-by', ['mod' => App\User::find($p->torrent->moderated_by)->username]) }} {{ $p->torrent->moderated_at->diffForHumans() }}">{{ $p->torrent->name }}</a>
           </td>
           <td>
-            <a href="{{ route('category', array('slug' => $p->torrent->category->slug, 'id' => $p->torrent->category->id)) }}">{{ $p->torrent->category->name }}</a>
+            <a href="{{ route('category', array('id' => $p->torrent->category->id)) }}">{{ $p->torrent->category->name }}</a>
           </td>
           <td>
             <span class="badge-extra text-blue text-bold"> {{ $p->torrent->getSize() }}</span>

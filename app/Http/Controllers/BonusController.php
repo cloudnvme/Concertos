@@ -241,7 +241,7 @@ class BonusController extends Controller
      *
      * @return void
      */
-    public function tipUploader(Request $request, $slug, $id)
+    public function tipUploader(Request $request, $id)
     {
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -249,13 +249,13 @@ class BonusController extends Controller
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your to Broke to Tip the Uploader!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('Your to Broke to Tip the Uploader!', 'Whoops!', ['options']));
         }
         if ($user->id == $torrent->user_id) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
         }
         if ($tip_amount < 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip a Negative Amount!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('You Cannot Tip a Negative Amount!', 'Whoops!', ['options']));
         }
         $uploader->seedbonus += $tip_amount;
         $uploader->save();
@@ -278,7 +278,7 @@ class BonusController extends Controller
         PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $uploader->id, 'subject' => "You Have Recieved a BON Tip", 'message' => "Member " . $user->username . " has left a tip of " . $tip_amount . " BON on your upload " . $torrent->name . "."]);
         // End insert recipient notification here
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Tip was Successfully Applied!', 'Yay!', ['options']));
+        return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::success('Your Tip was Successfully Applied!', 'Yay!', ['options']));
     }
 
 

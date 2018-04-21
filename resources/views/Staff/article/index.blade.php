@@ -34,11 +34,11 @@
     <tbody>
       @foreach($posts as $p)
       <tr>
-        <td><a href="{{ route('staff_article_edit', array('slug' => $p->slug, 'id' => $p->id)) }}">{{ $p->title }}</a></td>
-        <td><a href="{{ route('user_edit', array('username' => $p->user->username, 'id' => $p->user->id)) }}">{{ $p->user->username }}</a></td>
+        <td><a href="{{ route('staff_article_edit', array('id' => $p->id)) }}">{{ $p->title }}</a></td>
+        <td><a href="{{ route('user_edit', array('id' => $p->user->id)) }}">{{ $p->user->username }}</a></td>
         <td>0</td>
         <th>{{ date('d/m/Y', strtotime($p->created_at)) }}</th>
-        <td><a href="{{ route('staff_article_delete', array('slug' => $p->slug, 'id' => $p->id)) }}" class="btn btn-danger">Delete</a></td>
+        <td><a href="{{ route('staff_article_delete', array('id' => $p->id)) }}" class="btn btn-danger">Delete</a></td>
       </tr>
       @endforeach
     </tbody>

@@ -45,7 +45,7 @@
     <div role="tabpanel" class="tab-pane active" id="account">
       <h3>Account</h3>
       <hr>
-			{{ Form::open(array('route' => ['user_edit', 'username' => $user->username, 'id' => $user->id])) }}
+			{{ Form::open(array('route' => ['user_edit', 'id' => $user->id])) }}
 					<div class="form-group">
 							<label for="username">Username</label>
 							<input name="username" type="text" value="{{ $user->username }}" class="form-control">
@@ -92,7 +92,7 @@
     <div role="tabpanel" class="tab-pane" id="permissions">
       <h3>Permissions</h3>
       <hr>
-    {{ Form::open(array('route' => ['user_permissions', 'username' => $user->username, 'id' => $user->id])) }}
+    {{ Form::open(array('route' => ['user_permissions', 'id' => $user->id])) }}
 		<label for="hidden" class="control-label">Can Upload?</label>
 		<div class="radio-inline">
 				<label><input type="radio" name="can_upload" @if($user->can_upload == 1) checked @endif value="1">YES</label>
@@ -155,7 +155,7 @@
     <div role="tabpanel" class="tab-pane" id="notes">
       <h3>Add Staff Note</h3>
       <hr>
-				{{ Form::open(array('route' => ['postNote', 'username' => $user->username, 'id' => $user->id])) }}
+				{{ Form::open(array('route' => ['postNote', 'id' => $user->id])) }}
 					<div class="form-group">
             <label for="message">Note</label>
             <textarea name="message" class="form-control"></textarea>
@@ -198,7 +198,7 @@
 	<div role="tabpanel" class="tab-pane" id="password">
       <h3>Force Update Password</h3>
       <hr>
-	{{ Form::open(array('route' => ['user_password', 'username' => $user->username, 'id' => $user->id])) }}
+	{{ Form::open(array('route' => ['user_password', 'id' => $user->id])) }}
     <div class="form-group">
         <label for="new_password">New Password</label>
           <input type="password" name="new_password" class="form-control" placeholder="New Password">

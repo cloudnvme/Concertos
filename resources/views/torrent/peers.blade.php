@@ -10,12 +10,12 @@
 
 @section('breadcrumb')
 <li>
-  <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+  <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrent') }}</span>
   </a>
 </li>
 <li class="active">
-  <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+  <a href="{{ route('peers', ['id' => $torrent->id]) }}">
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.peers') }}</span>
   </a>
 </li>
@@ -27,7 +27,7 @@
     <div class="block">
     <div class="">
     <p class="lead">{{ trans('torrent.peers') }} {{ strtolower(trans('common.for')) }}
-    <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">{{ $torrent->name }}</a>
+    <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
     </p>
     </div>
         <table class="table table-striped table-bordered table-condensed table-hover">
@@ -50,9 +50,9 @@
           @foreach ($peers as $p)
           <tr>
             @if($p->user->peer_hidden == 1)
-              <td><span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || auth()->user()->group->is_modo)<a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }})</span></a>@endif</td>
+              <td><span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || auth()->user()->group->is_modo)<a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }})</span></a>@endif</td>
             @else
-              <td><a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i class="{{ $p->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->username }}</span></a></td>
+              <td><a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i class="{{ $p->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->username }}</span></a></td>
             @endif
             @if ($p->seeder == 0)
             <td><div class="progress">

@@ -7,7 +7,7 @@
 @section('content')
 <div class="container box">
 		<h2>Add a new page</h2>
-        {{ Form::open(['route' => ['staff_page_edit', 'slug' => $page->slug, 'id' => $page->id]]) }}
+        {{ Form::open(['route' => ['staff_page_edit', 'id' => $page->id]]) }}
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Page Name</label>

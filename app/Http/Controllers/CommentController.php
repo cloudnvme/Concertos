@@ -46,14 +46,14 @@ class CommentController extends Controller
      * @param $id
      *
      */
-    public function article(Request $request, $slug, $id)
+    public function article(Request $request, $id)
     {
         $article = Article::findOrFail($id);
         $user = auth()->user();
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
+            return redirect()->route('article', ['id' => $article->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -70,7 +70,7 @@ class CommentController extends Controller
         } else {
             Toastr::error('An Error has Occured and Your Comment was not Posted!', 'Whoops!', ['options']);
         }
-        return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id]);
+        return redirect()->route('article', ['id' => $article->id]);
     }
 
     /**
@@ -79,14 +79,14 @@ class CommentController extends Controller
      * @param $slug
      * @param $id
      */
-    public function torrent(Request $request, $slug, $id)
+    public function torrent(Request $request, $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = auth()->user();
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -130,7 +130,7 @@ class CommentController extends Controller
         } else {
             Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
+        return redirect()->route('torrent', ['id' => $torrent->id]);
     }
 
     /**
@@ -208,7 +208,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Been Revoked!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -249,7 +249,7 @@ class CommentController extends Controller
             Toastr::error('An Error has Occured and Your Comment was not Posted!', 'Whoops!', ['options']);
         }
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
+        return redirect()->route('torrent', ['id' => $torrent->id]);
     }
 
     /**

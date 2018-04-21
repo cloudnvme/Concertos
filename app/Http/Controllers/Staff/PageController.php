@@ -61,7 +61,7 @@ class PageController extends Controller
      *
      *
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $page = Page::findOrFail($id);
         if ($request->isMethod('POST')) {
@@ -85,7 +85,7 @@ class PageController extends Controller
      *
      *
      */
-    public function delete($slug, $id)
+    public function delete($id)
     {
         Page::findOrFail($id)->delete();
         return redirect()->route('staff_page_index')->with(Toastr::success('Page has been deleted successfully', 'Yay!', ['options']));

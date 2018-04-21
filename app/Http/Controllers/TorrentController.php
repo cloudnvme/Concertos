@@ -111,7 +111,7 @@ class TorrentController extends Controller
      * @return View torrent.torrent
      *
      */
-    public function bumpTorrent($slug, $id)
+    public function bumpTorrent($id)
     {
         if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -135,7 +135,7 @@ class TorrentController extends Controller
                 $bot->message("#announce", "[Link: {$appurl}/torrents/" . $slug . "." . $id . "]");
             }
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Has Been Bumped To Top Successfully!', 'Yay!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::success('Torrent Has Been Bumped To Top Successfully!', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -171,7 +171,7 @@ class TorrentController extends Controller
      *
      * @return Redirect to a view
      */
-    public function sticky($slug, $id)
+    public function sticky($id)
     {
         if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -185,7 +185,7 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has stickied {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Sticky Status Has Been Adjusted!', 'Yay!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::success('Torrent Sticky Status Has Been Adjusted!', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -610,7 +610,7 @@ class TorrentController extends Controller
      *
      * @return View of Torrent details
      */
-    public function torrent(Request $request, $slug, $id)
+    public function torrent(Request $request, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $similar = Torrent::where('imdb', $torrent->imdb)->where('status', 1)->latest('seeders')->get();
@@ -673,7 +673,7 @@ class TorrentController extends Controller
      *
      * @return View of Torrent peers
      */
-    public function peers($slug, $id)
+    public function peers($id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::where('torrent_id', $id)->latest('seeder')->paginate(25); // list the peers
@@ -690,7 +690,7 @@ class TorrentController extends Controller
      *
      * @return View of Torrent history
      */
-    public function history($slug, $id)
+    public function history($id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::where('info_hash', $torrent->info_hash)->latest()->paginate(25);
@@ -708,7 +708,7 @@ class TorrentController extends Controller
      *
      * @return Redirect to details page of modified torrent
      */
-    public function grantFL($slug, $id)
+    public function grantFL($id)
     {
         if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -727,7 +727,7 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has granted freeleech on {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent FL Has Been Adjusted!', 'Yay!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::success('Torrent FL Has Been Adjusted!', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -743,7 +743,7 @@ class TorrentController extends Controller
      *
      * @return Redirect to details page of modified torrent
      */
-    public function grantFeatured($slug, $id)
+    public function grantFeatured($id)
     {
         if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -760,14 +760,14 @@ class TorrentController extends Controller
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! Grab It While You Can! :fire:"]);
                 cache()->forget('shoutbox_messages');
             } else {
-                return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Torrent Is Already Featured!', 'Whoops!', ['options']));
+                return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('Torrent Is Already Featured!', 'Whoops!', ['options']));
             }
             $torrent->save();
 
             // Activity Log
             \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has featured {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Is Now Featured!', 'Yay!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::success('Torrent Is Now Featured!', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -783,7 +783,7 @@ class TorrentController extends Controller
      *
      * @return Redirect to details page of modified torrent
      */
-    public function grantDoubleUp($slug, $id)
+    public function grantDoubleUp($id)
     {
         if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -802,7 +802,7 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has granted double upload on {$torrent->name} .");
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent DoubleUpload Has Been Adjusted!', 'Yay!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::success('Torrent DoubleUpload Has Been Adjusted!', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -818,7 +818,7 @@ class TorrentController extends Controller
      *
      * @return Redirect to download check page
      */
-    public function downloadCheck($slug, $id)
+    public function downloadCheck($id)
     {
         // Find the torrent in the database
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -838,7 +838,7 @@ class TorrentController extends Controller
      *
      * @return file
      */
-    public function download($slug, $id)
+    public function download($id)
     {
         // Find the torrent in the database
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -847,17 +847,17 @@ class TorrentController extends Controller
 
         // User's ratio is too low
         if ($user->getRatio() < config('other.ratio')) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Ratio Is To Low To Download!!!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('Your Ratio Is To Low To Download!!!', 'Whoops!', ['options']));
         }
 
         // User's download rights are revoked
         if ($user->can_download == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }
 
         // Torrent Status Is Rejected
         if ($torrent->isRejected()) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('This Torrent Has Been Rejected By Staff', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('This Torrent Has Been Rejected By Staff', 'Whoops!', ['options']));
         }
 
         // Define the filename for the download
@@ -865,7 +865,7 @@ class TorrentController extends Controller
 
         // The torrent file exist ?
         if (!file_exists(getcwd() . '/files/torrents/' . $torrent->file_name)) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['id' => $torrent->id])
                 ->with(Toastr::error('Torrent File Not Found! Please Report This Torrent!', 'Error!', ['options']));
         } else {
             // Delete the last torrent tmp file
@@ -899,7 +899,7 @@ class TorrentController extends Controller
      *
      * @return Redirect to details page of modified torrent
      */
-    public function reseedTorrent($slug, $id)
+    public function reseedTorrent($id)
     {
         $appurl = config('app.url');
         $user = auth()->user();
@@ -950,7 +950,7 @@ class TorrentController extends Controller
      *
      * @return View
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -992,7 +992,7 @@ class TorrentController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Staff Member {$user->username} has edited torrent {$torrent->name} .");
 
-                return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Succesfully Edited!!!', 'Yay!', ['options']));
+                return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::success('Succesfully Edited!!!', 'Yay!', ['options']));
             } else {
                 return view('torrent.edit_tor', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'tor' => $torrent]);
             }
@@ -1080,7 +1080,7 @@ class TorrentController extends Controller
      *
      * @return Redirect to details page of modified torrent
      */
-    public function freeleechToken($slug, $id)
+    public function freeleechToken($id)
     {
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);

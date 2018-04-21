@@ -37,17 +37,17 @@
 			<tbody>
 				@foreach($categories as $c)
 					<tr class="success">
-						<td><a href="{{ route('staff_forum_edit', array('slug' => $c->slug, 'id' => $c->id)) }}">{{ $c->name }}</a></td>
+						<td><a href="{{ route('staff_forum_edit', array('id' => $c->id)) }}">{{ $c->name }}</a></td>
 						<td>Category</td>
 						<td>{{ $c->position }}</td>
-						<td><a href="{{ route('staff_forum_delete', ['slug' => $c->slug, 'id' => $c->id]) }}" class="btn btn-danger">Delete</a></td>
+						<td><a href="{{ route('staff_forum_delete', ['id' => $c->id]) }}" class="btn btn-danger">Delete</a></td>
 					</tr>
 					@foreach($c->getForumsInCategory() as $f)
 						<tr>
-							<td><a href="{{ route('staff_forum_edit', array('slug' => $f->slug, 'id' => $f->id)) }}">---- {{ $f->name }}</a></td>
+							<td><a href="{{ route('staff_forum_edit', array('id' => $f->id)) }}">---- {{ $f->name }}</a></td>
 							<td>Forum</td>
 							<td>{{ $f->position }}</td>
-							<td><a href="{{ route('staff_forum_delete', ['slug' => $f->slug, 'id' => $f->id]) }}" class="btn btn-danger">Delete</a></td>
+							<td><a href="{{ route('staff_forum_delete', ['id' => $f->id]) }}" class="btn btn-danger">Delete</a></td>
 						</tr>
 					@endforeach
 				@endforeach

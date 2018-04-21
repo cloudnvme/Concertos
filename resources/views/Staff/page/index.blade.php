@@ -16,9 +16,9 @@
             <tbody>
                 @foreach($pages as $page)
                     <tr>
-  						<td><a href="{{ route('staff_page_edit', ['slug' => $page->slug, 'id' => $page->id]) }}">{{ $page->name }}</a></td>
+  						<td><a href="{{ route('staff_page_edit', ['id' => $page->id]) }}">{{ $page->name }}</a></td>
   						<td>{{ date('d M Y', $page->created_at->getTimestamp()) }}</td>
-  						<td><a href="{{ route('staff_page_delete', ['slug' => $page->slug, 'id' => $page->id]) }}" class="btn btn-danger">Delete</a></td>
+  						<td><a href="{{ route('staff_page_delete', ['id' => $page->id]) }}" class="btn btn-danger">Delete</a></td>
                     </tr>
                 @endforeach
             </tbody>

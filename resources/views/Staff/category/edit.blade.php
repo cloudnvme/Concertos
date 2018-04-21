@@ -12,7 +12,7 @@
   </a>
 </li>
 <li class="active">
-  <a href="{{ route('staff_category_edit', array('slug' => $category->slug, 'id' => $category->id)) }}" itemprop="url" class="l-breadcrumb-item-link">
+  <a href="{{ route('staff_category_edit', array('id' => $category->id)) }}" itemprop="url" class="l-breadcrumb-item-link">
     <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Category</span>
   </a>
 </li>
@@ -21,7 +21,7 @@
 @section('content')
 <div class="container box">
         <h2>Edit A Category</h2>
-        {{ Form::open(array('route' => array('staff_category_edit', 'slug' => $category->slug, 'id' => $category->id))) }}
+        {{ Form::open(array('route' => array('staff_category_edit', 'id' => $category->id))) }}
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" name="name" value="{{ $category->name }}">

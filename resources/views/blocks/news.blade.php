@@ -21,7 +21,7 @@
       <div class="news-blocks">
         <div class="row">
           <br>
-          <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}" class="article-thumb col-md-2">
+          <a href="{{ route('article', ['id' => $a->id]) }}" class="article-thumb col-md-2">
             <!-- Image -->
             @if( ! is_null($a->image))
             <img src="{{ url('files/img/' . $a->image) }}" class="article-thumb-img" alt="{{ $a->title }}"> @else
@@ -30,7 +30,7 @@
           </a>
 
           <div class="col-md-10 article-title">
-            <h2><a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}">{{ $a->title }}</a></h2>
+            <h2><a href="{{ route('article', ['id' => $a->id]) }}">{{ $a->title }}</a></h2>
           </div>
 
           <div class="artical-time col-md-10">
@@ -45,7 +45,7 @@
           <br>
           <div class="col-md-12 article-readmore">
             <center>
-              <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}" class="btn btn-success">{{ trans('articles.read-more') }}</a>
+              <a href="{{ route('article', ['id' => $a->id]) }}" class="btn btn-success">{{ trans('articles.read-more') }}</a>
             </center>
           </div>
         </div>

@@ -24,7 +24,7 @@ class PageController extends Controller
      *
      *
      */
-    public function page($slug, $id)
+    public function page($id)
     {
         $page = Page::findOrFail($id);
 

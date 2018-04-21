@@ -72,7 +72,7 @@
       </a>
     </li>
     <li>
-      <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}">
+      <a href="{{ route('inbox', array('id' => auth()->user()->id)) }}">
         <i class="livicon" data-name="mail" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true"></i>
         <span class="menu-text">{{ trans('pm.inbox') }}</span>
         <span class="selected"></span>

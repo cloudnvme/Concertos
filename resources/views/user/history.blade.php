@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <li>
-    <a href="{{ route('myhistory', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="{{ route('myhistory', ['id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.history-table') }}</span>
     </a>
 </li>
@@ -44,7 +44,7 @@
           @foreach($history as $his)
         <tr>
           <td>
-            <a class="view-torrent" data-id="{{ $his->torrent_id }}" data-slug="{{ $his->torrent->slug }}" href="{{ route('torrent', array('slug' => $his->torrent->slug, 'id' => $his->torrent->id)) }}" data-toggle="tooltip" title="{{ $his->torrent->name }}" data-original-title="{{ trans('user.moderated-by', ['mod' => App\User::find($his->torrent->moderated_by)->username]) }} {{ $his->torrent->moderated_at->diffForHumans() }}">{{ $his->torrent->name }}</a>
+            <a class="view-torrent" data-id="{{ $his->torrent_id }}" data-slug="{{ $his->torrent->slug }}" href="{{ route('torrent', array('id' => $his->torrent->id)) }}" data-toggle="tooltip" title="{{ $his->torrent->name }}" data-original-title="{{ trans('user.moderated-by', ['mod' => App\User::find($his->torrent->moderated_by)->username]) }} {{ $his->torrent->moderated_at->diffForHumans() }}">{{ $his->torrent->name }}</a>
           </td>
           <td><span class="badge-extra text-purple">{{ $his->agent ? $his->agent : trans('common.unknown') }}</span></td>
           @if($his->active == 1) <td class="text-green">{{ trans('common.yes') }}</td> @else <td class="text-red">{{ trans('common.no') }}</td> @endif

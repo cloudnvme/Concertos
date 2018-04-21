@@ -37,7 +37,7 @@ class ArticleController extends Controller
      * @access public
      * @return post.post
      */
-    public function post($slug, $id)
+    public function post($id)
     {
         // Find de right post
         $article = Article::findOrFail($id);

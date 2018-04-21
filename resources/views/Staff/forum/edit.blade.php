@@ -25,7 +25,7 @@
 <div class="container box">
 	<h2>Edit: {{ $forum->name }}</h2>
 
-		{{ Form::open(array('route' => array('staff_forum_edit', 'slug' => $forum->slug, 'id' => $forum->id))) }}
+		{{ Form::open(array('route' => array('staff_forum_edit', 'id' => $forum->id))) }}
 			<div class="form-group">
 				<label for="title">Title</label>
 				<input type="text" name="title" class="form-control" value="{{ $forum->name }}">

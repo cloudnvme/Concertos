@@ -86,7 +86,7 @@ class ArticleController extends Controller
      * @param $id Id of article
      * @return Staff.article.edit
      */
-    public function edit(Request $request, $slug, $id)
+    public function edit(Request $request, $id)
     {
         $post = Article::findOrFail($id);
         if ($request->isMethod('POST')) {
@@ -131,7 +131,7 @@ class ArticleController extends Controller
      * @param $id Id of article
      * @return void
      */
-    public function delete($slug, $id)
+    public function delete($id)
     {
         $post = Article::findOrFail($id);
         $post->delete();

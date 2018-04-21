@@ -27,7 +27,7 @@
         @foreach($articles as $a)
             <article class="article col-md-12">
                 <div class="row">
-                    <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}" class="article-thumb col-md-2">
+                    <a href="{{ route('article', ['id' => $a->id]) }}" class="article-thumb col-md-2">
                         @if( ! is_null($a->image))
                             <img src="{{ url('files/img/' . $a->image) }}" class="article-thumb-img" alt="{{ $a->title }}">
                         @else
@@ -36,7 +36,7 @@
                     </a>
 
                     <div class="col-md-8 article-title">
-                        <h2><a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}">{{ $a->title }}</a></h2>
+                        <h2><a href="{{ route('article', ['id' => $a->id]) }}">{{ $a->title }}</a></h2>
                     </div>
 
                     <div class="col-md-8 article-info">
@@ -50,7 +50,7 @@
 
                     <div class="col-md-12 article-readmore">
                     <center>
-                        <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}" class="btn btn-success">{{ trans('articles.read-more') }}</a>
+                        <a href="{{ route('article', ['id' => $a->id]) }}" class="btn btn-success">{{ trans('articles.read-more') }}</a>
                     </center>
                     </div>
                 </div>

@@ -78,7 +78,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Article
         Route::get('/articles', 'ArticleController@articles')->name('articles');
-        Route::get('/articles/{slug}.{id}', 'ArticleController@post')->name('article');
+        Route::get('/articles/{id}', 'ArticleController@post')->name('article');
 
         // Bonus System
         Route::get('/bonus', 'BonusController@bonus')->name('bonus');
@@ -99,11 +99,11 @@ Route::group(['middleware' => 'language'], function () {
 
         // Category
         Route::get('/categories', 'CategoryController@categories')->name('categories');
-        Route::get('/categories/{slug}.{id}', 'CategoryController@category')->name('category');
+        Route::get('/categories/{id}', 'CategoryController@category')->name('category');
 
         // Catalogs
         Route::get('/catalogs', 'CatalogController@catalogs')->name('catalogs');
-        Route::get('/catalog/{slug}.{id}', 'CatalogController@catalog')->name('catalog');
+        Route::get('/catalog/{id}', 'CatalogController@catalog')->name('catalog');
         Route::get('/catalog/torrents/{imdb}', 'CatalogController@torrents')->name('catalog_torrents');
 
         // Staff List
@@ -119,8 +119,8 @@ Route::group(['middleware' => 'language'], function () {
         //Route::any('/aboutus', 'PageController@about')->name('about');
 
         // Comments
-        Route::any('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
-        Route::any('/comment/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
+        Route::any('/comment/article/{id}', 'CommentController@article')->name('comment_article');
+        Route::any('/comment/torrent/{id}', 'CommentController@torrent')->name('comment_torrent');
         Route::any('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
         Route::any('/comment/request/{id}', 'CommentController@request')->name('comment_request');
         Route::any('/comment/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
@@ -150,17 +150,17 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/stats/groups/group/{id}', 'StatsController@group')->name('group');
 
         // Page
-        Route::get('/p/{slug}.{id}', 'PageController@page')->name('page');
+        Route::get('/p/{id}', 'PageController@page')->name('page');
 
         // Private Messages System
-        Route::get('/{username}.{id}/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
-        Route::get('/{username}.{id}/message/{pmid}', 'PrivateMessageController@getPrivateMessageById')->name('message');
-        Route::get('/{username}.{id}/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
-        Route::get('/{username}.{id}/create', 'PrivateMessageController@makePrivateMessage')->name('create');
-        Route::any('/{username}.{id}/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
+        Route::get('/user/{id}/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
+        Route::get('/user/{id}/message/{pmid}', 'PrivateMessageController@getPrivateMessageById')->name('message');
+        Route::get('/user/{id}/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
+        Route::get('/user/{id}/create', 'PrivateMessageController@makePrivateMessage')->name('create');
+        Route::any('/user/{id}/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
         Route::post('/send-private-message', 'PrivateMessageController@sendPrivateMessage')->name('send-pm');
         Route::any('/reply-private-message/{pmid}', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
-        Route::any('/{username}.{id}/searchPM', 'PrivateMessageController@searchPM')->name('searchPM');
+        Route::any('/user/{id}/searchPM', 'PrivateMessageController@searchPM')->name('searchPM');
         Route::any('/deletePM/{pmid}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
 
         // Requests
@@ -180,68 +180,68 @@ Route::group(['middleware' => 'language'], function () {
         // Torrent
         Route::any('filterTorrents', 'TorrentController@faceted');
         Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
-        Route::get('/torrents/{slug}.{id}', 'TorrentController@torrent')->name('torrent');
-        Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');
-        Route::get('/torrents/{slug}.{id}/history', 'TorrentController@history')->name('history');
+        Route::get('/torrents/{id}', 'TorrentController@torrent')->name('torrent');
+        Route::get('/torrents/{id}/peers', 'TorrentController@peers')->name('peers');
+        Route::get('/torrents/{id}/history', 'TorrentController@history')->name('history');
         Route::any('/upload', 'TorrentController@upload')->name('upload');
-        Route::get('/download_check/{slug}.{id}', 'TorrentController@downloadCheck')->name('download_check');
-        Route::get('/download/{slug}.{id}', 'TorrentController@download')->name('download');
+        Route::get('/download_check/{id}', 'TorrentController@downloadCheck')->name('download_check');
+        Route::get('/download/{id}', 'TorrentController@download')->name('download');
         Route::get('/poster', 'TorrentController@poster')->name('poster');
         Route::post('/torrents/delete', 'TorrentController@deleteTorrent')->name('delete');
-        Route::any('/torrents/{slug}.{id}/edit', 'TorrentController@edit')->name('edit');
-        Route::any('/torrents/{slug}.{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
-        Route::any('/torrents/{slug}.{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
+        Route::any('/torrents/{id}/edit', 'TorrentController@edit')->name('edit');
+        Route::any('/torrents/{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
+        Route::any('/torrents/{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
         Route::get('/torrents/poster/search', 'TorrentController@posterSearch')->name('poster_search');
-        Route::any('/torrents/{slug}.{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
-        Route::any('/torrents/{slug}.{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
-        Route::any('/torrents/{slug}.{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
-        Route::any('/torrents/{slug}.{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
-        Route::any('/torrents/{slug}.{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
-        Route::any('/torrents/{slug}.{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
+        Route::any('/torrents/{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
+        Route::any('/torrents/{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
+        Route::any('/torrents/{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
+        Route::any('/torrents/{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
+        Route::any('/torrents/{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
+        Route::any('/torrents/{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
         Route::get('/torrent/{id}/confirm_delete', 'TorrentController@confirmDelete')->name('confirm_delete');
 
         // User
         Route::get('/members', 'UserController@members')->name('members');
         Route::any('/members/results', 'UserController@userSearch')->name('userSearch');
-        Route::get('/{username}.{id}', 'UserController@profile')->name('profile');
-        Route::any('/{username}.{id}/edit', 'UserController@editProfile')->name('user_edit_profile');
-        Route::post('/{username}.{id}/photo', 'UserController@changePhoto')->name('user_change_photo');
-        Route::get('/{username}.{id}/activate/{token}', 'UserController@activate')->name('user_activate');
-        Route::post('/{username}.{id}/about', 'UserController@changeAbout')->name('user_change_about');
-        Route::post('/{username}.{id}/photo', 'UserController@changeTitle')->name('user_change_title');
+        Route::get('/user/{id}', 'UserController@profile')->name('profile');
+        Route::any('/user/{id}/edit', 'UserController@editProfile')->name('user_edit_profile');
+        Route::post('/user/{id}/photo', 'UserController@changePhoto')->name('user_change_photo');
+        Route::get('/user/{id}/activate/{token}', 'UserController@activate')->name('user_activate');
+        Route::post('/user/{id}/about', 'UserController@changeAbout')->name('user_change_about');
+        Route::post('/user/{id}/photo', 'UserController@changeTitle')->name('user_change_title');
         Route::get('/achievements', 'AchievementsController@index')->name('achievements');
-        Route::get('/{username}.{id}/warninglog', 'UserController@getWarnings')->name('warninglog');
+        Route::get('/user/{id}/warninglog', 'UserController@getWarnings')->name('warninglog');
         Route::any('/deactivateWarning/{id}', 'UserController@deactivateWarning')->name('deactivateWarning');
-        Route::get('/{username}.{id}/myuploads', 'UserController@myUploads')->name('myuploads');
-        Route::get('/{username}.{id}/myactive', 'UserController@myActive')->name('myactive');
-        Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');
+        Route::get('/user/{id}/myuploads', 'UserController@myUploads')->name('myuploads');
+        Route::get('/user/{id}/myactive', 'UserController@myActive')->name('myactive');
+        Route::get('/user/{id}/myhistory', 'UserController@myHistory')->name('myhistory');
 
         // Follow System
         Route::any('/follow/{user}', 'FollowController@follow')->name('follow');
         Route::any('/unfollow/{user}', 'FollowController@unfollow')->name('unfollow');
 
         //Thank System
-        Route::any('/torrents/{slug}.{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
+        Route::any('/torrents/{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
 
         // User Settings
-        Route::get('/{username}.{id}/settings', 'UserController@settings')->name('user_settings');
-        Route::post('/{username}.{id}/settings', 'UserController@changeSettings')->name('user_settings');
-        Route::any('/{username}.{id}/settings/change_password', 'UserController@changePassword')->name('change_password');
-        Route::any('/{username}.{id}/settings/change_email', 'UserController@changeEmail')->name('change_email');
-        Route::any('/{username}.{id}/settings/change_pid', 'UserController@changePID')->name('change_pid');
+        Route::get('/user/{id}/settings', 'UserController@settings')->name('user_settings');
+        Route::post('/user/{id}/settings', 'UserController@changeSettings')->name('user_settings');
+        Route::any('/user/{id}/settings/change_password', 'UserController@changePassword')->name('change_password');
+        Route::any('/user/{id}/settings/change_email', 'UserController@changeEmail')->name('change_email');
+        Route::any('/user/{id}/settings/change_pid', 'UserController@changePID')->name('change_pid');
 
         // User Language
         Route::get('/{locale}/back', 'LanguageController@back')->name('back');
 
         // User Clients
-        Route::any('/{username}.{id}/clients', 'UserController@clients')->name('user_clients');
-        Route::post('/{username}.{id}/addcli', 'UserController@authorizeClient')->name('addcli');
-        Route::post('/{username}.{id}/rmcli', 'UserController@removeClient')->name('rmcli');
+        Route::any('/user/{id}/clients', 'UserController@clients')->name('user_clients');
+        Route::post('/user/{id}/addcli', 'UserController@authorizeClient')->name('addcli');
+        Route::post('/user/{id}/rmcli', 'UserController@removeClient')->name('rmcli');
 
         // Invite System
         Route::get('/invite', 'InviteController@invite')->name('invite');
         Route::post('/invite', 'InviteController@process')->name('process');
-        Route::get('/invite/tree/{username}.{id}', 'InviteController@inviteTree')->name('inviteTree');
+        Route::get('/invite/tree/user/{id}', 'InviteController@inviteTree')->name('inviteTree');
 
         // Poll System
         Route::get('/polls', 'PollController@index')->name('polls');
@@ -284,40 +284,40 @@ Route::group(['middleware' => 'language'], function () {
         // Search Forums
         Route::any('/search', 'ForumController@search')->name('forum_search');
         // Display Forum Categories
-        Route::get('/category/{slug}.{id}', 'ForumController@category')->name('forum_category');
+        Route::get('/category/{id}', 'ForumController@category')->name('forum_category');
         // Display Topics
-        Route::get('/forum/{slug}.{id}', 'ForumController@display')->name('forum_display');
+        Route::get('/forum/{id}', 'ForumController@display')->name('forum_display');
         // Create New Topic
-        Route::any('/forum/{slug}.{id}/new-topic', 'ForumController@newTopic')->name('forum_new_topic');
+        Route::any('/forum/{id}/new-topic', 'ForumController@newTopic')->name('forum_new_topic');
         // View Topic
-        Route::get('/topic/{slug}.{id}', 'ForumController@topic')->name('forum_topic');
+        Route::get('/topic/{id}', 'ForumController@topic')->name('forum_topic');
         // Close Topic
-        Route::get('/topic/{slug}.{id}/close', 'ForumController@closeTopic')->name('forum_close');
+        Route::get('/topic/{id}/close', 'ForumController@closeTopic')->name('forum_close');
         // Open Topic
-        Route::get('/topic/{slug}.{id}/open', 'ForumController@openTopic')->name('forum_open');
+        Route::get('/topic/{id}/open', 'ForumController@openTopic')->name('forum_open');
         // Edit Post
-        Route::any('/topic/{slug}.{id}/post-{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
+        Route::any('/topic/{id}/post-{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
         // Delete Post
-        Route::any('/topic/{slug}.{id}/post-{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
+        Route::any('/topic/{id}/post-{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
         // Reply To Topic
-        Route::post('/topic/{slug}.{id}/reply', 'ForumController@reply')->name('forum_reply');
+        Route::post('/topic/{id}/reply', 'ForumController@reply')->name('forum_reply');
         // Edit Topic
-        Route::any('/topic/{slug}.{id}/edit', 'ForumController@editTopic')->name('forum_edit_topic');
+        Route::any('/topic/{id}/edit', 'ForumController@editTopic')->name('forum_edit_topic');
         // Delete Topic
-        Route::any('/topic/{slug}.{id}/delete', 'ForumController@deleteTopic')->name('forum_delete_topic');
+        Route::any('/topic/{id}/delete', 'ForumController@deleteTopic')->name('forum_delete_topic');
         // Pin Topic
-        Route::any('/topic/{slug}.{id}/pin', 'ForumController@pinTopic')->name('forum_pin_topic');
+        Route::any('/topic/{id}/pin', 'ForumController@pinTopic')->name('forum_pin_topic');
         // Unpin Topic
-        Route::any('/topic/{slug}.{id}/unpin', 'ForumController@unpinTopic')->name('forum_unpin_topic');
+        Route::any('/topic/{id}/unpin', 'ForumController@unpinTopic')->name('forum_unpin_topic');
 
         // Topic Label System
-        Route::get('/topic/{slug}.{id}/approved', 'ForumController@approvedTopic')->name('forum_approved');
-        Route::get('/topic/{slug}.{id}/denied', 'ForumController@deniedTopic')->name('forum_denied');
-        Route::get('/topic/{slug}.{id}/solved', 'ForumController@solvedTopic')->name('forum_solved');
-        Route::get('/topic/{slug}.{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid');
-        Route::get('/topic/{slug}.{id}/bug', 'ForumController@bugTopic')->name('forum_bug');
-        Route::get('/topic/{slug}.{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion');
-        Route::get('/topic/{slug}.{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented');
+        Route::get('/topic/{id}/approved', 'ForumController@approvedTopic')->name('forum_approved');
+        Route::get('/topic/{id}/denied', 'ForumController@deniedTopic')->name('forum_denied');
+        Route::get('/topic/{id}/solved', 'ForumController@solvedTopic')->name('forum_solved');
+        Route::get('/topic/{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid');
+        Route::get('/topic/{id}/bug', 'ForumController@bugTopic')->name('forum_bug');
+        Route::get('/topic/{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion');
+        Route::get('/topic/{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented');
 
         // Like - Dislike System
         Route::any('/like/post/{postId}', 'ForumController@likePost')->name('like');
@@ -337,8 +337,8 @@ Route::group(['middleware' => 'language'], function () {
 
         // Ban
         Route::any('/bans', 'BanController@getBans')->name('getBans');
-        Route::any('/ban/{username}.{id}', 'BanController@ban')->name('ban');
-        Route::any('/unban/{username}.{id}', 'BanController@unban')->name('unban');
+        Route::any('/ban/user/{id}', 'BanController@ban')->name('ban');
+        Route::any('/unban/user/{id}', 'BanController@unban')->name('unban');
 
         // Flush Ghost Peers
         Route::any('/flush', 'FlushController@deleteOldPeers')->name('flush');
@@ -346,16 +346,16 @@ Route::group(['middleware' => 'language'], function () {
         // User Tools
         Route::any('/user_search', 'UserController@members')->name('user_search');
         Route::any('/user_results', 'UserController@userSearch')->name('user_results');
-        Route::any('/user_edit/{username}.{id}', 'UserController@userSettings')->name('user_setting');
-        Route::any('/user_edit/{username}.{id}/edit', 'UserController@userEdit')->name('user_edit');
-        Route::any('/user_edit/{username}.{id}/permissions', 'UserController@userPermissions')->name('user_permissions');
-        Route::any('/user_delete/{username}.{id}', 'UserController@userDelete')->name('user_delete');
-        Route::any('/user_edit/{username}.{id}/password', 'UserController@userPassword')->name('user_password');
+        Route::any('/user_edit/{id}', 'UserController@userSettings')->name('user_setting');
+        Route::any('/user_edit/{id}/edit', 'UserController@userEdit')->name('user_edit');
+        Route::any('/user_edit/{id}/permissions', 'UserController@userPermissions')->name('user_permissions');
+        Route::any('/user_delete/{id}', 'UserController@userDelete')->name('user_delete');
+        Route::any('/user_edit/{id}/password', 'UserController@userPassword')->name('user_password');
 
         // Moderation
         Route::any('/torrents', 'TorrentController@index')->name('staff_torrent_index');
         Route::get('/moderation', 'ModerationController@moderation')->name('moderation');
-        Route::get('/moderation/{slug}.{id}/approve', 'ModerationController@approve')->name('moderation_approve');
+        Route::get('/moderation/{id}/approve', 'ModerationController@approve')->name('moderation_approve');
         Route::post('/moderation/reject', 'ModerationController@reject')->name('moderation_reject');
         Route::post('/moderation/postpone', 'ModerationController@postpone')->name('moderation_postpone');
         Route::any('/torrent_search', 'TorrentController@search')->name('torrent-search');
@@ -364,7 +364,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
 
         // User Staff Notes
-        Route::any('/notes/{username}.{id}', 'NoteController@postNote')->name('postNote');
+        Route::any('/notes/{id}', 'NoteController@postNote')->name('postNote');
         Route::any('/notes', 'NoteController@getNotes')->name('getNotes');
         Route::get('/notes/{note_id}', 'NoteController@getNote')->name('getNote');
 
@@ -387,32 +387,32 @@ Route::group(['middleware' => 'language'], function () {
         // Categories
         Route::get('/categories', 'CategoryController@index')->name('staff_category_index');
         Route::any('/categories/new', 'CategoryController@add')->name('staff_category_add');
-        Route::any('/categories/edit/{slug}.{id}', 'CategoryController@edit')->name('staff_category_edit');
-        Route::get('/categories/delete/{slug}.{id}', 'CategoryController@delete')->name('staff_category_delete');
+        Route::any('/categories/edit/{id}', 'CategoryController@edit')->name('staff_category_edit');
+        Route::get('/categories/delete/{id}', 'CategoryController@delete')->name('staff_category_delete');
 
         // Types
         Route::get('/types', 'TypeController@index')->name('staff_type_index');
         Route::any('/types/new', 'TypeController@add')->name('staff_type_add');
-        Route::any('/types/edit/{slug}.{id}', 'TypeController@edit')->name('staff_type_edit');
-        Route::get('/types/delete/{slug}.{id}', 'TypeController@delete')->name('staff_type_delete');
+        Route::any('/types/edit/{id}', 'TypeController@edit')->name('staff_type_edit');
+        Route::get('/types/delete/{id}', 'TypeController@delete')->name('staff_type_delete');
 
         // Forum
         Route::get('/forums', 'ForumController@index')->name('staff_forum_index');
         Route::any('/forums/new', 'ForumController@add')->name('staff_forum_add');
-        Route::any('/forums/edit/{slug}.{id}', 'ForumController@edit')->name('staff_forum_edit');
-        Route::get('/forums/delete/{slug}.{id}', 'ForumController@delete')->name('staff_forum_delete');
+        Route::any('/forums/edit/{id}', 'ForumController@edit')->name('staff_forum_edit');
+        Route::get('/forums/delete/{id}', 'ForumController@delete')->name('staff_forum_delete');
 
         //Pages
         Route::get('/pages', 'PageController@index')->name('staff_page_index');
         Route::any('/pages/new', 'PageController@add')->name('staff_page_add');
-        Route::any('/pages/edit/{slug}.{id}', 'PageController@edit')->name('staff_page_edit');
-        Route::get('/pages/delete/{slug}.{id}', 'PageController@delete')->name('staff_page_delete');
+        Route::any('/pages/edit/{id}', 'PageController@edit')->name('staff_page_edit');
+        Route::get('/pages/delete/{id}', 'PageController@delete')->name('staff_page_delete');
 
         // Articles
         Route::any('/articles', 'ArticleController@index')->name('staff_article_index');
         Route::any('/articles/new', 'ArticleController@add')->name('staff_article_add');
-        Route::any('/articles/edit/{slug}.{id}', 'ArticleController@edit')->name('staff_article_edit');
-        Route::any('/articles/delete/{slug}.{id}', 'ArticleController@delete')->name('staff_article_delete');
+        Route::any('/articles/edit/{id}', 'ArticleController@edit')->name('staff_article_edit');
+        Route::any('/articles/delete/{id}', 'ArticleController@delete')->name('staff_article_delete');
 
         // Groups
         Route::any('/groups', 'GroupsController@index')->name('staff_groups_index');

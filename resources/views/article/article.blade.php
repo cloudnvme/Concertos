@@ -19,7 +19,7 @@
     </a>
 </li>
 <li>
-    <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="{{ route('article', ['id' => $article->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $article->title }}</span>
     </a>
 </li>
@@ -43,7 +43,7 @@
     </article>
 
     <div class="col-md-12">
-        <form role="form" method="POST" action="{{ route('comment_article',['slug' => $article->slug, 'id' => $article->id]) }}">
+        <form role="form" method="POST" action="{{ route('comment_article',['id' => $article->id]) }}">
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="content">{{ trans('common.your') }} {{ strtolower(trans('common.comment')) }}:</label><span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ trans('common.for') }} emoji</span> <span class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span>
@@ -62,15 +62,15 @@
         @if($comment->anon == 1)
         <a href="#" class="pull-left">
         <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-        <strong>{{ str_upper(trans('common.anonymous')) }} @if(auth()->user()->group->is_modo)<a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif</strong>
+        <strong>{{ str_upper(trans('common.anonymous')) }} @if(auth()->user()->group->is_modo)<a href="{{ route('profile', ['id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif</strong>
         @else
-        <a href="{{ route('profile', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
+        <a href="{{ route('profile', array('id' => $comment->user->id)) }}" class="pull-left">
         @if($comment->user->image != null)
         <img src="{{ url('files/img/' . $comment->user->image) }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
         @else
         <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
         @endif
-        <strong>By <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong> @endif
+        <strong>By <a href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong> @endif
         <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
         @if($comment->user_id == auth()->user()->id || auth()->user()->group->is_modo)
         <a title="{{ trans('common.delete') }}" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>

@@ -17,7 +17,7 @@
           @foreach($topics as $t)
           @if ($t->viewable())
           <tr class="">
-            <td><a href="{{ route('forum_topic', array('slug' => $t->slug, 'id' => $t->id)) }}">{{ $t->name }}</a></td>
+            <td><a href="{{ route('forum_topic', array('id' => $t->id)) }}">{{ $t->name }}</a></td>
             <td>{{ $t->first_post_user_username }}</td>
             <td>{{ $t->created_at->diffForHumans() }}</td>
           </tr>

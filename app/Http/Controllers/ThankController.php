@@ -25,14 +25,14 @@ class ThankController extends Controller
      * @return back
      *
      */
-    public function torrentThank($slug, $id)
+    public function torrentThank($id)
     {
         $user = auth()->user();
         $torrent = Torrent::findOrFail($id);
 
         $thank = Thank::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
         if ($thank) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Have Already Left a Thanks on This Torrent!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('You Have Already Left a Thanks on This Torrent!', 'Whoops!', ['options']));
         }
 
         $thank = new Thank();
@@ -40,6 +40,6 @@ class ThankController extends Controller
         $thank->torrent_id = $torrent->id;
         $thank->save();
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Thanks was Successfully Applied!', 'Yay!', ['options']));
+        return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::success('Your Thanks was Successfully Applied!', 'Yay!', ['options']));
     }
 }

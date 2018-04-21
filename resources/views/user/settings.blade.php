@@ -6,12 +6,12 @@
 
 @section('breadcrumb')
 <li>
-    <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="{{ route('profile', ['id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
     </a>
 </li>
 <li>
-    <a href="{{ route('user_settings', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="{{ route('user_settings', ['id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">Settings</span>
     </a>
 </li>
@@ -30,7 +30,7 @@
   <div class="tab-content block block-titled">
     <div role="tabpanel" class="tab-pane active" id="welcome">
 
-        {{ Form::open(array('url' => '/{username}.{id}/settings','role' => 'form', 'class' => 'login-frm')) }}
+        {{ Form::open(array('url' => route('user_settings', ['id' => $user->id]),'role' => 'form', 'class' => 'login-frm')) }}
         <br>
         <h2>General Settings</h2>
         <hr>
@@ -151,7 +151,7 @@
       <h3>Change Password. <span class="small">You will have to login again, after you change your password.</span>
 </h3>
       <hr>
-    {{ Form::open(array('url' => '/{username}.{id}/settings/change_password','role' => 'form', 'class' => 'login-frm')) }}
+    {{ Form::open(array('url' => route('change_password', ['id' => $user->id]),'role' => 'form', 'class' => 'login-frm')) }}
     {{ csrf_field() }}
     <div class="form-group">
         <label for="current_password">Current Password</label>
@@ -169,7 +169,7 @@
     <div role="tabpanel" class="tab-pane" id="email">
       <h3>Change Email Address. <span class="small">You will have to re-confirm your account, after you change your email.</span></h3>
       <hr>
-          {{ Form::open(array('url' => '/{username}.{id}/settings/change_email','role' => 'form', 'class' => 'login-frm')) }}
+          {{ Form::open(array('url' => route('change_email', ['id' => $user->id]),'role' => 'form', 'class' => 'login-frm')) }}
           <label for="current_email">Current Email</label>
             <p class="text-primary">{{ $user->email }}</p>
           <label for="current_password">Current Password</label>
@@ -185,7 +185,7 @@
       <h3>Reset PID.
 <span class="small">You will have to re-download/re-upload all your active torrents, after resetting the PID.</span></h3>
       <hr>
-      {{ Form::open(array('url' => '/{username}.{id}/settings/change_pid','role' => 'form', 'class' => 'login-frm')) }}
+      {{ Form::open(array('url' => route('change_pid', ['id' => $user->id]),'role' => 'form', 'class' => 'login-frm')) }}
       {{ csrf_field() }}
         <div class="form-group">
           <label for="current_pid">Current pid</label>

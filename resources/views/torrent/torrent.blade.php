@@ -261,7 +261,7 @@
       {{ $comments->fragment('comments')->links() }}
     @endif
 
-    <form class="comment-editor" action="{{ route('comment_torrent', ['id' => $user->id]) }}">
+    <form class="comment-editor" action="{{ route('comment_torrent', ['id' => $torrent->id]) }}">
       <div class="form-group">
         <label for="content">{{ trans('common.your-comment') }}:</label><span class="badge-extra">{{ trans('common.type') }}
           <strong>:</strong> {{ trans('common.for') }} emoji</span> <span

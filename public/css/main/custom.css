@@ -14622,7 +14622,8 @@ th.category {
 }
 
 .torrent-search .form-group,
-.request-search .form-group {
+.request-search .form-group,
+.upload-form .form-group {
     display: flex;
     flex-wrap: wrap;
 }
@@ -14829,4 +14830,13 @@ input[type="submit"],
 
 .ratio-bar {
     margin-bottom: 1em;
+}
+
+.upload-form label {
+    width: 11em;
+    margin-right: 0.5em;
+}
+
+#upload-buttons {
+    margin-top: 1em;
 }

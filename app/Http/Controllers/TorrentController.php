@@ -290,7 +290,7 @@ class TorrentController extends Controller
                 'tmdb' => $request->input('tmdb'),
                 'mal' => $request->input('mal'),
                 'type' => $request->input('type'),
-                'anon' => $request->input('anonymous')
+                'anon' => $request->input('anonymous') === 'on'
             ]);
             // Validation
             $v = validator($torrent->toArray(), $torrent->rules);
@@ -339,7 +339,7 @@ class TorrentController extends Controller
                     $t->save();
                 }
 
-                return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
+                return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
             }
         }
         return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'parsedContent' => $parsedContent]);

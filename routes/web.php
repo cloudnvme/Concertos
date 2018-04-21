@@ -87,8 +87,8 @@ Route::group(['middleware' => 'language'], function () {
 
         // Bookmarks
         Route::get('/bookmarks', 'BookmarkController@bookmarks')->name('bookmarks');
-        Route::any('/torrents/bookmark/{id}', 'TorrentController@bookmark')->name('bookmark');
-        Route::any('/torrents/unbookmark/{id}', 'BookmarkController@unBookmark')->name('unbookmark');
+        Route::any('/torrent/{id}/bookmark', 'TorrentController@bookmark')->name('bookmark');
+        Route::any('/torrents/{id}/unbookmark', 'BookmarkController@unBookmark')->name('unbookmark');
 
         // User/Torrent Report
         Route::any('/report', 'ReportController@postReport')->name('postReport');
@@ -180,24 +180,24 @@ Route::group(['middleware' => 'language'], function () {
         // Torrent
         Route::any('filterTorrents', 'TorrentController@faceted');
         Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
-        Route::get('/torrents/{id}', 'TorrentController@torrent')->name('torrent');
-        Route::get('/torrents/{id}/peers', 'TorrentController@peers')->name('peers');
-        Route::get('/torrents/{id}/history', 'TorrentController@history')->name('history');
+        Route::get('/torrent/{id}', 'TorrentController@torrent')->name('torrent');
+        Route::get('/torrent/{id}/peers', 'TorrentController@peers')->name('peers');
+        Route::get('/torrent/{id}/history', 'TorrentController@history')->name('history');
         Route::any('/upload', 'TorrentController@upload')->name('upload');
         Route::get('/download_check/{id}', 'TorrentController@downloadCheck')->name('download_check');
-        Route::get('/download/{id}', 'TorrentController@download')->name('download');
+        Route::get('/torrent/{id}/download', 'TorrentController@download')->name('download');
         Route::get('/poster', 'TorrentController@poster')->name('poster');
-        Route::post('/torrents/delete', 'TorrentController@deleteTorrent')->name('delete');
-        Route::any('/torrents/{id}/edit', 'TorrentController@edit')->name('edit');
-        Route::any('/torrents/{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
-        Route::any('/torrents/{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
-        Route::get('/torrents/poster/search', 'TorrentController@posterSearch')->name('poster_search');
-        Route::any('/torrents/{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
-        Route::any('/torrents/{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
-        Route::any('/torrents/{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
-        Route::any('/torrents/{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
-        Route::any('/torrents/{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
-        Route::any('/torrents/{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
+        Route::post('/torrent/delete', 'TorrentController@deleteTorrent')->name('delete');
+        Route::any('/torrent/{id}/edit', 'TorrentController@edit')->name('edit');
+        Route::any('/torrent/{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
+        Route::any('/torrent/{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
+        Route::get('/torrent/poster/search', 'TorrentController@posterSearch')->name('poster_search');
+        Route::any('/torrent/{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
+        Route::any('/torrent/{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
+        Route::any('/torrent/{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
+        Route::any('/torrent/{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
+        Route::any('/torrent/{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
+        Route::any('/torrent/{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
         Route::get('/torrent/{id}/confirm_delete', 'TorrentController@confirmDelete')->name('confirm_delete');
 
         // User
@@ -221,7 +221,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/unfollow/{user}', 'FollowController@unfollow')->name('unfollow');
 
         //Thank System
-        Route::any('/torrents/{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
+        Route::any('/torrent/{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
 
         // User Settings
         Route::get('/user/{id}/settings', 'UserController@settings')->name('user_settings');

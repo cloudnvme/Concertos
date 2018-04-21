@@ -53,6 +53,10 @@
             <a href="{{ route('edit', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Edit"/>
             </a>
+
+            <a href="{{ route('confirm_delete', ['id' => $torrent->id]) }}">
+              <input type="button" class="v-button" value="Delete"/>
+            </a>
           @endif
         </td>
       </tr>

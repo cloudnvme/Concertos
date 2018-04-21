@@ -1101,7 +1101,9 @@ class TorrentController extends Controller
 
     public function confirmDelete($id, Request $request)
     {
-        if (!auth()->user()->group->is_modo) {
+        $user = auth()->user();
+        $torrent = Torrent::where('id', $id)->firstOrFail();
+        if (!$user->group->is_modo || $user->id != $torrent->user->id) {
             abort(403, "Not authorized");
         }
 

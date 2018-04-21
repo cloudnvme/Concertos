@@ -14,7 +14,7 @@
 
 @section('content')
   <div class="container box">
-    <form class="request-search" action="/requests" method="get">
+    <form class="request-search" action="{{ route('requests') }}" method="get">
       <label class="form-group">
         <span class="col-sm-1 label label-default">Title</span>
         <input type="text" class="bar" name="title" placeholder="Title"/>
@@ -87,7 +87,7 @@
       </div>
 
       <input type="submit" value="Search"/>
-      <a href="/request/add">
+      <a href="{{ route('add_request') }}">
         <input type="button" class="v-button" value="Add request"/>
       </a>
 
@@ -119,7 +119,7 @@
               </span>
             </td>
             <td>
-              <a class="view-torrent" href="/request/{{ $request->slug }}{{ $request->id }}">
+              <a class="view-torrent" href="{{ route('request', ['id' => $request->id]) }}">
                 {{ $request->name }}
               </a>
             </td>

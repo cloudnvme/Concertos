@@ -34,11 +34,11 @@
     <div class="col-md-2 l-footer-section">
       <h2 class="l-footer-section-title">{{ trans('common.pages') }}</h2>
       <ul>
-        <li><a href="{{ route('home') }}/p/rules.1">{{ trans('common.rules') }}</a></li>
-        <li><a href="{{ route('home') }}/p/faq.3">{{ trans('common.faq') }}</a></li>
+        <li><a href="{{ route('page', ['id' => 1]) }}">{{ trans('common.rules') }}</a></li>
+        <li><a href="{{ route('page', ['id' => 3]) }}">{{ trans('common.faq') }}</a></li>
         <li><a href="{{ route('blacklist') }}">{{ trans('common.blacklist') }}</a></li>
-        <li><a href="{{ route('home') }}/p/tracker-codes.6">{{ trans('common.tracker-codes') }}</a></li>
-        <li><a href="{{ route('home') }}/p/upload-guide.5">{{ trans('common.upload-guide') }}</a></li>
+        <li><a href="{{ route('page', ['id' => 6]) }}">{{ trans('common.tracker-codes') }}</a></li>
+        <li><a href="{{ route('page', ['id' => 5]) }}">{{ trans('common.upload-guide') }}</a></li>
       </ul>
     </div>
 

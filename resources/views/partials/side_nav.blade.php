@@ -79,14 +79,14 @@
       </a>
     </li>
     <li>
-      <a href="{{ route('home') }}/p/rules.1">
+      <a href="{{ route('page', ['id' => 1]) }}">
         <i class="livicon" data-name="info" data-c="#ecf0f1" data-hc="#ecf0f1" data-size="18" data-loop="true"></i>
         <span class="menu-text">{{ trans('common.rules') }}</span>
         <span class="selected"></span>
       </a>
     </li>
     <li>
-      <a href="{{ route('home') }}/p/faq.3">
+      <a href="{{ route('page', ['id' => 3]) }}">
         <i class="livicon" data-name="question" data-c="#ecf0f1" data-hc="#ecf0f1" data-size="18" data-loop="true"></i>
         <span class="menu-text">{{ trans('common.faq') }}</span>
         <span class="selected"></span>

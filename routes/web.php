@@ -245,9 +245,9 @@ Route::group(['middleware' => 'language'], function () {
 
         // Poll System
         Route::get('/polls', 'PollController@index')->name('polls');
-        Route::get('/poll/{slug}', 'PollController@show')->name('poll');
+        Route::get('/poll/{id}', 'PollController@show')->name('poll');
         Route::post('/poll/vote', 'PollController@vote')->middleware('check_ip');
-        Route::get('/poll/{slug}/result', 'PollController@result')->name('poll_results');
+        Route::get('/poll/{id}/result', 'PollController@result')->name('poll_results');
 
         // Graveyard System
         Route::get('/graveyard', 'GraveyardController@index')->name('graveyard');

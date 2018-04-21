@@ -42,14 +42,14 @@ class PollController extends Controller
      * @param  int $slug
      *
      */
-    public function show($slug)
+    public function show($id)
     {
-        $poll = Poll::whereSlug($slug)->firstOrFail();
+        $poll = Poll::where('id', $id)->firstOrFail();
         $user = auth()->user();
         $user_has_voted = $poll->voters->where('user_id', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
-            return redirect('poll/' . $poll->slug . '/result')->with(Toastr::info('You have already vote on this poll. Here are the results.', 'Hey There!', ['options']));
+            return redirect(route('poll_results', ['id' => $id]))->with(Toastr::info('You have already vote on this poll. Here are the results.', 'Hey There!', ['options']));
         }
 
         return view('poll.show', compact('poll'));
@@ -65,7 +65,7 @@ class PollController extends Controller
         }
 
         if (Voter::where('user_id', $user->id)->where('poll_id', $poll->id)->exists()) {
-            return redirect('poll/' . $poll->slug . '/result')->with(Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']));
+            return redirect(route('poll_results', ['id' => $poll->id]))->with(Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']));
         }
 
         $voter = Voter::create([
@@ -74,18 +74,19 @@ class PollController extends Controller
         ]);
 
         $slug = $poll->slug;
-        $url = config('app.url');
+        $url = route('poll', ['id' => $poll->id]);
         $title = $poll->title;
 
-        Shoutbox::create(["user" => 1, "mentions" => 1, "message" => "A user has voted on poll [url=${url}/poll/$slug]${title}[/url]"]);
+
+        Shoutbox::create(["user" => 1, "mentions" => 1, "message" => "A user has voted on poll [url=${url}]${title}[/url]"]);
         cache()->forget("shoutbox_messages");
 
-        return redirect('poll/' . $poll->slug . '/result')->with(Toastr::success('Your vote has been counted.', 'Yay!', ['options']));
+        return redirect(route('poll_results', ['id' => $poll->id]))->with(Toastr::success('Your vote has been counted.', 'Yay!', ['options']));
     }
 
-    public function result($slug)
+    public function result($id)
     {
-        $poll = Poll::whereSlug($slug)->firstOrFail();
+        $poll = Poll::where('id', $id)->firstOrFail();
         $map = [
             'poll' => $poll,
             'total_votes' => $poll->totalVotes()

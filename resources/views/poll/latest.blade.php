@@ -25,7 +25,7 @@
       <div class="forum-category-title col-md-12">
         <div class="forum-category-childs">
           @foreach ($polls as $poll)
-          <a href="{{ url('/poll/' . $poll->slug) }}" class="forum-category-childs-forum col-md-4">
+          <a href="{{ route('poll', ['id' => $poll->id]) }}" class="forum-category-childs-forum col-md-4">
             <h3 class="text-bold">{{ $poll->title }}</h3>
             <p>{{ trans('poll.vote-now') }}</p>
           </a>

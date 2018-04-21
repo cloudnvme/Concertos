@@ -55,7 +55,6 @@ class NewRequestComment extends Notification
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
         if ($this->comment->anon == 0) {
             return [
                 'title' => "New Request Comment Recieved",

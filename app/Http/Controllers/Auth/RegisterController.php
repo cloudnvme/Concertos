@@ -88,9 +88,9 @@ class RegisterController extends Controller
                 ]);
                 $this->dispatch(new SendActivationMail($user, $token));
 
-                $appurl = config('app.url');
                 // Post To Shoutbox
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Welcome [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] hope you enjoy the community :rocket:"]);
+                $user_url = route('profile', ['id' => $user->id]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Welcome [url=${user_url}]" . $user->username . "[/url] hope you enjoy the community :rocket:"]);
                 Cache::forget('shoutbox_messages');
 
                 // Send Welcome PM

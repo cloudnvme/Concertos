@@ -55,18 +55,17 @@ class NewTorrentComment extends Notification
      */
     public function toArray($notifiable)
     {
-        $appurl = config('app.url');
         if ($this->comment->anon == 0) {
             return [
                 'title' => "New Torrent Comment Recieved",
                 'body' => $this->comment->user->username . " has left you a comment on " . $this->comment->torrent->name,
-                'url' => $appurl . '/torrents/' . $this->comment->torrent->slug . '.' . $this->comment->torrent->id
+                'url' => route('torrent', ['id' => $this->comment->torrent->id])
             ];
         } else {
             return [
                 'title' => "New Torrent Comment Recieved",
                 'body' => "A anonymous member has left you a comment on " . $this->comment->torrent->name,
-                'url' => $appurl . '/torrents/' . $this->comment->torrent->slug . '.' . $this->comment->torrent->id
+                'url' => route('torrent', ['id' => $this->comment->torrent->id])
             ];
         }
     }

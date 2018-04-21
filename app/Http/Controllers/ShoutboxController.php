@@ -76,11 +76,11 @@ class ShoutboxController extends Controller
                 $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
             }
 
-            $appurl = config('app.url');
+            $user_url = route('profile', ['id' => auth()->user()->id]);
             $data = '<li class="list-group-item">
       ' . ($flag ? $avatar : "") . '
       <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (auth()->user()->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . (auth()->user()->group->name) . '"></i>&nbsp;
-      <a style="color:' . (auth()->user()->group->color) . '; background-image:' . (auth()->user()->group->effect) . ';" href=\'' . $appurl . '/' . auth()->user()->username . '.' . auth()->user()->id . '\'>'
+      <a style="color:' . (auth()->user()->group->color) . '; background-image:' . (auth()->user()->group->effect) . ';" href=\'' . $user_url . '\'>'
                 . auth()->user()->username . '</a>
       ' . ($flag ? $online : "") . '
       </span>&nbsp;<span class="text-muted"><small><em>' . Carbon::now()->diffForHumans() . '</em></small></span>
@@ -169,12 +169,12 @@ class ShoutboxController extends Controller
                     $censorMessage = \LaravelEmojiOne::toImage(Shoutbox::getMessageHtml($message->message));
                 }
 
-				$appurl = config('app.url');
+				$user_url = route('profile', ['id' => $message->poster->id]);
 				$data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
 					' . ($flag ? $avatar : "") . '
 					<h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>
                     &nbsp;<a data-toggle="tooltip" title="" data-original-title="PrivateMessage" style="cursor: pointer; color:' . ($message->poster->group->color) . '; background-image:' . ($message->poster->group->effect) . ';" onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')">'
-					. e($message->poster->username) . ' <i class="fa fa-comment-o"></i></a> - <a href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>Profile</a>
+					. e($message->poster->username) . ' <i class="fa fa-comment-o"></i></a> - <a href=\'' . $user_url . '\'>Profile</a>
 					' . ($flag ? $online : "") . '
 					</span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
 					</h4>

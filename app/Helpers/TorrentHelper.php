@@ -283,12 +283,13 @@ class TorrentHelper
         }
 
         // Announce To Shoutbox
-        $appurl = config('app.url');
+        $user_url = route('profile', $user_id);
+        $torrent_url = route('torrent', $id);
         if ($anon == 0) {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=${user_url}]" . $username . "[/url] has uploaded [url=${torrent_url}]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
             cache()->forget('shoutbox_messages');
         } else {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url=${torrent_url}]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
             cache()->forget('shoutbox_messages');
         }
 

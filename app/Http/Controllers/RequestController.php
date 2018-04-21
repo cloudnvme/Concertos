@@ -352,7 +352,7 @@ class RequestController extends Controller
                 $user->save();
 
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/user/{$user->id}]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
 
                 return redirect('/requests')->with(Toastr::success('Request Added.', 'Yay!', ['options']));
@@ -456,7 +456,7 @@ class RequestController extends Controller
                 $user->save();
 
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has added " . $request->input('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/user/{$user->id}]" . $user->username . "[/url] has added " . $request->input('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
                 PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has a New Bounty!", 'message' => $user->username . " Has added a bounty to " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
 
@@ -573,7 +573,9 @@ class RequestController extends Controller
             $fill_user->addProgress(new UserFilled100Requests(), 1);
 
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] and was awarded " . $fill_amount . " BON "]);
+            $user_url = route('profile', ['id' => $fill_user->id]);
+            $request_url = route('request', ['id' => $torrentRequest->id]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=${user_url}]" . $fill_user->username . "[/url] has filled [url=${request_url}]" . $torrentRequest->name . "[/url] and was awarded " . $fill_amount . " BON "]);
             cache()->forget('shoutbox_messages');
             PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->filled_by, 'subject' => "Your Request Fullfill On " . $torrentRequest->name . " Has Been Approved!", 'message' => $torrentRequest->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] Enjoy The " . $torrentRequest->bounty . " Bonus Points!"]);
             return redirect()->route('request', ['id' => $id])->with(Toastr::success("You have approved {$torrentRequest->name} and the bounty has been awarded to {$fill_user->username}", "Yay!", ['options']));

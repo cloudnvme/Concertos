@@ -41,8 +41,8 @@ class AchievementUnlocked
         session()->flash('achievement', $event->progress->details->name);
 
         if ($user->private_profile == 0) {
-            $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has unlocked the " . $event->progress->details->name . " achievement :medal:"]);
+            $url = route('profile', ['id' => $user->id]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=${url}]" . $user->username . "[/url] has unlocked the " . $event->progress->details->name . " achievement :medal:"]);
             cache()->forget('shoutbox_messages');
         }
     }

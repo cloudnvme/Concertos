@@ -217,7 +217,7 @@ class ForumController extends Controller
 
             // Post To ShoutBox
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a reply on topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "?page={$post->getPageNumber()}#post-{$post->id}" . "]" . $topic->name . "[/url]"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/user/{$user->id}]" . $user->username . "[/url] has left a reply on topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "?page={$post->getPageNumber()}#post-{$post->id}" . "]" . $topic->name . "[/url]"]);
             cache()->forget('shoutbox_messages');
 
             // Mail Topic Creator Of New Reply
@@ -309,7 +309,7 @@ class ForumController extends Controller
 
                     // Post To ShoutBox
                     $appurl = config('app.url');
-                    Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "]" . $topic->name . "[/url]"]);
+                    Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/user/{$user->id}]" . $user->username . "[/url] has created a new topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "]" . $topic->name . "[/url]"]);
                     cache()->forget('shoutbox_messages');
 
                     //Achievements

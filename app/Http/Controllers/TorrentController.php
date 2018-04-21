@@ -123,7 +123,7 @@ class TorrentController extends Controller
 
             // Announce To Chat
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => ":warning: Attention, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been bumped to top by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! It could use more seeds! :warning:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => ":warning: Attention, [url={$appurl}/torrent/{$torrent->id}]{$torrent->name}[/url] has been bumped to top by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! It could use more seeds! :warning:"]);
             cache()->forget('shoutbox_messages');
 
             // Announce To IRC
@@ -715,11 +715,11 @@ class TorrentController extends Controller
             $appurl = config('app.url');
             if ($torrent->free == 0) {
                 $torrent->free = "1";
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrent/{$torrent->id}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
                 cache()->forget('shoutbox_messages');
             } else {
                 $torrent->free = "0";
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrent/{$torrent->id}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"]);
                 cache()->forget('shoutbox_messages');
             }
             $torrent->save();
@@ -757,7 +757,7 @@ class TorrentController extends Controller
                 ]);
                 $featured->save();
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! Grab It While You Can! :fire:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrent/{$torrent->id}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! Grab It While You Can! :fire:"]);
                 cache()->forget('shoutbox_messages');
             } else {
                 return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('Torrent Is Already Featured!', 'Whoops!', ['options']));
@@ -790,11 +790,11 @@ class TorrentController extends Controller
             $appurl = config('app.url');
             if ($torrent->doubleup == 0) {
                 $torrent->doubleup = "1";
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrent/{$torrent->id}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
                 cache()->forget('shoutbox_messages');
             } else {
                 $torrent->doubleup = "0";
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrent/{$torrent->id}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"]);
                 cache()->forget('shoutbox_messages');
             }
             $torrent->save();
@@ -906,14 +906,14 @@ class TorrentController extends Controller
         $torrent = Torrent::findOrFail($id);
         $reseed = History::where('info_hash', $torrent->info_hash)->where('active', 0)->get();
         if ($torrent->seeders <= 2) {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has requested a reseed on [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] can you help out :question:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/user/{$user->id}]{$user->username}[/url] has requested a reseed on [url={$appurl}/torrent/{$torrent->id}]{$torrent->name}[/url] can you help out :question:"]);
             cache()->forget('shoutbox_messages');
             foreach ($reseed as $pm) {
                 $pmuser = new PrivateMessage();
                 $pmuser->sender_id = 1;
                 $pmuser->reciever_id = $pm->user_id;
                 $pmuser->subject = "New Reseed Request!";
-                $pmuser->message = "Some time ago, you downloaded: [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url]
+                $pmuser->message = "Some time ago, you downloaded: [url={$appurl}/torrent/{$torrent->id}]{$torrent->name}[/url]
                                         Now, it has no seeds, and {$user->username} would still like to download it.
                                         If you still have this torrent in storage, please consider reseeding it! Thanks!
                                         [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";

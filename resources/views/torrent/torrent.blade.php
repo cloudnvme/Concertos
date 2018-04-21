@@ -19,7 +19,7 @@
     </a>
   </li>
   <li class="active">
-    <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"
+    <a href="{{ route('torrent', ['id' => $torrent->id]) }}" itemprop="url"
        class="l-breadcrumb-item-link">
       <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $torrent->name }}</span>
     </a>
@@ -36,16 +36,16 @@
         <td>Name</td>
         <td>
           {{ $torrent->name }}
-          <a href="/download/{{ $torrent->slug }}.{{ $torrent->id }}">
+          <a href="{{ route('download', ['id' => $torrent->id]) }}">
             <input type="button" class="v-button" value="Download"/>
           </a>
 
           @if (auth()->user()->hasBookmarked($torrent->id))
-            <a href="/torrents/unbookmark/{{ $torrent->id }}">
+            <a href="{{ route('unbookmark', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Remove Bookmark"/>
             </a>
           @else
-            <a href="/torrents/bookmark/{{ $torrent->id }}">
+            <a href="{{ route('bookmark', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Bookmark"/>
             </a>
           @endif
@@ -92,7 +92,7 @@
             {{ $torrent->user->group->name }}
             {{ $torrent->user->username }}
           @endif
-          <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/thank">
+          <a href="{{ route('torrentThank', ['id' => $torrent->id]) }}">
             <input type="button" class="v-button" value="Thank Uploader"/>
           </a>
           <span class="badge-extra text-bold">
@@ -127,7 +127,7 @@
           <td>
             <div class="torrent-tags">
               @foreach ($torrent->tags as $tag)
-                <a href="/torrents/?tags={{$tag->name}}"><span class="tag">{{ $tag->name }}</span></a>
+                <a href="{{ route('torrents', ['tags' => $tag->name]) }}"><span class="tag">{{ $tag->name }}</span></a>
               @endforeach
             </div>
           </td>
@@ -159,56 +159,56 @@
           <td>Moderation</td>
           <td>
             @if ($torrent->free)
-              <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/torrent_fl">
+              <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}">
                 <input type="button" class="v-button" value="Revoke Freeleech"/>
               </a>
             @else
-              <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/torrent_fl">
+              <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}">
                 <input type="button" class="v-button" value="Grant Freeleech"/>
               </a>
             @endif
 
             @if ($torrent->doubleup)
-              <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/torrent_doubleup">
+              <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}">
                 <input type="button" class="v-button" value="Revoke Double Upload"/>
               </a>
             @else
-              <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/torrent_doubleup">
+              <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}">
                 <input type="button" class="v-button" value="Grant Double Upload"/>
               </a>
             @endif
 
-            <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/torrent_sticky">
+            <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Sticky"/>
             </a>
 
-            <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/bumpTorrent">
+            <a href="{{ route('bumpTorrent', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Bump"/>
             </a>
 
             @if ($torrent->featured)
-              <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/torrent_feature">
+              <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}">
                 <input type="button" class="v-button" value="Revoke Feature"/>
               </a>
             @else
-              <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/torrent_feature">
+              <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}">
                 <input type="button" class="v-button" value="Feature"/>
               </a>
             @endif
 
-            <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/edit">
+            <a href="{{ route('edit', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Edit"/>
             </a>
 
-            <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/peers">
+            <a href="{{ route('peers', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Peers"/>
             </a>
 
-            <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/history">
+            <a href="{{ route('history', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="History"/>
             </a>
 
-            <a href="/torrent/{{ $torrent->id }}/confirm_delete">
+            <a href="{{ route('confirm_delete', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Delete"/>
             </a>
 

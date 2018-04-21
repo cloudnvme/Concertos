@@ -137,14 +137,14 @@
               {{ $torrent->category->name }}
             </td>
             <td>
-              <a class="view-torrent" href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}">
+              <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">
                 {{ $torrent->name }}
               </a>
               @if ($torrent->tags->isNotEmpty())
                 <div>
                   @foreach($torrent->tags as $tag)
                     <span class="tag badge-user">
-                      <a href="/torrents/?tags={{ $tag->name }}">{{ $tag->name }}</a>
+                      <a href="{{ route('torrents', ['tags' => $tag->name]) }}">{{ $tag->name }}</a>
                     </span>
                   @endforeach
                 </div>

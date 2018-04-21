@@ -126,9 +126,9 @@
           <td>Tags</td>
           <td>
             <div class="torrent-tags">
-            @foreach ($torrent->tags as $tag)
+              @foreach ($torrent->tags as $tag)
                 <a href="/torrents/?tags={{$tag->name}}"><span class="tag">{{ $tag->name }}</span></a>
-            @endforeach
+              @endforeach
             </div>
           </td>
         </tr>
@@ -198,6 +198,14 @@
 
             <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/edit">
               <input type="button" class="v-button" value="Edit"/>
+            </a>
+
+            <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/peers">
+              <input type="button" class="v-button" value="Peers"/>
+            </a>
+
+            <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/history">
+              <input type="button" class="v-button" value="History"/>
             </a>
 
             <a href="/torrent/{{ $torrent->id }}/confirm_delete">

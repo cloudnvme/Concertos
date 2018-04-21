@@ -62,7 +62,7 @@ class CommentController extends Controller
         $comment->article_id = $article->id;
         $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'article_id' => 'required']);
         $user_url = route('profile', ['id' => $user->id]);
-        $article_url = route('article', ['id' => article->id])
+        $article_url = route('article', ['id' => $article->id]);
         if ($v->passes()) {
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=${user_url}]" . $user->username . "[/url] has left a comment on article [url=${article_url}]" . $article->title . "[/url]"]);
             cache()->forget('shoutbox_messages');
@@ -120,8 +120,8 @@ class CommentController extends Controller
             }
 
             // Auto Shout
-            $user_url = route('profile', $user->id);
-            $torrent_url = route('torrent', $torrent->id);
+            $user_url = route('profile', ['id' => $user->id]);
+            $torrent_url = route('torrent', ['id' => $torrent->id]);
             if ($comment->anon == 0) {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=$user_url]" . $user->username . "[/url] has left a comment on torrent [url=${torrent_url}]" . $torrent->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');

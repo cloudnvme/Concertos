@@ -10,7 +10,7 @@
 
 @section('content')
   <div class="container box" id="confirm-delete">
-    <form action="/torrents/delete" method="post">
+    <form action="{{ route('delete') }}" method="post">
       <h1>Are you sure you want to delete this torrent?</h1>
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <div class="form-group">
@@ -20,10 +20,6 @@
       <div class="form-group">
         <span class="col-sm-1 label label-default">Name</span>
         <input type="text" class="bar" name="name" value="{{ $torrent->name }}"/>
-      </div>
-      <div class="form-group">
-        <span class="col-sm-1 label label-default">Slug</span>
-        <input type="text" class="bar" name="slug" value="{{ $torrent->slug }}"/>
       </div>
       <div class="form-group">
         <span class="col-sm-1 label label-default">Message</span>

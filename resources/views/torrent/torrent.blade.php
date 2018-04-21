@@ -50,7 +50,7 @@
             </a>
           @endif
           @if (!$user->group->is_modo && $user->id === $torrent->user->id)
-            <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/edit">
+            <a href="{{ route('edit', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Edit"/>
             </a>
           @endif
@@ -257,7 +257,7 @@
       {{ $comments->fragment('comments')->links() }}
     @endif
 
-    <form class="comment-editor" action="/comment/torrent/{{ $torrent->slug }}.{{ $torrent->id }}">
+    <form class="comment-editor" action="{{ route('comment_torrent', ['id' => $user->id]) }}">
       <div class="form-group">
         <label for="content">{{ trans('common.your-comment') }}:</label><span class="badge-extra">{{ trans('common.type') }}
           <strong>:</strong> {{ trans('common.for') }} emoji</span> <span

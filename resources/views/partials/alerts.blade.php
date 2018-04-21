@@ -3,7 +3,6 @@
     <div class="alert alert-info" id="alert1">
       <center>
     <span>
-      45555
       @if(config('other.freeleech') == true) {{ trans('common.freeleech_activated') }}! @endif
       @if(config('other.invite-only') == false) {{ trans('common.openreg_activated') }}! @endif
       @if(config('other.doubleup') == true) {{ trans('common.doubleup_activated') }}! @endif

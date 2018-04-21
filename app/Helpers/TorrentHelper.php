@@ -256,11 +256,11 @@ class TorrentHelper
         return $data;
     }
 
-    public static function approveHelper($slug, $id)
+    public static function approveHelper($id)
     {
         Torrent::approve($id);
 
-        $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
+        $torrent = Torrent::withAnyStatus()->where('id', $id)->first();
         $user = $torrent->user;
         $user_id = $user->id;
         $username = $user->username;

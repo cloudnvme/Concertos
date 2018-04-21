@@ -47,7 +47,7 @@ class ModerationController extends Controller
      */
     public function approve($id)
     {
-        TorrentHelper::approveHelper($slug, $id);
+        TorrentHelper::approveHelper($id);
 
         return redirect()->route('moderation')->with(Toastr::success('Torrent Approved', 'Yay!', ['options']));
     }

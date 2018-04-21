@@ -123,7 +123,7 @@ class CommentController extends Controller
             $user_url = route('profile', $user->id);
             $torrent_url = route('torrent', $torrent->id);
             if ($comment->anon == 0) {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$torrent_}]" . $user->username . "[/url] has left a comment on torrent [url=${torrent_url}]" . $torrent->name . "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=$user_url]" . $user->username . "[/url] has left a comment on torrent [url=${torrent_url}]" . $torrent->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
             } else {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on torrent [url={$torrent_url}]" . $torrent->name . "[/url]"]);

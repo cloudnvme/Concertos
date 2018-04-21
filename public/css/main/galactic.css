@@ -744,3 +744,7 @@ input[type="submit"],
 .badge-extra {
     border-color: #444;
 }
+
+.alert-info {
+    background-color: #446;
+}

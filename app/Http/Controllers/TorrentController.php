@@ -329,7 +329,7 @@ class TorrentController extends Controller
 
                 // check for trusted user and update torrent
                 if ($user->group->is_trusted) {
-                    TorrentHelper::approveHelper($torrent->slug, $torrent->id);
+                    TorrentHelper::approveHelper($torrent->id);
                 }
 
                 foreach ($tags as $tag) {

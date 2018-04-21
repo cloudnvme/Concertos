@@ -49,6 +49,11 @@
               <input type="button" class="v-button" value="Bookmark"/>
             </a>
           @endif
+          @if (!$user->group->is_modo && $user->id === $torrent->user->id)
+            <a href="/torrents/{{ $torrent->slug }}.{{ $torrent->id }}/edit">
+              <input type="button" class="v-button" value="Edit"/>
+            </a>
+          @endif
         </td>
       </tr>
       <tr>

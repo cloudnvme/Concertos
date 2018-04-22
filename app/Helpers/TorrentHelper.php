@@ -152,7 +152,7 @@ class TorrentHelper
                 $icons .= "<span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'><i class='fa fa-certificate text-pink' data-toggle='tooltip' title='' data-original-title='Featured Torrent'></i> Featured</span>";
             }
 
-            if ($user->group->is_freeleech == 1) {
+            if (\App\Policy::isFreeleech($user)) {
                 $icons .= "<span class='badge-extra text-bold'><i class='fa fa-trophy text-purple' data-toggle='tooltip' title='' data-original-title='Special FL'></i> Special FL</span>";
             }
 

@@ -257,7 +257,7 @@ class AnnounceController extends Controller
         $personal_freeleech = PersonalFreeleech::where('user_id', $user->id)->first();
         $freeleech_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
 
-        if (config('other.freeleech') == true || $torrent->free == 1 || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token) {
+        if (config('other.freeleech') == true || $torrent->free == 1 || $personal_freeleech || \App\Policy::isFreeleech($user) || $freeleech_token) {
             $mod_downloaded = 0;
         } else {
             $mod_downloaded = $downloaded;

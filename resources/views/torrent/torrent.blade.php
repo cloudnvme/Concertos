@@ -265,7 +265,7 @@
                href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>
           @endif
           wrote {{ $comment->created_at->diffForHumans() }}:
-          @if ($user->id === $comment->user_id || $user->group_is_modo)
+          @if ($user->id === $comment->user_id || $user->group->is_modo)
             <a href="/comment/delete/{{ $comment->id }}">
               <input type="button" class="v-button m" value="Delete">
             </a>

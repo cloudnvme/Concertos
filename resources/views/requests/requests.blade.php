@@ -115,7 +115,10 @@
         @foreach ($requests as $request)
           <tr>
             <td>
-              <i class="fa torrent-icon {{ $request->category->icon }}"></i> {{ $request->type->name }} {{ $request->category->name }}
+              <i class="fa torrent-icon {{ $request->category->icon }}"></i>
+              <span>
+                <a class="link" href="{{ route('requests', ['type_' . $request->type->id]) }}">{{ $request->type->name }}</a>
+                <a class="link" href="{{ route('requests', ['category_' . $request->category->id]) }}">{{ $request->category->name }}</a>
               </span>
             </td>
             <td>
@@ -139,13 +142,13 @@
             </td>
             <td>
               @if ($request->claimed !== null && $request->filled_hash === null)
-                Claimed
+                <a class="link" href="{{ route('requests', ['claimed' => 'on']) }}">Claimed</a>
               @elseif ($request->filled_hash !== null && $request->approved_by === null)
-                Pending
+                <a class="link" href="{{ route('requests', ['pending' => 'on']) }}">Pending</a>
               @elseif ($request->filled_hash === null)
-                Unfilled
+                <a class="link" href="{{ route('requests', ['unfilled' => 'on']) }}">Unfilled</a>
               @else
-                Filled
+                <a class="link" href="{{ route('requests', ['filled' => 'on']) }}">Filled</a>
               @endif
             </td>
           </tr>

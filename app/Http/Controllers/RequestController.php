@@ -123,7 +123,7 @@ class RequestController extends Controller
         }
 
         if ($claimed) {
-            $requests = $requests->where('claimed'. '!=', null)->where('filled_hash', null);
+            $requests = $requests->where('claimed', '!=', null)->where('filled_hash', null);
         }
 
         if ($pending) {

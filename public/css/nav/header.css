@@ -289,6 +289,7 @@
 }
 
 .hoe-searchbar input {
+    color: black;
     background: #f3f3f3 none repeat scroll 0 0;
     border: medium none;
     border-radius: 30px;
@@ -297,10 +298,10 @@
     font-size: 14px;
     height: 35px;
     margin: 7px 4px 0;
-    width: 140px;
+    width: 200px;
     position: absolute;
     padding-left: 22px;
-    z-index: 100
+    z-index: 100;
 }
 
 .hoe-searchbar input,
@@ -311,7 +312,7 @@
 .hoe-searchbar input:focus {
     box-shadow: none;
     border-color: #eff0f4;
-    width: 210px;
+    width: 300px;
     position: absolute
 }
 

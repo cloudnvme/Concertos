@@ -65,9 +65,8 @@
       @endif
 
       <li>
-        <form class="hoe-searchbar" role="form" method="GET" action="{{ action('TorrentController@torrents') }}">
-          {{ csrf_field() }}
-          <input name="search" type="text" id="name" placeholder="{{ trans('common.quick-search') }}"
+        <form class="hoe-searchbar" role="form" method="GET" action="{{ route('torrents') }}">
+          <input name="title" type="text" id="name" placeholder="{{ trans('common.quick-search') }}"
                  class="form-control">
           <span class="search-icon"><i class="fa fa-search"></i></span>
         </form>

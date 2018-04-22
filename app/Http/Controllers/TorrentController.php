@@ -1022,7 +1022,7 @@ class TorrentController extends Controller
             $id = $request->id;
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-            if (\App\Policy::isModerator($user) || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
+            if (\App\Policy::canDeleteTorrent($user, $torrent)) {
                 $users = History::where('info_hash', $torrent->info_hash)->get();
                 foreach ($users as $pm) {
                     $pmuser = new PrivateMessage();

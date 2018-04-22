@@ -12,6 +12,11 @@ class Policy
         return $user->group->is_modo;
     }
 
+    public static function isInternal(User $user)
+    {
+        return $user->group->is_internal;
+    }
+
     public static function canEditTorrent(User $user, Torrent $torrent)
     {
         return self::isModerator($user) || $torrent->user->id == $user->id;

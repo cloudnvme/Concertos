@@ -22,6 +22,11 @@ class Policy
         return $user->group->is_freeleech;
     }
 
+    public static function isImmune(User $user)
+    {
+        return $user->group->is_immune;
+    }
+
     public static function canEditTorrent(User $user, Torrent $torrent)
     {
         return self::isModerator($user) || $torrent->user->id == $user->id;

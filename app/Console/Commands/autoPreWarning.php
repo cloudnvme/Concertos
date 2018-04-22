@@ -52,7 +52,7 @@ class autoPreWarning extends Command
                             ->get();
 
             foreach ($prewarn as $pre) {
-                if (!$pre->user->group->is_immune) {
+                if (!\App\Policy::isImmune($pre->user)) {
                     if ($pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
                         $exsist = Warning::where('torrent', $pre->torrent->id)->where('user_id', $pre->user->id)->first();
 

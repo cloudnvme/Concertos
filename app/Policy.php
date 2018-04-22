@@ -12,6 +12,11 @@ class Policy
         return $user->group->is_modo;
     }
 
+    public static function isAdmin(User $user)
+    {
+        return $user->group->is_admin;
+    }
+
     public static function isInternal(User $user)
     {
         return $user->group->is_internal;

@@ -65,19 +65,19 @@
         <td>
           @if ($torrent->free)
             <span class="badge-user">
-              Freeleech
+              <a class="link" href="{{ route('torrents', ['freeleech' => 'on']) }}">Freeleech</a>
             </span>
           @endif
 
           @if ($torrent->doubleup)
             <span class="badge-user">
-              Double Upload
+              <a class="link" href="{{ route('torrents', ['doubleupload' => 'on']) }}">Double Upload</a>
             </span>
           @endif
 
           @if ($torrent->featured)
             <span class="badge-user">
-              Featured
+              <a class="link" href="{{ route('torrents', ['doubleupload' => 'on']) }}">Featured</a>
             </span>
           @endif
         </td>
@@ -89,12 +89,12 @@
             <i class="fa fa-question-circle"></i>
             Anonymous
             @if ($user->group->is_modo)
-              ({{ $torrent->user->username }})
+              (<a class="link" href="{{ route('profile', ['id' => $user->id]) }}">{{ $torrent->user->username }}</a>)
             @endif
           @else
             <i class="{{ $torrent->user->group->icon }}"></i>
             {{ $torrent->user->group->name }}
-            {{ $torrent->user->username }}
+            <a class="link" href="{{ route('profile', ['id' => $user->id]) }}">{{ $torrent->user->username }}</a>
           @endif
           <a href="{{ route('torrentThank', ['id' => $torrent->id]) }}">
             <input type="button" class="v-button" value="Thank Uploader"/>
@@ -119,7 +119,9 @@
       </tr>
       <tr>
         <td>Category</td>
-        <td>{{ $torrent->category->name }}</td>
+        <td>
+          <a class="link" href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
+        </td>
       </tr>
       <tr>
         <td>Type</td>
@@ -240,12 +242,12 @@
             <i class="fa fa-question-circle"></i>
             Anonymous
             @if ($user->group->is_modo)
-              ({{ $comment->user->username }})
+              (<a class="link" href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>)
             @endif
           @else
             <i class="{{ $comment->user->group->icon }}"></i>
             {{ $comment->user->group->name }}
-            {{ $comment->user->username }}
+            <a class="link" href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>
           @endif
           wrote {{ $comment->created_at->diffForHumans() }}:
           @if ($user->id === $comment->user_id || $user->group_is_modo)

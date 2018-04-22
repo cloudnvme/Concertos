@@ -99,7 +99,7 @@
         <span class="selected"></span>
       </a>
     </li>--}}
-    @if(auth()->user()->group->is_modo)
+    @if(\App\Policy::isModerator(auth()->user()))
     <li>
       <a href="{{ route('staff_dashboard') }}">
         <i class="livicon" data-name="gears" data-c="#E74C3C" data-hc="#E74C3C" data-size="18" data-loop="true"></i>

@@ -256,7 +256,7 @@ class UserController extends Controller
 
     public function getWarnings($id)
     {
-        if (auth()->user()->group->is_modo) {
+        if (\App\Policy::isModerator(auth()->user())) {
             $user = User::findOrFail($id);
             $warnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('active')->paginate(25);
             $warningcount = Warning::where('user_id', $id)->count();
@@ -268,7 +268,7 @@ class UserController extends Controller
 
     public function deactivateWarning($id)
     {
-        if (auth()->user()->group->is_modo) {
+        if (\App\Policy::isModerator(auth()->user())) {
             $staff = auth()->user();
             $warning = Warning::findOrFail($id);
             $warning->expires_on = Carbon::now();
@@ -284,7 +284,7 @@ class UserController extends Controller
     public function myUploads($id)
     {
         $user = User::findOrFail($id);
-        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
+        if (\App\Policy::isModerator(auth()->user()) || auth()->user()->id == $user->id) {
             $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', $user->id)->paginate(50);
             return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
         }
@@ -295,7 +295,7 @@ class UserController extends Controller
     public function myActive($id)
     {
         $user = User::findOrFail($id);
-        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
+        if (\App\Policy::isModerator(auth()->user()) || auth()->user()->id == $user->id) {
             $active = Peer::sortable(['created_at' => 'desc'])->where('user_id', $user->id)->with('torrent')->distinct('hash')->paginate(50);
             return view('user.active', ['user' => $user, 'active' => $active]);
         }
@@ -306,7 +306,7 @@ class UserController extends Controller
     public function myHistory($id)
     {
         $user = User::findOrFail($id);
-        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
+        if (\App\Policy::isModerator(auth()->user()) || auth()->user()->id == $user->id) {
             $his_upl = History::where('user_id', $id)->sum('actual_uploaded');
             $his_upl_cre = History::where('user_id', $id)->sum('uploaded');
             $his_downl = History::where('user_id', $id)->sum('actual_downloaded');

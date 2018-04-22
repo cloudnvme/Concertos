@@ -169,7 +169,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
-        if ($user->group->is_modo || auth()->user()->id == $user->id) {
+        if (\App\Policy::isModerator($user) || auth()->user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
         } else {
         // Removes UserID from Torrents if any and replaces with System UserID (0)

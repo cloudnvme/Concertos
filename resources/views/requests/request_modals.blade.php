@@ -66,7 +66,7 @@
 				<p class="text-center">{{ trans('request.reset-confirmation') }}?</p>
 					<div class="btns">
 						<button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
-						<button type="submit" @if(!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled @endif class="btn btn-warning">{{ trans('request.reset') }}</button>
+						<button type="submit" @if(!\App\Policy::isModerator($user) || $torrentRequest->filled_hash == null) disabled @endif class="btn btn-warning">{{ trans('request.reset') }}</button>
 					</div>
 			</div>
 		</form>

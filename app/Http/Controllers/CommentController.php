@@ -270,7 +270,7 @@ class CommentController extends Controller
         $user = auth()->user();
         $comment = Comment::findOrFail($comment_id);
 
-        if ($user->group->is_modo || $user->id == $comment->user_id) {
+        if (\App\Policy::isModerator($user) || $user->id == $comment->user_id) {
             $content = $request->input('comment-edit');
             $comment->content = $content;
             $comment->save();
@@ -292,7 +292,7 @@ class CommentController extends Controller
         $user = auth()->user();
         $comment = Comment::findOrFail($comment_id);
 
-        if ($user->group->is_modo || $user->id == $comment->user_id) {
+        if (\App\Policy::isModerator($user) || $user->id == $comment->user_id) {
             $comment->delete();
 
             return back()->with(Toastr::success('Comment has Been Deleted.', 'Yay!', ['options']));

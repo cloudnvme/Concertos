@@ -49,7 +49,7 @@
               <input type="button" class="v-button" value="Bookmark"/>
             </a>
           @endif
-          @if (!$user->group->is_modo && $user->id === $torrent->user->id)
+          @if (!\App\Policy::isModerator($user) && $user->id === $torrent->user->id)
             <a href="{{ route('edit', ['id' => $torrent->id]) }}">
               <input type="button" class="v-button" value="Edit"/>
             </a>
@@ -100,7 +100,7 @@
           @if ($torrent->anon)
             <i class="fa fa-question-circle"></i>
             Anonymous
-            @if ($user->group->is_modo)
+            @if (\App\Policy::isModerator($user))
               (<a class="link" href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>)
             @endif
           @else
@@ -173,7 +173,7 @@
           </span>
         </td>
       </tr>
-      @if ($user->group->is_modo)
+      @if (\App\Policy::isModerator($user))
         <tr>
           <td>Moderation</td>
           <td>
@@ -254,7 +254,7 @@
           @if ($comment->anon)
             <i class="fa fa-question-circle"></i>
             Anonymous
-            @if ($user->group->is_modo)
+            @if (\App\Policy::isModerator($user))
               (<a class="link"
                   href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>)
             @endif
@@ -265,7 +265,7 @@
                href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>
           @endif
           wrote {{ $comment->created_at->diffForHumans() }}:
-          @if ($user->id === $comment->user_id || $user->group->is_modo)
+          @if ($user->id === $comment->user_id || \App\Policy::isModerator($user))
             <a href="{{ route('comment_delete', ['id' => $comment->id]) }}">
               <input type="button" class="v-button m" value="Delete">
             </a>

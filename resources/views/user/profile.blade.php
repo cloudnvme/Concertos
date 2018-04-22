@@ -18,7 +18,7 @@
 
 @section('content')
 <div class="container">
-  @if( $user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->group->is_modo )
+  @if( $user->private_profile == 1 && auth()->user()->id != $user->id && !\App\Policy::isModerator(auth()->user()) )
   <div class="container">
     <div class="jumbotron shadowed">
       <div class="container">
@@ -80,7 +80,7 @@
           <i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="{{ trans('user.offline') }}"></i>
           @endif
           @if($user->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('user.active-warning') }}"></i>@endif
-          @if($user->notes->count() > 0 && auth()->user()->group->is_modo)<i class="fa fa-comment fa-beat" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('user.staff-noted') }}"></i>@endif
+          @if($user->notes->count() > 0 && \App\Policy::isModerator(auth()->user()))<i class="fa fa-comment fa-beat" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('user.staff-noted') }}"></i>@endif
         </h2>
         <h4>{{ trans('common.group') }}: <span class="badge-user text-bold" style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};"><i class="{{ $user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $user->group->name }}"></i> {{ $user->group->name }}</span></h4>
         <h4>{{ trans('user.registration-date') }} {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
@@ -94,7 +94,7 @@
         <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_report"><i class="fa fa-eye"></i> {{ trans('user.report') }}</button>
         </span>
         <span style="float:right;">
-        @if(auth()->check() && auth()->user()->group->is_modo)
+        @if(auth()->check() && \App\Policy::isModerator(auth()->user()))
         @if($user->group->id == 5)
         <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal_user_unban"><span class="fa fa-undo"></span> {{ trans('user.unban') }} </button>
         @else
@@ -245,7 +245,7 @@
     <td>Warnings</td>
     <td>
       <span class="badge-extra text-red text-bold"><strong>{{ trans('user.active-warnings') }}: {{ $warnings->count() }} / {!! config('hitrun.max_warnings') !!}</strong></span>
-      @if(auth()->check() && auth()->user()->group->is_modo)
+      @if(auth()->check() && \App\Policy::isModerator(auth()->user()))
       <a href="{{ route('warninglog', ['id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.warning-log') }}</strong></span></a>
       @endif
       <div class="progress">
@@ -263,7 +263,7 @@
   </table>
 </div>
 
-  @if(auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+  @if(auth()->check() && (auth()->user()->id == $user->id || \App\Policy::isModerator(auth()->user())))
   <div class="block">
   <h3><i class="fa fa-lock"></i> {{ trans('user.private-info') }}</h3>
   <table class="table table-condensed table-bordered table-striped">
@@ -377,7 +377,7 @@
 </div>
 @endif
 
-@if(auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+@if(auth()->check() && (auth()->user()->id == $user->id || \App\Policy::isModerator(auth()->user())))
 <div class="block">
   <center>
     <a href="{{ route('myuploads', ['id' => $user->id]) }}">

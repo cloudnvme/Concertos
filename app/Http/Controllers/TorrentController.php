@@ -113,7 +113,7 @@ class TorrentController extends Controller
      */
     public function bumpTorrent($id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        if (\App\Policy::isModerator(auth()->user()) || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             $torrent->created_at = Carbon::now();
             $torrent->save();
@@ -173,7 +173,7 @@ class TorrentController extends Controller
      */
     public function sticky($id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        if (\App\Policy::isModerator(auth()->user()) || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             if ($torrent->sticky == 0) {
                 $torrent->sticky = "1";
@@ -710,7 +710,7 @@ class TorrentController extends Controller
      */
     public function grantFL($id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        if (\App\Policy::isModerator(auth()->user()) || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             $appurl = config('app.url');
             if ($torrent->free == 0) {
@@ -745,7 +745,7 @@ class TorrentController extends Controller
      */
     public function grantFeatured($id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        if (\App\Policy::isModerator(auth()->user()) || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             if ($torrent->featured == 0) {
                 $torrent->free = "1";
@@ -785,7 +785,7 @@ class TorrentController extends Controller
      */
     public function grantDoubleUp($id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        if (\App\Policy::isModerator(auth()->user()) || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             $appurl = config('app.url');
             if ($torrent->doubleup == 0) {
@@ -955,7 +955,7 @@ class TorrentController extends Controller
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        if ($user->group->is_modo || $user->id == $torrent->user_id) {
+        if (\App\Policy::isModerator($user) || $user->id == $torrent->user_id) {
             if ($request->isMethod('POST')) {
                 $name = $request->input('name');
                 $imdb = $request->input('imdb');
@@ -1022,7 +1022,7 @@ class TorrentController extends Controller
             $id = $request->id;
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-            if ($user->group->is_modo || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
+            if (\App\Policy::isModerator($user) || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
                 $users = History::where('info_hash', $torrent->info_hash)->get();
                 foreach ($users as $pm) {
                     $pmuser = new PrivateMessage();
@@ -1103,7 +1103,7 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
         $torrent = Torrent::where('id', $id)->firstOrFail();
-        if (!$user->group->is_modo && $torrent->user->id != $user->id) {
+        if (!\App\Policy::isModerator($user) && $torrent->user->id != $user->id) {
             abort(403, "Not authorized");
         }
 

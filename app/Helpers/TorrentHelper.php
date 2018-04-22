@@ -90,7 +90,7 @@ class TorrentHelper
             }
 
             if ($list->anon == 1) {
-                if ($user->id == $list->user->id || $user->group->is_modo) {
+                if ($user->id == $list->user->id || \App\Policy::isModerator($user)) {
                     $staff_anon = "<a href='{$user_link}'>({$list->user->username})</a>";
                 } else {
                     $staff_anon = "";

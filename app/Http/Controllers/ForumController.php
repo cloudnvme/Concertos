@@ -172,7 +172,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if (!$category->getPermission()->reply_topic || ($topic->state == "close" && !auth()->user()->group->is_modo)) {
+        if (!$category->getPermission()->reply_topic || ($topic->state == "close" && !\App\Policy::isModerator(auth()->user()))) {
             return redirect()->route('forum_index')->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }
 
@@ -354,7 +354,7 @@ class ForumController extends Controller
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();
 
-        if ($user->group->is_modo) {
+        if (\App\Policy::isModerator($user)) {
             if ($request->isMethod('POST')) {
                 $name = $request->input('name');
                 $forum_id = $request->input('forum_id');
@@ -388,7 +388,7 @@ class ForumController extends Controller
         $post = Post::findOrFail($postId);
         $parsedContent = null;
 
-        if ($user->group->is_modo == false) {
+        if (\App\Policy::isModerator($user) == false) {
             if ($post->user_id != $user->id) {
                 return redirect()->route('forum_topic', ['id' => $topic->id])->with(Toastr::error('You Cannot Edit This!', 'Whoops!', ['options']));
             }
@@ -423,7 +423,7 @@ class ForumController extends Controller
         $topic = Topic::findOrFail($id);
         $post = Post::findOrFail($postId);
 
-        if ($user->group->is_modo == false) {
+        if (\App\Policy::isModerator($user) == false) {
             if ($post->user_id != $user->id) {
                 return redirect()->route('forum_topic', ['id' => $topic->id])->with(Toastr::error('You Cannot Delete This!', 'Whoops!', ['options']));
             }
@@ -478,7 +478,7 @@ class ForumController extends Controller
     {
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
-        if ($user->group->is_modo == true) {
+        if (\App\Policy::isModerator($user) == true) {
             $posts = $topic->posts();
             $posts->delete();
             $topic->delete();

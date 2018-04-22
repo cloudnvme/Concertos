@@ -127,7 +127,7 @@ class ModerationController extends Controller
     {
         $user = auth()->user();
         // reset code here
-        if ($user->group->is_modo) {
+        if (\App\Policy::isModerator($user)) {
             $torrentRequest = TorrentRequest::findOrFail($id);
             $torrentRequest->filled_by = null;
             $torrentRequest->filled_when = null;

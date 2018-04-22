@@ -67,7 +67,7 @@
             <p class="pre">{{ $p->user->title }}</p>
             <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
             <span class="inline">
-            @if(auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id) && $topic->state == 'open')
+            @if(auth()->check() && (\App\Policy::isModerator(auth()->user()) || $p->user_id == auth()->user()->id) && $topic->state == 'open')
             <button id="quote" class="btn btn-xs btn-xxs btn-info">{{ trans('forum.quote') }}</button>
             <a href="{{ route('forum_post_edit', ['id' => $topic->id, 'postId' => $p->id]) }}"><button class="btn btn-xs btn-xxs btn-warning">{{ trans('common.edit') }}</button></a>
             <a href="{{ route('forum_post_delete', ['id' => $topic->id, 'postId' => $p->id]) }}"><button class="btn btn-xs btn-xxs btn-danger">{{ trans('common.delete') }}</button></a>
@@ -117,7 +117,7 @@
       <br>
       <div class="block">
       <div class="topic-new-post">
-        @if($topic->state == "close" && auth()->user()->group->is_modo)
+        @if($topic->state == "close" && \App\Policy::isModerator(auth()->user()))
         <form role="form" method="POST" action="{{ route('forum_reply',['id' => $topic->id]) }}">
         {{ csrf_field() }}
         <div class="text-danger">This topic is closed, but you can still reply due to you being {{auth()->user()->group->name}}.</div>
@@ -147,7 +147,7 @@
         @endif
 
         <center>
-          @if(auth()->check() && (auth()->user()->group->is_modo || $topic->user_id == auth()->user()->id))
+          @if(auth()->check() && (\App\Policy::isModerator(auth()->user()) || $topic->user_id == auth()->user()->id))
           <h3>{{ trans('forum.moderation') }}</h3>
           @if($topic->state == "close")
           <a href="{{ route('forum_open', ['id' => $topic->id, ])}}" class="btn btn-success">{{ trans('forum.open-topic') }}</a>
@@ -155,11 +155,11 @@
           <a href="{{ route('forum_close', ['id' => $topic->id, ])}}" class="btn btn-info">{{ trans('forum.mark-as-resolved') }}</a>
           @endif
           @endif
-          @if(auth()->check() && auth()->user()->group->is_modo)
+          @if(auth()->check() && \App\Policy::isModerator(auth()->user()))
           <a href="{{ route('forum_edit_topic', ['id' => $topic->id]) }}" class="btn btn-warning">{{ trans('forum.edit-topic') }}</a>
           <a href="{{ route('forum_delete_topic', ['id' => $topic->id]) }}" class="btn btn-danger">{{ trans('forum.delete-topic') }}</a>
           @endif
-          @if(auth()->check() && auth()->user()->group->is_modo)
+          @if(auth()->check() && \App\Policy::isModerator(auth()->user()))
           @if($topic->pinned == 0)
           <a href="{{ route('forum_pin_topic', ['id' => $topic->id]) }}" class="btn btn-primary">{{ trans('forum.pin') }} {{ strtolower(trans('forum.topic')) }}</a>
           @else
@@ -169,7 +169,7 @@
 
           <br>
 
-          @if(auth()->check() && auth()->user()->group->is_modo)
+          @if(auth()->check() && \App\Policy::isModerator(auth()->user()))
           <h3>{{ trans('forum.label-system') }}</h3>
           @if($topic->approved == "0")
           <a href="{{ route('forum_approved', ['id' => $topic->id, ])}}" class='label label-sm label-success'>{{ trans('common.add') }} {{ strtoupper(trans('forum.approved')) }}</a>

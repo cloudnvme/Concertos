@@ -80,7 +80,7 @@ class InviteController extends Controller
 
     public function inviteTree($id)
     {
-        if (auth()->user()->group->is_modo) {
+        if (\App\Policy::isModerator(auth()->user())) {
             $user = User::findOrFail($id);
             $records = Invite::with('sender')->where('user_id', $user->id)->latest()->get();
         } else {

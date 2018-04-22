@@ -50,7 +50,7 @@
           @foreach ($peers as $p)
           <tr>
             @if($p->user->peer_hidden == 1)
-              <td><span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || auth()->user()->group->is_modo)<a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }})</span></a>@endif</td>
+              <td><span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || \App\Policy::isModerator(auth()->user()))<a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }})</span></a>@endif</td>
             @else
               <td><a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i class="{{ $p->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->username }}</span></a></td>
             @endif
@@ -69,7 +69,7 @@
             <td><span class="badge-extra text-red text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->downloaded, 2) }}</span></td>
             <td><span class="badge-extra text-orange text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->left, 2) }}</span></td>
             <td><span class="badge-extra text-purple text-bold">{{ $p->agent }}</span></td>
-            @if(auth()->user()->group->is_modo)
+            @if(\App\Policy::isModerator(auth()->user()))
             <td><span class="badge-extra text-bold">{{ $p->ip }}</span></td>
             <td><span class="badge-extra text-bold">{{ $p->port }}</span></td>
             @else

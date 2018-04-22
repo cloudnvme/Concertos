@@ -35,7 +35,7 @@
         </a>
       </li>
 
-      @if(auth()->user()->group->is_modo)
+      @if(\App\Policy::isModerator(auth()->user()))
         <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
           <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-tasks text-red"></i>

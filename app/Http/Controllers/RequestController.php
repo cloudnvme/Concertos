@@ -379,7 +379,7 @@ class RequestController extends Controller
     {
         $user = auth()->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
-        if ($user->group->is_modo || $user->id == $torrentRequest->user_id) {
+        if (\App\Policy::isModerator($user) || $user->id == $torrentRequest->user_id) {
             // Post the Request
             if ($request->isMethod('POST')) {
                 // Find the right category
@@ -543,7 +543,7 @@ class RequestController extends Controller
 
         $torrentRequest = TorrentRequest::findOrFail($id);
 
-        if ($user->id == $torrentRequest->user_id || auth()->user()->group->is_modo) {
+        if ($user->id == $torrentRequest->user_id || \App\Policy::isModerator(auth()->user())) {
             $torrentRequest->approved_by = $user->id;
             $torrentRequest->approved_when = Carbon::now();
             $torrentRequest->save();
@@ -620,7 +620,7 @@ class RequestController extends Controller
         $user = auth()->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
 
-        if ($user->group->is_modo || $torrentRequest->user_id == $user->id) {
+        if (\App\Policy::isModerator($user) || $torrentRequest->user_id == $user->id) {
             $name = $torrentRequest->name;
             $torrentRequest->delete();
 
@@ -668,7 +668,7 @@ class RequestController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
         $claimer = TorrentRequestClaim::where('request_id', $id)->first();
 
-        if ($user->group->is_modo || $user->username == $claimer->username) {
+        if (\App\Policy::isModerator($user) || $user->username == $claimer->username) {
             if ($torrentRequest->claimed == 1) {
                 $requestClaim = TorrentRequestClaim::where('request_id', $id)->firstOrFail();
                 $requestClaim->delete();

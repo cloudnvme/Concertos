@@ -49,7 +49,7 @@ class Topic extends Model
 
     public function viewable()
     {
-        if (Auth::user()->group->is_modo) {
+        if (\App\Policy::isModerator(auth()->user())) {
             return true;
         }
 

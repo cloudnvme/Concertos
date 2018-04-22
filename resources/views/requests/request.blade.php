@@ -45,16 +45,16 @@
           @if($torrentRequest->filled_hash == null)
           <button class="btn btn-xs btn-success btn-vote-request" data-toggle="modal" data-target="#vote"><i class="fa fa-thumbs-up">
                         </i> {{ trans('request.vote') }}</button>
-          @if($torrentRequest->claimed == 1 && $torrentRequestClaim->username == $user->username || $user->group->is_modo)
+          @if($torrentRequest->claimed == 1 && $torrentRequestClaim->username == $user->username || \App\Policy::isModerator($user))
           <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal" data-target="#fill"><i class="fa fa-link">
                         </i> {{ trans('request.fulfill') }}</button>
           @elseif($torrentRequest->claimed == 0)
           <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal" data-target="#fill"><i class="fa fa-link">
                         </i> {{ trans('request.fulfill') }}</button>
-          @endif @endif @if($user->group->is_modo && $torrentRequest->filled_hash != null)
+          @endif @endif @if(\App\Policy::isModerator($user) && $torrentRequest->filled_hash != null)
           <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#reset"><i class="fa fa-undo">
                         </i> {{ trans('request.reset-request') }}</button>
-          @endif @if($user->group->is_modo || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
+          @endif @if(\App\Policy::isModerator($user) || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
           <a class="btn btn-warning btn-xs" href="{{ route('edit_request', array('id' => $torrentRequest->id)) }}" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"> {{ trans('request.edit-request') }}</i></a>
           <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o">
                         </i> {{ trans('common.delete') }}</button>
@@ -228,12 +228,12 @@
               @elseif($torrentRequest->filled_hash != null)
               <button class="btn btn-xs btn-success" disabled><i class="fa fa-check-square-o"></i>{{ trans('request.filled') }}</button>
               @else @if($torrentRequestClaim->anon == 0)
-              <span class="badge-user">{{ $torrentRequestClaim->username }}</span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+              <span class="badge-user">{{ $torrentRequestClaim->username }}</span> @if(\App\Policy::isModerator($user) || $torrentRequestClaim->username == $user->username)
               <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}" class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title="" data-original-title="{{ trans('request.unclaim') }}">
                 <span class="icon"><i class="fa fa-times"></i> {{ trans('request.unclaim') }}</span>
               </a>
               @endif @else
-              <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}</span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+              <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}</span> @if(\App\Policy::isModerator($user) || $torrentRequestClaim->username == $user->username)
               <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}" class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title="" data-original-title="{{ trans('request.unclaim') }}">
                 <span class="icon"><i class="fa fa-times"></i> {{ trans('request.unclaim') }}</span>
               </a>
@@ -258,7 +258,7 @@
               <a href="{{ route('torrent', ['slug' => $torrentRequest->torrent->slug, 'id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
             </td>
           </tr>
-          @endif @if($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null || auth()->user()->group->is_modo && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
+          @endif @if($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null || \App\Policy::isModerator(auth()->user()) && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
           <tr>
             <td>
               <strong>{{ trans('request.filled-by') }}</strong>
@@ -344,7 +344,7 @@
                   @if($comment->anon == 1)
                   <a href="#" class="pull-left">
                 <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48">
-                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)<a href="{{ route('profile', ['id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
+                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || \App\Policy::isModerator(auth()->user()))<a href="{{ route('profile', ['id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
                 @endif
                   @else
                   <a href="{{ route('profile', array('id' => $comment->user->id)) }}" class="pull-left">
@@ -356,7 +356,7 @@
                   <strong>{{ trans('common.author') }} <a href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong>
                   @endif
                   <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
-                  @if($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+                  @if($comment->user_id == auth()->id() || \App\Policy::isModerator(auth()->user()))
                   <a title="{{ trans('common.delete-your-comment') }}" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
                   <a title="{{ trans('common.edit-your-comment') }}" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
                   @endif

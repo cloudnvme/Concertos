@@ -150,7 +150,7 @@ class ShoutboxController extends Controller
 
 				$flag = true;
 				$delete = '';
-				if (auth()->user()->group->is_modo || $message->poster->id == auth()->user()->id) {
+				if (\App\Policy::isModerator(auth()->user()) || $message->poster->id == auth()->user()->id) {
 					$appurl = config('app.url');
 					$delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
 				}
@@ -211,7 +211,7 @@ class ShoutboxController extends Controller
     public function deleteShout($id)
     {
         $shout = Shoutbox::find($id);
-        if (auth()->user()->group->is_modo || auth()->user()->id == $shout->poster->id) {
+        if (\App\Policy::isModerator(auth()->user()) || auth()->user()->id == $shout->poster->id) {
             Shoutbox::where('id', $id)->delete();
             cache()->forget('shoutbox_messages');
             return redirect()->route('home')->with(Toastr::success('Shout Has Been Deleted.', 'Yay!', ['options']));

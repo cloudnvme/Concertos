@@ -955,7 +955,7 @@ class TorrentController extends Controller
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        if (\App\Policy::isModerator($user) || $user->id == $torrent->user_id) {
+        if (\App\Policy::canEditTorrent($user, $torrent)) {
             if ($request->isMethod('POST')) {
                 $name = $request->input('name');
                 $imdb = $request->input('imdb');

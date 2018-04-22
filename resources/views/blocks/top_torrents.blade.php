@@ -40,7 +40,7 @@
     </a>
                     </div>
                     <div>
-                      <span class="badge-extra">{{ $t->type }}</span>&nbsp;&nbsp;
+                      <span class="badge-extra">{{ $t->type->name }}</span>&nbsp;&nbsp;
                       @if($t->stream == "1")<span class="badge-extra"><i class="fa fa-play text-red text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.stream-optimized') }}"></i> {{ trans('torrent.stream-optimized') }}</span> @endif
                       @if($t->doubleup == "1")<span class="badge-extra"><i class="fa fa-diamond text-green text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.double-upload') }}"></i> {{ trans('torrent.double-upload') }}</span> @endif
                       @if($t->free == "1")<span class="badge-extra"><i class="fa fa-star text-gold text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.freeleech') }}"></i> {{ trans('torrent.freeleech') }}</span> @endif

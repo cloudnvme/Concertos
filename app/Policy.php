@@ -32,6 +32,11 @@ class Policy
         return $user->group->has_privacy;
     }
 
+    public static function isTrusted(User $user)
+    {
+        return $user->group->is_trusted;
+    }
+
     public static function canEditTorrent(User $user, Torrent $torrent)
     {
         return self::isModerator($user) || $torrent->user->id == $user->id;

@@ -329,7 +329,7 @@ class TorrentController extends Controller
                 \LogActivity::addToLog("Member {$user->username} has uploaded {$torrent->name} . \nThis torrent is pending approval.");
 
                 // check for trusted user and update torrent
-                if ($user->group->is_trusted) {
+                if (\App\Policy::isTrusted($user)) {
                     TorrentHelper::approveHelper($torrent->id);
                 }
 

@@ -77,7 +77,7 @@
 
           @if ($torrent->featured)
             <span class="badge-user">
-              <a class="link" href="{{ route('torrents', ['doubleupload' => 'on']) }}">Featured</a>
+              <a class="link" href="{{ route('torrents', ['featured' => 'on']) }}">Featured</a>
             </span>
           @endif
 

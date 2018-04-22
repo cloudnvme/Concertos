@@ -101,12 +101,12 @@
             <i class="fa fa-question-circle"></i>
             Anonymous
             @if ($user->group->is_modo)
-              (<a class="link" href="{{ route('profile', ['id' => $user->id]) }}">{{ $torrent->user->username }}</a>)
+              (<a class="link" href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>)
             @endif
           @else
             <i class="{{ $torrent->user->group->icon }}"></i>
             {{ $torrent->user->group->name }}
-            <a class="link" href="{{ route('profile', ['id' => $user->id]) }}">{{ $torrent->user->username }}</a>
+            <a class="link" href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>
           @endif
           <a href="{{ route('torrentThank', ['id' => $torrent->id]) }}">
             <input type="button" class="v-button" value="Thank Uploader"/>

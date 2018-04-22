@@ -157,7 +157,7 @@
                   <span class="badge-extra text-bold">
                   <i class="fa fa-upload"></i>
                   By <a class="link"
-                        href="{{ route('profile', ['id' => $user->id]) }}">{{ $torrent->user->username }}</a>
+                        href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>
                 </span>
                 @endif
                 <span class="badge-extra text-bold">

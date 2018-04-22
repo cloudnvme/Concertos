@@ -21,7 +21,7 @@ class LogActivity
     public static function addToLog($subject)
     {
         $user = auth()->user();
-        $has_privacy = auth()->check() ? $user->group->has_privacy : false;
+        $has_privacy = auth()->check() ? \App\Policy::hasPrivacy($user) : false;
 
         $log = [];
         $log['subject'] = $subject;

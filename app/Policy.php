@@ -27,6 +27,11 @@ class Policy
         return $user->group->is_immune;
     }
 
+    public static function hasPrivacy(User $user)
+    {
+        return $user->group->has_privacy;
+    }
+
     public static function canEditTorrent(User $user, Torrent $torrent)
     {
         return self::isModerator($user) || $torrent->user->id == $user->id;

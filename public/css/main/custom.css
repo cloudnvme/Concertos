@@ -14854,3 +14854,7 @@ input[type="submit"],
     width: 100%;
     margin-bottom: 0.5em;
 }
+
+.link {
+    color: unset;
+}

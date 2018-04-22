@@ -364,7 +364,7 @@ class TorrentController extends Controller
         $repository = $this->repository;
         $torrents = Torrent::query();
         $freeleech = $request->input('freeleech', false);
-        $doubleup = $request->input('doubleup', false);
+        $doubleup = $request->input('doubleupload', false);
         $featured = $request->input('featured', false);
         $uploader = $request->input('uploader', null);
         $tmdb = $request->input('tmdb', null);

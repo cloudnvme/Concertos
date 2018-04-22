@@ -134,7 +134,7 @@
             <td>
               <i class="fa torrent-icon {{ $torrent->category->icon }}"></i>
               {{ $torrent->type }}
-              {{ $torrent->category->name }}
+              <a class="link" href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
             </td>
             <td>
               <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">
@@ -155,7 +155,7 @@
                 @if(!$torrent->anon)
                   <span class="badge-extra text-bold">
                   <i class="fa fa-upload"></i>
-                  By {{ $torrent->user->username }}
+                  By <a class="link" href="{{ route('profile', ['id' => $user->id]) }}">{{ $torrent->user->username }}</a>
                 </span>
                 @endif
                 <span class="badge-extra text-bold">
@@ -165,19 +165,19 @@
                 @if($torrent->free)
                   <span class="badge-extra text-bold">
                     <i class="fa fa-star"></i>
-                    Freeleech
+                    <a class="link" href="{{ route('torrents', ['freeleech' => 'on']) }}">Freeleech</a>
                   </span>
                 @endif
                 @if($torrent->doubleup)
                   <span class="badge-extra text-bold">
                     <i class="fa fa-diamond"></i>
-                    Double Upload
+                    <a class="link" href="{{ route('torrents', ['doubleupload' => 'on']) }}">Double Upload</a>
                   </span>
                 @endif
                 @if($torrent->featured)
                   <span class="badge-extra text-bold">
                     <i class="fa fa-certificate"></i>
-                    Featured
+                    <a class="link" href="{{ route('torrents', ['featured' => 'on']) }}">Featured</a>
                   </span>
                 @endif
               </div>

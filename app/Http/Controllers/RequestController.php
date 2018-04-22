@@ -94,7 +94,7 @@ class RequestController extends Controller
                 array_push($categories, $category_id);
             } else if (substr($key, 0, strlen($type_identifier)) === $type_identifier) {
                 $type_id = substr($key, strlen($type_identifier));
-                array_push($types, Type::where('id', $type_id)->first()->name);
+                array_push($types, $type_id);
             }
         }
 
@@ -103,7 +103,7 @@ class RequestController extends Controller
         }
 
         if (!empty($types)) {
-            $requests = $requests->whereIn('type', $types);
+            $requests = $requests->whereIn('type_id', $types);
         }
 
         if ($imdb !== null) {
@@ -195,7 +195,7 @@ class RequestController extends Controller
         }
 
         if ($request->has('types') && $request->input('types') != null) {
-            $torrentRequest->whereIn('type', $types);
+            $torrentRequest->whereIn('type_id', $types);
         }
 
         if ($request->has('myrequests') && $request->input('myrequests') != null) {
@@ -306,7 +306,7 @@ class RequestController extends Controller
                 "tmdb" => "required|numeric",
                 "mal" => "required|numeric",
                 "category_id" => "required|exists:categories,id",
-                "type" => "required",
+                "type_id" => "required|exists:types,id",
                 "description" => "required|string",
                 "bounty" => "required|numeric|min:0|max:{$user->seedbonus}"
             ]);
@@ -314,6 +314,8 @@ class RequestController extends Controller
             if ($v->passes()) {
                 // Find the right category
                 $category = Category::findOrFail($request->input('category_id'));
+                $type = Type::findOrFail($request->input('type_id'));
+                echo $type->id;
 
                 // Holders for new data
                 $torrentRequest = new TorrentRequest([
@@ -325,7 +327,7 @@ class RequestController extends Controller
                     'tvdb' => $request->input('tvdb'),
                     'tmdb' => $request->input('tmdb'),
                     'mal' => $request->input('mal'),
-                    'type' => $request->input('type'),
+                    'type_id' => $type->id,
                     'bounty' => $request->input('bounty'),
                     'votes' => 1,
                 ]);
@@ -389,7 +391,7 @@ class RequestController extends Controller
                 $tmdb = $request->input('tmdb');
                 $mal = $request->input('mal');
                 $category = $request->input('category_id');
-                $type = $request->input('type');
+                $type = $request->input('type_id');
                 $description = $request->input('description');
 
                 $torrentRequest->name = $name;
@@ -398,7 +400,7 @@ class RequestController extends Controller
                 $torrentRequest->tmdb = $tmdb;
                 $torrentRequest->mal = $mal;
                 $torrentRequest->category_id = $category;
-                $torrentRequest->type = $type;
+                $torrentRequest->type_id = $type;
                 $torrentRequest->description = $description;
                 $torrentRequest->save();
 

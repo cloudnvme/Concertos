@@ -115,7 +115,7 @@
         @foreach ($requests as $request)
           <tr>
             <td>
-              <i class="fa torrent-icon {{ $request->category->icon }}"></i> {{ $request->type }} {{ $request->category->name }}
+              <i class="fa torrent-icon {{ $request->category->icon }}"></i> {{ $request->type->name }} {{ $request->category->name }}
               </span>
             </td>
             <td>

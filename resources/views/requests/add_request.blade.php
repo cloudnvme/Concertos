@@ -82,10 +82,10 @@
       </div>
 
       <div class="form-group">
-        <label for="type">{{ trans('request.type') }}</label>
-        <select name="type" class="form-control">
+        <label for="type_id">{{ trans('request.type') }}</label>
+        <select name="type_id" class="form-control">
           @foreach($types as $type)
-            <option value="{{ $type->name }}">{{ $type->name }}</option>
+            <option value="{{ $type->id }}">{{ $type->name }}</option>
           @endforeach
         </select>
       </div>

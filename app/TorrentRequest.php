@@ -34,7 +34,7 @@ class TorrentRequest extends Model
      * Mass assignment fields
      *
      */
-    protected $fillable = ['name', 'description', 'category_id', 'user_id', 'imdb', 'votes', 'tvdb', 'type', 'bounty', 'tmdb', 'mal'];
+    protected $fillable = ['name', 'description', 'category_id', 'user_id', 'imdb', 'votes', 'tvdb', 'type_id', 'bounty', 'tmdb', 'mal'];
 
     /**
      * Rules For Validation
@@ -49,7 +49,7 @@ class TorrentRequest extends Model
         'tvdb' => 'required|numeric',
         'tmdb' => 'required|numeric',
         'mal' => 'required|numeric',
-        'type' => 'required',
+        'type_id' => 'required',
         'bounty' => 'required|numeric',
     ];
 

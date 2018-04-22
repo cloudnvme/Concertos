@@ -76,11 +76,11 @@
       </div>
 
       <div class="form-group">
-        <label for="type">{{ trans('request.type') }}</label>
-        <select name="type" class="form-control">
-        <option value="{{ $torrentRequest->type }}" selected>{{ $torrentRequest->type  }} ({{ trans('request.current') }})</option>
+        <label for="type_id">{{ trans('request.type') }}</label>
+        <select name="type_id" class="form-control">
+        <option value="{{ $torrentRequest->type->id }}" selected>{{ $torrentRequest->type->name  }} ({{ trans('request.current') }})</option>
         @foreach($types as $type)
-          <option value="{{ $type->name }}">{{ $type->name }}</option>
+          <option value="{{ $type->id }}">{{ $type->name }}</option>
         @endforeach
         </select>
       </div>

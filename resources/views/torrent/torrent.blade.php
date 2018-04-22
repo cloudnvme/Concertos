@@ -132,13 +132,14 @@
       <tr>
         <td>Category</td>
         <td>
-          <a class="link"
-             href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
+          <a class="link" href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
         </td>
       </tr>
       <tr>
         <td>Type</td>
-        <td>{{ $torrent->type->name }}</td>
+        <td>
+          <a class="link" href="{{ route('torrents', ['type_' . $torrent->type->id => 'on']) }}">{{ $torrent->type->name }}</a>
+        </td>
       </tr>
       @if ($torrent->tags->isNotEmpty())
         <tr>

@@ -94,6 +94,9 @@
           @endforeach
         </ul>
       </li>
+      <li>
+        <a class="link" href="{{ route('logout') }}">Logout</a>
+      </li>
     </ul>
     </li>
   </div>

@@ -80,6 +80,18 @@
               <a class="link" href="{{ route('torrents', ['doubleupload' => 'on']) }}">Featured</a>
             </span>
           @endif
+
+          @if (config('other.freeleech'))
+            <span class="badge-user">
+              <a class="link" href="{{ route('torrents') }}">Global Freeleech</a>
+            </span>
+          @endif
+
+          @if ($user->group->is_freeleech)
+            <span class="badge-user">
+              <a class="link" href="{{ route('torrents') }}">Special Freeleech</a>
+            </span>
+          @endif
         </td>
       </tr>
       <tr>
@@ -120,7 +132,8 @@
       <tr>
         <td>Category</td>
         <td>
-          <a class="link" href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
+          <a class="link"
+             href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
         </td>
       </tr>
       <tr>
@@ -242,12 +255,14 @@
             <i class="fa fa-question-circle"></i>
             Anonymous
             @if ($user->group->is_modo)
-              (<a class="link" href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>)
+              (<a class="link"
+                  href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>)
             @endif
           @else
             <i class="{{ $comment->user->group->icon }}"></i>
             {{ $comment->user->group->name }}
-            <a class="link" href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>
+            <a class="link"
+               href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>
           @endif
           wrote {{ $comment->created_at->diffForHumans() }}:
           @if ($user->id === $comment->user_id || $user->group_is_modo)

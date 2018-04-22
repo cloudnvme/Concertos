@@ -134,7 +134,8 @@
             <td>
               <i class="fa torrent-icon {{ $torrent->category->icon }}"></i>
               {{ $torrent->type }}
-              <a class="link" href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
+              <a class="link"
+                 href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
             </td>
             <td>
               <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">
@@ -155,7 +156,8 @@
                 @if(!$torrent->anon)
                   <span class="badge-extra text-bold">
                   <i class="fa fa-upload"></i>
-                  By <a class="link" href="{{ route('profile', ['id' => $user->id]) }}">{{ $torrent->user->username }}</a>
+                  By <a class="link"
+                        href="{{ route('profile', ['id' => $user->id]) }}">{{ $torrent->user->username }}</a>
                 </span>
                 @endif
                 <span class="badge-extra text-bold">
@@ -178,6 +180,18 @@
                   <span class="badge-extra text-bold">
                     <i class="fa fa-certificate"></i>
                     <a class="link" href="{{ route('torrents', ['featured' => 'on']) }}">Featured</a>
+                  </span>
+                @endif
+                @if(config('other.freeleech'))
+                  <span class="badge-extra text-bold">
+                    <i class="fa fa-star"></i>
+                    <a class="link" href="{{ route('torrents') }}">Global Freeleech</a>
+                  </span>
+                @endif
+                @if($user->group->is_freeleech)
+                  <span class="badge-extra text-bold">
+                    <i class="fa fa-star"></i>
+                    <a class="link" href="{{ route('torrents') }}">Special Freeleech</a>
                   </span>
                 @endif
               </div>

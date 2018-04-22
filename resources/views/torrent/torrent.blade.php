@@ -266,7 +266,7 @@
           @endif
           wrote {{ $comment->created_at->diffForHumans() }}:
           @if ($user->id === $comment->user_id || $user->group->is_modo)
-            <a href="/comment/delete/{{ $comment->id }}">
+            <a href="{{ route('comment_delete', ['id' => $comment->id]) }}">
               <input type="button" class="v-button m" value="Delete">
             </a>
           @endif

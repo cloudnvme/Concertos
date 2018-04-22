@@ -97,6 +97,21 @@ class User extends Authenticatable
         return $this->belongsTo(\App\Group::class);
     }
 
+    public function groupIcon()
+    {
+        return $this->group->icon;
+    }
+
+    public function groupEffect()
+    {
+        return $this->group->effect;
+    }
+
+    public function groupColor()
+    {
+        return $this->group->color;
+    }
+
     /**
      * Has many torrents
      *

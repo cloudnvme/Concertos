@@ -188,7 +188,7 @@
                     <a class="link" href="{{ route('torrents') }}">Global Freeleech</a>
                   </span>
                 @endif
-                @if($user->group->is_freeleech)
+                @if(\App\Policy::isFreeleech($user))
                   <span class="badge-extra text-bold">
                     <i class="fa fa-star"></i>
                     <a class="link" href="{{ route('torrents') }}">Special Freeleech</a>

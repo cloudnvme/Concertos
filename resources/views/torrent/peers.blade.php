@@ -50,9 +50,9 @@
           @foreach ($peers as $p)
           <tr>
             @if($p->user->peer_hidden == 1)
-              <td><span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || \App\Policy::isModerator(auth()->user()))<a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }})</span></a>@endif</td>
+              <td><span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || \App\Policy::isModerator(auth()->user()))<a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->groupColor() }}">({{ $p->user->username }})</span></a>@endif</td>
             @else
-              <td><a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i class="{{ $p->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->username }}</span></a></td>
+              <td><a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->groupColor() }}; background-image:{{ $p->user->groupEffect() }};"><i class="{{ $p->user->groupIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->username }}</span></a></td>
             @endif
             @if ($p->seeder == 0)
             <td><div class="progress">

@@ -104,7 +104,7 @@
               (<a class="link" href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>)
             @endif
           @else
-            <i class="{{ $torrent->user->group->icon }}"></i>
+            <i class="{{ $torrent->user->groupIcon() }}"></i>
             {{ $torrent->user->group->name }}
             <a class="link" href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>
           @endif
@@ -260,7 +260,7 @@
                   href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>)
             @endif
           @else
-            <i class="{{ $comment->user->group->icon }}"></i>
+            <i class="{{ $comment->user->groupIcon() }}"></i>
             {{ $comment->user->group->name }}
             <a class="link"
                href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>

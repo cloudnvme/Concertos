@@ -114,9 +114,9 @@
 
         <div class="form-group">
           <label for="type" class="label label-default">Type</label>
-          <select name="type" class="bar">
+          <select name="type_id" class="bar">
             @foreach($types as $type)
-              <option value="{{ $type->name }}">{{ $type->name }}</option>
+              <option value="{{ $type->id }}">{{ $type->name }}</option>
             @endforeach
           </select>
         </div>

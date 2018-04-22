@@ -35,7 +35,7 @@ class Torrent extends Model
      *
      */
     protected $fillable = ['name', 'slug', 'description', 'mediainfo', 'info_hash', 'file_name', 'num_file', 'announce', 'size', 'nfo', 'category_id', 'user_id',
-        'imdb', 'tvdb', 'tmdb', 'mal', 'type', 'anon', 'stream', 'sd'];
+        'imdb', 'tvdb', 'tmdb', 'mal', 'type_id', 'anon', 'stream', 'sd'];
 
     /**
      * Rules
@@ -55,7 +55,7 @@ class Torrent extends Model
         'imdb' => 'required|numeric',
         'tvdb' => 'required|numeric',
         'tmdb' => 'required|numeric',
-        'type' => 'required',
+        'type_id' => 'required',
         'anon' => 'required'
     ];
 

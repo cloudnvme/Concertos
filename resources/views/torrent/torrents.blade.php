@@ -133,7 +133,7 @@
           <tr>
             <td>
               <i class="fa torrent-icon {{ $torrent->category->icon }}"></i>
-              {{ $torrent->type }}
+              {{ $torrent->type->name }}
               <a class="link"
                  href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
             </td>

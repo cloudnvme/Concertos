@@ -268,6 +268,7 @@ class TorrentController extends Controller
 
             // Find the right category
             $category = Category::findOrFail($request->input('category_id'));
+            $type = Type::findOrFail($request->input('type_id'));
             // Create the torrent (DB)
             $name = $request->input('name');
             $tags = self::parseTags($request->input('tags'));
@@ -289,7 +290,7 @@ class TorrentController extends Controller
                 'tvdb' => $request->input('tvdb'),
                 'tmdb' => $request->input('tmdb'),
                 'mal' => $request->input('mal'),
-                'type' => $request->input('type'),
+                'type_id' => $type->id,
                 'anon' => $request->input('anonymous') === 'on'
             ]);
             // Validation
@@ -401,7 +402,7 @@ class TorrentController extends Controller
                 array_push($categories, $category_id);
             } else if (substr($key, 0, strlen($type_identifier)) === $type_identifier) {
                 $type_id = substr($key, strlen($type_identifier));
-                array_push($types, Type::where('id', $type_id)->first()->name);
+                array_push($types, $type_id);
             }
         }
 
@@ -411,7 +412,7 @@ class TorrentController extends Controller
         }
 
         if (!empty($types)) {
-            $torrents = $torrents->whereIn('type', $types);
+            $torrents = $torrents->whereIn('type_id', $types);
         }
 
         if ($uploader != null) {
@@ -963,7 +964,7 @@ class TorrentController extends Controller
                 $tmdb = $request->input('tmdb');
                 $mal = $request->input('mal');
                 $category = $request->input('category_id');
-                $type = $request->input('type');
+                $type = $request->input('type_id');
                 $anon = $request->input('anonymous');
 
                 Tag::where('torrent_id', $torrent->id)->delete();
@@ -981,7 +982,7 @@ class TorrentController extends Controller
                 $torrent->tmdb = $tmdb;
                 $torrent->mal = $mal;
                 $torrent->category_id = $category;
-                $torrent->type = $type;
+                $torrent->type_id = $type;
                 $torrent->description = $request->input('description');
                 $torrent->mediainfo = $request->input('mediainfo');
                 $torrent->anon = $anon;

@@ -138,7 +138,7 @@
       </tr>
       <tr>
         <td>Type</td>
-        <td>{{ $torrent->type }}</td>
+        <td>{{ $torrent->type->name }}</td>
       </tr>
       @if ($torrent->tags->isNotEmpty())
         <tr>

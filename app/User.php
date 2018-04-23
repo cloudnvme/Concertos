@@ -111,6 +111,10 @@ class User extends Authenticatable
             return 'fa fa-ban';
         }
 
+        if ($this->roleName() == 'Validating') {
+            return 'fa fa-question-circle';
+        }
+
         return "fa fa-user";
     }
 
@@ -139,6 +143,10 @@ class User extends Authenticatable
 
         if ($this->roleName() == 'Banned') {
             return 'red';
+        }
+
+        if ($this->roleName() == 'Validating') {
+            return '#95A5A6';
         }
 
         return "#7289DA";

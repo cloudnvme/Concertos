@@ -46,15 +46,11 @@ class autoBan extends Command
         $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.buffer'))->get();
 
         foreach ($bans as $ban) {
-            if ($ban->warneduser->group_id != 5 && !\App\Policy::isImmune($ban->warneduser)) {
+            if (!\App\Policy::isBanned($ban->warneduser) && !\App\Policy::isImmune($ban->warneduser)) {
                 // If User Has x or More Active Warnings Ban Set The Users Group To Banned
-                $ban->warneduser->group_id = 5;
-                $ban->warneduser->can_upload = 0;
-                $ban->warneduser->can_download = 0;
-                $ban->warneduser->can_comment = 0;
-                $ban->warneduser->can_invite = 0;
-                $ban->warneduser->can_request = 0;
-                $ban->warneduser->can_chat = 0;
+                $ban->wanreduser->roles()->delete();
+                $ban->wanreduser->addRole('Banned');
+                $ban->warneduser->setMainRole('Banned');
                 $ban->warneduser->save();
 
                 // Log The Ban To Ban Log

@@ -21,6 +21,8 @@ class CreateRolesTable extends Migration
             $table->string('name', 255)->index('name');
 
             $table->unique(['user_id', 'name']);
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::table('users', function (Blueprint $table) {
@@ -28,9 +30,14 @@ class CreateRolesTable extends Migration
         });
 
         foreach (User::all() as $user) {
-            $user->addRole($user->group->name);
-            $user->setMainRole($user->group->name);
+            $group_name = DB::table('groups')->where('id', $user->group_id)->first()->name;
+            $user->addRole($group_name);
+            $user->setMainRole($group_name);
         }
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('group_id');
+        });
     }
 
     /**
@@ -40,9 +47,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
-        Schema::table('users', function (Blueprint $table) {
-           $table->dropColumn('role_id');
-        });
+
     }
 }

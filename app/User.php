@@ -135,7 +135,7 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->hasOne(Role::class)->withDefault();
+        return $this->hasOne(Role::class);
     }
 
     public function roles()

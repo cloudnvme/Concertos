@@ -169,7 +169,7 @@ class User extends Authenticatable
     public function removeRole($name)
     {
         if ($this->role !== null && $this->role->name == $name) {
-            $this->main_role = null;
+            $this->role_id = null;
             $this->save();
         }
 

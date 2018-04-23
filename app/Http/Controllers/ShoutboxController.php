@@ -79,8 +79,8 @@ class ShoutboxController extends Controller
             $user_url = route('profile', ['id' => auth()->user()->id]);
             $data = '<li class="list-group-item">
       ' . ($flag ? $avatar : "") . '
-      <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (auth()->user()->groupIcon) . '" data-toggle="tooltip" title="" data-original-title="' . (auth()->user()->roleName()) . '"></i>&nbsp;
-      <a style="color:' . (auth()->user()->group->color) . '; background-image:' . (auth()->user()->group->effect) . ';" href=\'' . $user_url . '\'>'
+      <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (auth()->user()->roleIcon()) . '" data-toggle="tooltip" title="" data-original-title="' . (auth()->user()->roleName()) . '"></i>&nbsp;
+      <a style="color:' . (auth()->user()->roleColor()) . '; background-image:' . (auth()->user()->roleEffect()) . ';" href=\'' . $user_url . '\'>'
                 . auth()->user()->username . '</a>
       ' . ($flag ? $online : "") . '
       </span>&nbsp;<span class="text-muted"><small><em>' . Carbon::now()->diffForHumans() . '</em></small></span>

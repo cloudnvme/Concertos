@@ -26,7 +26,7 @@ class CheckForAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (!auth()->check() || !auth()->user()->group->is_admin) {
+        if (!auth()->check() || !\App\Policy::isAdministrator(auth()->user())) {
             throw new NotFoundHttpException;
         }
 

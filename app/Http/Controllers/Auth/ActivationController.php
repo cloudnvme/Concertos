@@ -28,6 +28,7 @@ class ActivationController extends Controller
             $activation->user->active = true;
             $activation->user->removeRole('Validating');
             $activation->user->addRole('User');
+            $actvation->user->setMainRole('User');
             $activation->user->save();
 
             // Activity Log

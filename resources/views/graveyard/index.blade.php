@@ -55,7 +55,7 @@
           <td>
             <div class="torrent-file">
               <div>
-                  <a class="view-torrent" data-id="{{ $d->id }}" data-slug="{{ $d->slug }}" href="{{ route('torrent', array('slug' => $d->slug, 'id' => $d->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $d->name }}">{{ $d->name }} </a><span class="label label-success">{{ $d->type }}</span>
+                  <a class="view-torrent" data-id="{{ $d->id }}" data-slug="{{ $d->slug }}" href="{{ route('torrent', array('slug' => $d->slug, 'id' => $d->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $d->name }}">{{ $d->name }} </a><span class="label label-success">{{ $d->type->name }}</span>
               </div>
             </div>
           </td>

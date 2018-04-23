@@ -16,6 +16,7 @@ use App\Ban;
 use App\Warning;
 use App\Peer;
 use App\History;
+use App\Roles;
 use Cache;
 use Gstt\Achievements\Achiever;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -92,24 +93,74 @@ class User extends Authenticatable
      * Belongs to group
      *
      */
-    public function group()
+    public function group_x()
     {
         return $this->belongsTo(\App\Group::class);
     }
 
-    public function groupIcon()
+    public function roleIcon()
     {
+        return "fa fa-user";
         return $this->group->icon;
     }
 
-    public function groupEffect()
+    public function roleEffect()
     {
-        return $this->group->effect;
+        return "none";
     }
 
-    public function groupColor()
+    public function roleColor()
     {
-        return $this->group->color;
+        return "#7289DA";
+    }
+
+    public function roleName()
+    {
+        return $this->role->name;
+    }
+
+    public function role()
+    {
+        return $this->hasOne(Role::class);
+    }
+
+    public function roles()
+    {
+        return $this->hasMany(Role::class);
+    }
+
+    public function hasRole($name)
+    {
+        return $this->roles->where('name', $name)->first() !== null;
+    }
+
+    public function addRole($name)
+    {
+        if(!$this->hasRole($name)) {
+            $role = new Role();
+            $role->user_id = $this->id;
+            $role->name = $name;
+            $role->save();
+        }
+    }
+
+    public function removeRole($name)
+    {
+        if ($this->role !== null && $this->role->name == $name) {
+            $this->main_role = null;
+            $this->save();
+        }
+
+        $this->roles->where('name', $name)->delete();
+    }
+
+    public function setMainRole($name)
+    {
+        $role = $this->roles->where('name', $name)->first();
+        if ($role !== null) {
+            $this->role_id = $role->id;
+            $this->save();
+        }
     }
 
     /**

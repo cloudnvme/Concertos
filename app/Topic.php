@@ -14,6 +14,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Policy;
 
 class Topic extends Model
 {
@@ -49,11 +50,7 @@ class Topic extends Model
 
     public function viewable()
     {
-        if (\App\Policy::isModerator(auth()->user())) {
-            return true;
-        }
-
-        return $this->forum->getPermission()->read_topic;
+        return Policy::canReadTopic(auth()->user(), $this);
     }
 
     public function postNumberFromId($searchId)

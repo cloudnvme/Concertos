@@ -87,7 +87,7 @@
             </span>
           @endif
 
-          @if ($user->group->is_freeleech)
+          @if (\App\Policy::isFreeleech($user))
             <span class="badge-user">
               <a class="link" href="{{ route('torrents') }}">Special Freeleech</a>
             </span>
@@ -104,8 +104,8 @@
               (<a class="link" href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>)
             @endif
           @else
-            <i class="{{ $torrent->user->groupIcon() }}"></i>
-            {{ $torrent->user->group->name }}
+            <i class="{{ $torrent->user->roleIcon() }}"></i>
+            {{ $torrent->user->roleName() }}
             <a class="link" href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>
           @endif
           <a href="{{ route('torrentThank', ['id' => $torrent->id]) }}">
@@ -260,8 +260,8 @@
                   href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>)
             @endif
           @else
-            <i class="{{ $comment->user->groupIcon() }}"></i>
-            {{ $comment->user->group->name }}
+            <i class="{{ $comment->user->roleIcon() }}"></i>
+            {{ $comment->user->roleName() }}
             <a class="link"
                href="{{ route('profile', ['id' => $comment->user->id]) }}">{{ $comment->user->username }}</a>
           @endif

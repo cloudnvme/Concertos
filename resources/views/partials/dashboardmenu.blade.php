@@ -4,13 +4,13 @@
     <li class="nav-header head"><i class="fa fa-link"></i> {{ trans('staff.links') }}</li>
     <li><a href="{{ route('home') }}"><i class="fa fa-columns"></i> {{ trans('staff.frontend') }}</a></li>
     <li><a href="{{ route('staff_dashboard') }}"><i class="fa fa-columns"></i> {{ trans('staff.staff-dashboard') }}</a></li>
-    @if(\App\Policy::isAdmin(auth()->user()))
+    @if(\App\Policy::isAdministrator(auth()->user()))
     <li><a href="{{ route('backupManager') }}"><i class="fa fa-hdd-o"></i> {{ trans('backup.backup') }} {{ trans('backup.manager') }}</a></li>
     <li><a href="staff_dashboard/config_settings"> {{ trans('staff.config-manager') }}</a></li>
     @endif
     <li class="nav-header head"><i class="fa fa-wrench"></i> {{ trans('staff.general-tools') }}</li>
     <li><a href="{{ route('staff_article_index') }}"><i class="fa fa-newspaper-o"></i> {{ trans('staff.articles') }}</a></li>
-    @if(\App\Policy::isAdmin(auth()->user()))
+    @if(\App\Policy::isAdministrator(auth()->user()))
     <li><a href="{{ route('staff_forum_index') }}"><i class="fa fa-wpforms"></i> {{ trans('staff.forums') }}</a></li>
     <li><a href="{{ route('staff_groups_index') }}"><i class="fa fa-users"></i> {{ trans('staff.groups') }}</a></li>
     @endif
@@ -34,7 +34,7 @@
     <li><a href="{{ route('getBans') }}"><i class="fa fa-file"></i> {{ trans('staff.bans-log') }}</a></li>
     <li><a href="{{ route('getFailedAttemps') }}"><i class="fa fa-file"></i> {{ trans('staff.failed-login-log') }}</a></li>
     <li><a href="{{ route('getInvites') }}"><i class="fa fa-file"></i> {{ trans('staff.invites-log') }}</a></li>
-    @if(\App\Policy::isAdmin(auth()->user()))
+    @if(\App\Policy::isAdministrator(auth()->user()))
     <li><a href="/staff/log-viewer"><i class="fa fa-file"></i> {{ trans('staff.laravel-log') }}</a></li>
     @endif
     <li><a href="{{ route('getReports') }}"><i class="fa fa-file"></i> {{ trans('staff.reports-log') }}</a></li>

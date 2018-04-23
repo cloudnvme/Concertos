@@ -54,7 +54,7 @@
             @endif
               <a href="{{ route('profile', ['id' => $p->user->id]) }}" class="post-info-username">
                 <p>
-                <span class="badge-user text-bold" style="color:{{ $p->user->groupColor() }}">{{ $p->user->username }}
+                <span class="badge-user text-bold" style="color:{{ $p->user->roleColor() }}">{{ $p->user->username }}
                   @if($p->user->isOnline())
                   <i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="Online"></i>
                   @else
@@ -63,7 +63,7 @@
                 </span>
                 </p>
               </a>
-            <p><span class="badge-user text-bold" style="color:{{ $p->user->groupColor() }}; background-image:{{ $p->user->groupEffect() }};"><i class="{{ $p->user->groupIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->group->name }}</span></p>
+            <p><span class="badge-user text-bold" style="color:{{ $p->user->roleColor() }}; background-image:{{ $p->user->roleEffect() }};"><i class="{{ $p->user->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->group->name }}</span></p>
             <p class="pre">{{ $p->user->title }}</p>
             <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
             <span class="inline">

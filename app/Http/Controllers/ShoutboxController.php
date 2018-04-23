@@ -79,7 +79,7 @@ class ShoutboxController extends Controller
             $user_url = route('profile', ['id' => auth()->user()->id]);
             $data = '<li class="list-group-item">
       ' . ($flag ? $avatar : "") . '
-      <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (auth()->user()->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . (auth()->user()->group->name) . '"></i>&nbsp;
+      <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (auth()->user()->groupIcon) . '" data-toggle="tooltip" title="" data-original-title="' . (auth()->user()->roleName()) . '"></i>&nbsp;
       <a style="color:' . (auth()->user()->group->color) . '; background-image:' . (auth()->user()->group->effect) . ';" href=\'' . $user_url . '\'>'
                 . auth()->user()->username . '</a>
       ' . ($flag ? $online : "") . '
@@ -172,8 +172,8 @@ class ShoutboxController extends Controller
 				$user_url = route('profile', ['id' => $message->poster->id]);
 				$data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
 					' . ($flag ? $avatar : "") . '
-					<h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>
-                    &nbsp;<a data-toggle="tooltip" title="" data-original-title="PrivateMessage" style="cursor: pointer; color:' . ($message->poster->group->color) . '; background-image:' . ($message->poster->group->effect) . ';" onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')">'
+					<h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->roleIcon()) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->roleName()) . '"></i>
+                    &nbsp;<a data-toggle="tooltip" title="" data-original-title="PrivateMessage" style="cursor: pointer; color:' . ($message->poster->roleColor()) . '; background-image:' . ($message->poster->roleEffect()) . ';" onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')">'
 					. e($message->poster->username) . ' <i class="fa fa-comment-o"></i></a> - <a href=\'' . $user_url . '\'>Profile</a>
 					' . ($flag ? $online : "") . '
 					</span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>

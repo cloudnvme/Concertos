@@ -43,7 +43,7 @@
         <td><i class="{{ $p->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $p->category->name }} Torrent"></i></td>
         <td>{{ $p->type->name }}</td>
         <td>{{ $p->getSize() }}</td>
-        <td><a href="{{ route('profile', ['id' => $p->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $p->user->username }} ({{ $p->user->group->name }})</span><a></td>
+        <td><a href="{{ route('profile', ['id' => $p->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $p->user->username }} ({{ $p->user->roleName() }})</span><a></td>
         <td><a href="{{ route('moderation_approve', ['id' => $p->id]) }}" role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i class="fa fa-thumbs-up"></i></span>Approve</a></td>
         <td><button data-target="#pendpostpone-{{ $p->id }}" data-toggle="modal" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Postpone</button></td>
         <td><button data-target="#pendreject-{{ $p->id }}" data-toggle="modal" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Reject</button></td>
@@ -158,8 +158,8 @@
         <td><i class="{{ $post->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $post->category->name }} Torrent"></i></td>
         <td>{{ $post->type->name }}</td>
         <td>{{ $post->getSize() }}</td>
-        <td><a href="{{ route('profile', ['id' => $post->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->user->username }} ({{ $post->user->group->name }})</span><a></td>
-        <td><a href="{{ route('profile', ['id' => $post->moderated->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->moderated->username }} ({{ $post->moderated->group->name }})</span><a></td>
+        <td><a href="{{ route('profile', ['id' => $post->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->user->username }} ({{ $post->user->roleName() }})</span><a></td>
+        <td><a href="{{ route('profile', ['id' => $post->moderated->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->moderated->username }} ({{ $post->moderated->roleName() }})</span><a></td>
         <td><a href="{{ route('moderation_approve', ['id' => $post->id]) }}" role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i class="fa fa-thumbs-up"></i></span>Approve</a></td>
         <td><a href="{{ route('edit', ['id' => $post->id]) }}" role='button' class='btn btn-labeled btn-info'><span class="btn-label"><i class="fa fa-pencil"></i></span>Edit</a></td>
         <td><button data-target="#postdelete-{{ $post->id }}" data-toggle="modal" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Delete</button></td>
@@ -240,8 +240,8 @@
                 <td><i class="{{ $reject->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $reject->category->name }} Torrent"></i></td>
                 <td>{{ $reject->type->name }}</td>
                 <td>{{ $reject->getSize() }}</td>
-                <td>@if($reject->user) <a href="{{ route('profile', ['id' => $reject->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $reject->user->username }} ({{ $reject->user->group->name }})</span><a> @else System @endif </td>
-                <td><a href="{{ route('profile', ['id' => $reject->moderated->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $reject->moderated->username }} ({{ $reject->moderated->group->name }})</span><a></td>
+                <td>@if($reject->user) <a href="{{ route('profile', ['id' => $reject->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $reject->user->username }} ({{ $reject->user->roleName() }})</span><a> @else System @endif </td>
+                <td><a href="{{ route('profile', ['id' => $reject->moderated->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $reject->moderated->username }} ({{ $reject->moderated->roleName() }})</span><a></td>
                 <td><a href="{{ route('moderation_approve', ['id' => $reject->id]) }}" role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i class="fa fa-thumbs-up"></i></span>Approve</a></td>
                 <td><button data-target="#rejectpost-{{ $reject->id }}" data-toggle="modal" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Postpone</button></td>
                 <td><a href="{{ route('edit', ['id' => $reject->id]) }}" role='button' class='btn btn-labeled btn-info'><span class="btn-label"><i class="fa fa-pencil"></i></span>Edit</a></td>

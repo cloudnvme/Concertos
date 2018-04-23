@@ -78,7 +78,7 @@
 
 					<div class="form-group">
 						<label for="roles">Roles, separated by comma. The first role will be used as main role.</label>
-						<input name="roles" class="form-control" type="text" value="{{ $user->roles->implode('name', ',') }}"/>
+						<input name="roles" class="form-control" type="text" value="{{ $user->rolesAsString() }}"/>
 					</div>
 
 					<button type="submit" class="btn btn-default">Save</button>

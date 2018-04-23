@@ -138,12 +138,7 @@ class User extends Authenticatable
 
     public function roleName()
     {
-        return $this->role->name ?? 'None';
-    }
-
-    public function role()
-    {
-        return $this->hasOne(Role::class);
+        return $this->role()->name ?? 'None';
     }
 
     public function roles()
@@ -151,38 +146,62 @@ class User extends Authenticatable
         return $this->hasMany(Role::class);
     }
 
+    public function role()
+    {
+        return $this->roles()->where('id', $this->role_id)->first();
+    }
+
     public function hasRole($name)
     {
-        return $this->roles->where('name', $name)->first() !== null;
+        return $this->roles()->where('name', $name)->first() !== null;
     }
 
     public function addRole($name)
     {
-        if(!$this->hasRole($name)) {
-            $role = new Role();
-            $role->user_id = $this->id;
-            $role->name = $name;
-            $role->save();
+        if ($this->hasRole($name)) {
+            return;
         }
+
+        $role = new Role();
+        $role->user_id = $this->id;
+        $role->name = $name;
+        $role->save();
     }
 
     public function removeRole($name)
     {
-        if ($this->role !== null && $this->role->name == $name) {
+        $role = $this->roles()->where('name', $name)->first();
+        if ($role === null) {
+            return;
+        }
+
+        if ($role->id === $this->role_id) {
             $this->role_id = null;
             $this->save();
         }
 
-        $this->roles->where('name', $name)->delete();
+        $role->delete();
     }
 
     public function setMainRole($name)
     {
-        $role = $this->roles->where('name', $name)->first();
-        if ($role !== null) {
-            $this->role_id = $role->id;
-            $this->save();
+        $role = $this->roles()->where('name', $name)->first();
+        if ($role === null) {
+            return;
         }
+
+        $this->role_id = $role->id;
+        $this->save();
+    }
+
+    public function rolesAsString()
+    {
+        $roles = $this->roles->where('id', '!=', $this->role_id);
+        if ($this->role_id !== null) {
+            $roles->prepend($this->role());
+        }
+
+        return $roles->implode('name', ', ');
     }
 
     /**

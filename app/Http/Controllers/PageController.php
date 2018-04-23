@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Page;
 use App\User;
+use App\Policy;
 
 class PageController extends Controller
 {
@@ -38,7 +39,9 @@ class PageController extends Controller
      */
     public function staff()
     {
-        $staff = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select('users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon')->where('groups.is_admin', 1)->orWhere('groups.is_modo', 1)->get();
+        $staff = User::whereHas('roles', function ($query) {
+           return $query->whereIn('name', Policy::staffRanks());
+        })->get();
 
         return view('page.staff', ['staff' => $staff]);
     }

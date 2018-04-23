@@ -29,6 +29,16 @@ class Policy
         return self::isModerator($user) || self::isInternal($user) ||  $user->hasRole('Trustee') || $user->hasRole('Uploader');
     }
 
+    public static function staffRanks()
+    {
+        return ['Owner', 'Bot', 'Administrator', 'Moderator'];
+    }
+
+    public static function internalRanks()
+    {
+        return ['Internal'];
+    }
+
     public static function isFreeleech(User $user)
     {
         return self::isTrusted($user);

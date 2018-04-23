@@ -26,7 +26,7 @@ class Policy
 
     public static function isTrusted(User $user)
     {
-        return $user->hasRole('Trustee') || $user->hasRole('Uploader');
+        return self::isModerator($user) || self::isInternal($user) ||  $user->hasRole('Trustee') || $user->hasRole('Uploader');
     }
 
     public static function isFreeleech(User $user)

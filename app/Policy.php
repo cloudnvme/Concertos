@@ -49,9 +49,14 @@ class Policy
         return $user->hasRole('Banned');
     }
 
+    public static function isValidating(User $user)
+    {
+        return $user->hasRole('Validating');
+    }
+
     public static function isActivated(User $user)
     {
-        return !$user->hasRole('Validating');
+        return !self::isValidating($user);
     }
 
     public static function canDownload(User $user)

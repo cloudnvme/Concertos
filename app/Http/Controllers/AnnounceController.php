@@ -99,7 +99,7 @@ class AnnounceController extends Controller
         }
 
         // If User Account Is Unactivated Return Error to Client
-        if ($user->active == 0) {
+        if (!\App\Policy::isActivated($user)) {
             //info('A Unactivated User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'Your account is not activated']), 200, ['Content-Type' => 'text/plain']);
         }

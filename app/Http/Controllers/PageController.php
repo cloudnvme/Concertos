@@ -53,7 +53,9 @@ class PageController extends Controller
      */
     public function internal()
     {
-        $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select('users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon')->where('groups.is_internal', 1)->get();
+        $internal = User::whereHas('roles', function ($query) {
+           return $query->whereIn('name', Policy::internalRanks());
+        })->get();
 
         return view('page.internal', ['internal' => $internal]);
     }

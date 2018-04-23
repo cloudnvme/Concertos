@@ -19,9 +19,9 @@
     <div class="row oper-list">
         @foreach($internal as $i)
         <div class="col-xs-6 col-sm-4 col-md-3">
-            <div class="text-center oper-item" style="background-color: {{ $i->color }};">
+            <div class="text-center oper-item" style="background-color: {{ $i->roleColor() }};">
                 <a href="{{ route('profile', ['id' => $i->id]) }}" style="color:#fff;"><h1>{{ $i->username }}</h1></a>
-                <span class="badge-user">{{ trans('page.staff-group') }}: {{ $i->name }}</span>
+                <span class="badge-user">{{ trans('page.staff-group') }}: {{ $i->roleName() }}</span>
                 <br>
                 <span class="badge-user">{{ trans('page.staff-title') }}: {{ $i->title }}</span>
                 <i class="{{ $i->icon }} oper-icon"></i>

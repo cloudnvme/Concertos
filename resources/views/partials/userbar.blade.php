@@ -3,11 +3,11 @@
     <ul class="list-inline">
       <li><i class="fa fa-user text-black"></i>
         <a href="{{ route('profile', array('id' => auth()->user()->id)) }}" class="l-header-user-data-link">
-          <span class="badge-user" style="color:{{ auth()->user()->group->color }}"><strong>{{ auth()->user()->username }}</strong>@if(auth()->user()->getWarning() > 0) <i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warning') }}"></i>@endif</span>
+          <span class="badge-user" style="color:{{ auth()->user()->groupColor() }}"><strong>{{ auth()->user()->username }}</strong>@if(auth()->user()->getWarning() > 0) <i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warning') }}"></i>@endif</span>
         </a>
       </li>
       <li><i class="fa fa-group text-black"></i>
-        <span class="badge-user text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};"><i class="{{ auth()->user()->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ auth()->user()->group->name }}"></i><strong> {{ auth()->user()->group->name }}</strong></span>
+        <span class="badge-user text-bold" style="color:{{ auth()->user()->groupColor() }}; background-image:{{ auth()->user()->groupEffect() }};"><i class="{{ auth()->user()->groupIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ auth()->user()->group->name }}"></i><strong> {{ auth()->user()->group->name }}</strong></span>
       </li>
       <li><i class="fa fa-arrow-up text-green text-bold"></i> {{ trans('common.upload') }}: {{ auth()->user()->getUploaded() }}</li>
       <li><i class="fa fa-arrow-down text-red text-bold"></i> {{ trans('common.download') }}: {{ auth()->user()->getDownloaded() }}</li>

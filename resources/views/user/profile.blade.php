@@ -82,7 +82,7 @@
           @if($user->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('user.active-warning') }}"></i>@endif
           @if($user->notes->count() > 0 && \App\Policy::isModerator(auth()->user()))<i class="fa fa-comment fa-beat" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('user.staff-noted') }}"></i>@endif
         </h2>
-        <h4>{{ trans('common.group') }}: <span class="badge-user text-bold" style="color:{{ $user->roleColor() }}; background-image:{{ $user->roleEffect() }};"><i class="{{ $user->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $user->group->name }}"></i> {{ $user->group->name }}</span></h4>
+        <h4>{{ trans('common.group') }}: <span class="badge-user text-bold" style="color:{{ $user->roleColor() }}; background-image:{{ $user->roleEffect() }};"><i class="{{ $user->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $user->roleName() }}"></i> {{ $user->roleName() }}</span></h4>
         <h4>{{ trans('user.registration-date') }} {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
         <span style="float:left;">
         @if(auth()->user()->id != $user->id)
@@ -95,7 +95,7 @@
         </span>
         <span style="float:right;">
         @if(auth()->check() && \App\Policy::isModerator(auth()->user()))
-        @if($user->group->id == 5)
+        @if(\App\Policy::isBanned($user))
         <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal_user_unban"><span class="fa fa-undo"></span> {{ trans('user.unban') }} </button>
         @else
         <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_ban"><span class="fa fa-ban"></span> {{ trans('user.ban') }}</button>

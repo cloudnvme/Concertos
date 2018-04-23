@@ -56,12 +56,11 @@ class HomeController extends Controller
 
         //Online Block
         $user = User::oldest('username')->get();
-        $groups = Group::oldest('position')->get();
 
         //Featured Torrents
         $featured = FeaturedTorrent::with('torrent')->get();
 
-        return view('home.home', ['user' => $user, 'groups' => $groups, 'articles' => $articles, 'torrents' => $torrents,
+        return view('home.home', ['user' => $user, 'articles' => $articles, 'torrents' => $torrents,
             'best' => $best, 'dying' => $dying, 'leeched' => $leeched, 'dead' => $dead, 'topics' => $topics, 'posts' => $posts,
             'articles' => $articles, 'shoutboxMessages' => $shoutboxMessages, 'featured' => $featured]);
     }

@@ -93,7 +93,7 @@ class AnnounceController extends Controller
         }
 
         // If User Is Banned Return Error to Client
-        if ($user->group->id == 5) {
+        if (\App\Policy::isBanned($user)) {
             //info('A Banned User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'You are no longer welcome here']), 200, ['Content-Type' => 'text/plain']);
         }
@@ -105,7 +105,7 @@ class AnnounceController extends Controller
         }
 
         // If User Is Validating Return Error to Client
-        if ($user->group->id == 1) {
+        if (\App\Policy::isValidating($user)) {
             //info('A Validating User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'Your account is still validating']), 200, ['Content-Type' => 'text/plain']);
         }

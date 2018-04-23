@@ -52,7 +52,7 @@
             @if($p->user->peer_hidden == 1)
               <td><span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || \App\Policy::isModerator(auth()->user()))<a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->roleColor() }}">({{ $p->user->username }})</span></a>@endif</td>
             @else
-              <td><a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->roleColor() }}; background-image:{{ $p->user->roleEffect() }};"><i class="{{ $p->user->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->username }}</span></a></td>
+              <td><a href="{{ route('profile', ['id' => $p->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $p->user->roleColor() }}; background-image:{{ $p->user->roleEffect() }};"><i class="{{ $p->user->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->roleName() }}"></i> {{ $p->user->username }}</span></a></td>
             @endif
             @if ($p->seeder == 0)
             <td><div class="progress">

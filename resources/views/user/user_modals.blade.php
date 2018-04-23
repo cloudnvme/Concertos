@@ -4,7 +4,7 @@
     <div class="modal-content">
       <meta charset="utf-8">
       <title>Ban User: {{ $user->username }}</title>
-      {{ Form::open(array('route' => array('ban', $user->username, $user->id))) }}
+      {{ Form::open(array('route' => array('ban', $user->id))) }}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
         <h4 class="modal-title" id="myModalLabel">Ban User: {{ $user->username }}</h4>
@@ -64,10 +64,7 @@
           <label for="report_reason" class="col-sm-3 control-label">New Group</label>
           <div class="col-sm-9">
             <select name="group_id" class="form-control">
-                <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
-                @foreach($groups as $g)
-                    <option value="{{ $g->id }}">{{ $g->name }}</option>
-                @endforeach
+                <option value="{{ $user->roleName() }}">{{ $user->roleName() }} (Default)</option>
             </select>
           </div>
         </div>

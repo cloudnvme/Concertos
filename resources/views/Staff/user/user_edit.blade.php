@@ -78,7 +78,7 @@
 
 					<div class="form-group">
 							<select name="group_id" class="form-control">
-									<option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
+									<option value="{{ $user->group->id }}">{{ $user->roleName() }} (Default)</option>
 									@foreach($groups as $g)
 											<option value="{{ $g->id }}">{{ $g->name }}</option>
 									@endforeach

@@ -27,7 +27,7 @@
         <div class="f-display-info col-md-12">
             <h1 class="f-display-info-title">{{ $forum->name }}</h1>
             <p class="f-display-info-description">{{ $forum->description }}
-            @if($category->getPermission()->start_topic == true)
+            @if(\App\Policy::canCreateTopic(auth()->user(), $category))
                 <a href="{{ route('forum_new_topic', array('id' => $forum->id)) }}" class="btn btn-primary" style="float:right;">{{ trans('forum.create-new-topic') }}</a>
             @endif
             </p>

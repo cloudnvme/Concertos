@@ -63,7 +63,7 @@
                 </span>
                 </p>
               </a>
-            <p><span class="badge-user text-bold" style="color:{{ $p->user->roleColor() }}; background-image:{{ $p->user->roleEffect() }};"><i class="{{ $p->user->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->group->name }}</span></p>
+            <p><span class="badge-user text-bold" style="color:{{ $p->user->roleColor() }}; background-image:{{ $p->user->roleEffect() }};"><i class="{{ $p->user->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->roleName() }}"></i> {{ $p->user->roleName() }}</span></p>
             <p class="pre">{{ $p->user->title }}</p>
             <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
             <span class="inline">
@@ -120,7 +120,7 @@
         @if($topic->state == "close" && \App\Policy::isModerator(auth()->user()))
         <form role="form" method="POST" action="{{ route('forum_reply',['id' => $topic->id]) }}">
         {{ csrf_field() }}
-        <div class="text-danger">This topic is closed, but you can still reply due to you being {{auth()->user()->group->name}}.</div>
+        <div class="text-danger">This topic is closed, but you can still reply due to you being {{auth()->user()->roleName()}}.</div>
         <div class="from-group">
           <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
         </div>

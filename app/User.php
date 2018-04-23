@@ -89,15 +89,6 @@ class User extends Authenticatable
         return $this->hasMany(\App\Poll::class);
     }
 
-    /**
-     * Belongs to group
-     *
-     */
-    public function group_x()
-    {
-        return $this->belongsTo(\App\Group::class);
-    }
-
     public function roleIcon()
     {
         return "fa fa-user";

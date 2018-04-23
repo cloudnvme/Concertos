@@ -56,7 +56,7 @@
                     <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}" class="img-circle"> @else
                     <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profile', ['id' => $user->id]) }}" class="name">{{ $user->username }}</a> <span>{{ $user->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['id' => $user->id]) }}" class="name">{{ $user->username }}</a> <span>{{ $user->roleName() }}</span> </td>
                   @if(\App\Policy::isModerator(auth()->user()))
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $user->email }}</span> </td>
                   <td class="user-id">
@@ -97,7 +97,7 @@
 										<img src="{{ url('files/img/' . $uploader->image) }}" alt="{{ $uploader->username }}" class="img-circle"> @else
 										<img src="{{ url('img/profile.png') }}" alt="{{ $uploader->username }}" class="img-circle"> @endif
 									</td>
-									<td class="user-name"> <a href="{{ route('profile', ['id' => $uploader->id]) }}" class="name">{{ $uploader->username }}</a> <span>{{ $uploader->group->name }}</span> </td>
+									<td class="user-name"> <a href="{{ route('profile', ['id' => $uploader->id]) }}" class="name">{{ $uploader->username }}</a> <span>{{ $uploader->roleName() }}</span> </td>
 									@if(\App\Policy::isModerator(auth()->user()))
 									<td class="hidden-xs hidden-sm"> <span class="email">{{ $uploader->email }}</span> </td>
 									<td class="user-id">
@@ -133,7 +133,7 @@
                     <img src="{{ url('files/img/' . $mod->image) }}" alt="{{ $mod->username }}" class="img-circle"> @else
                     <img src="{{ url('img/profile.png') }}" alt="{{ $mod->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profile', ['id' => $mod->id]) }}" class="name">{{ $mod->username }}</a> <span>{{ $mod->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['id' => $mod->id]) }}" class="name">{{ $mod->username }}</a> <span>{{ $mod->roleName() }}</span> </td>
                   @if(\App\Policy::isModerator(auth()->user()))
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $mod->email }}</span> </td>
                   <td class="user-id">
@@ -169,7 +169,7 @@
                     <img src="{{ url('files/img/' . $admin->image) }}" alt="{{ $admin->username }}" class="img-circle"> @else
                     <img src="{{ url('img/profile.png') }}" alt="{{ $admin->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profile', ['id' => $admin->id]) }}" class="name">{{ $admin->username }}</a> <span>{{ $admin->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['id' => $admin->id]) }}" class="name">{{ $admin->username }}</a> <span>{{ $admin->roleName() }}</span> </td>
                   @if(\App\Policy::isModerator(auth()->user()))
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $admin->email }}</span> </td>
                   <td class="user-id">
@@ -205,7 +205,7 @@
                     <img src="{{ url('files/img/' . $coder->image) }}" alt="{{ $coder->username }}" class="img-circle"> @else
                     <img src="{{ url('img/profile.png') }}" alt="{{ $coder->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profile', ['id' => $coder->id]) }}" class="name">{{ $coder->username }}</a> <span>{{ $coder->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['id' => $coder->id]) }}" class="name">{{ $coder->username }}</a> <span>{{ $coder->roleName() }}</span> </td>
                   @if(\App\Policy::isModerator(auth()->user()))
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $coder->email }}</span> </td>
                   <td class="user-id">

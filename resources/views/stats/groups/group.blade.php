@@ -26,11 +26,11 @@
 <div class="container">
 @include('partials.statsgroupmenu')
 <div class="block">
-  <h2>{{ $group->name }} {{ trans('stat.group') }}</h2>
+  <h2>{{ $roleName() }} {{ trans('stat.group') }}</h2>
   <hr>
   <div class="row">
     <div class="col-md-12">
-      <p class="text-red"><strong><i class="{{ $group->icon }}"></i> {{ $group->name }} {{ trans('stat.group') }}</strong> ({{ trans('stat.users-in-group') }})</p>
+      <p class="text-red"><strong><i class="{{ $group->icon }}"></i> {{ $roleName() }} {{ trans('stat.group') }}</strong> ({{ trans('stat.users-in-group') }})</p>
       <table class="table table-condensed table-striped table-bordered">
         <thead>
           <tr>

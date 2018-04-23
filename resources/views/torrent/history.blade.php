@@ -56,7 +56,7 @@
         </td>
         @else
         <td>
-            <a href="{{ route('profile', ['id' => $hpeers->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $hpeers->user->roleColor() }}; background-image:{{ $hpeers->user->roleEffect() }};"><i class="{{ $hpeers->user->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $hpeers->user->group->name }}"></i> {{ $hpeers->user->username }}</span></a>
+            <a href="{{ route('profile', ['id' => $hpeers->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $hpeers->user->roleColor() }}; background-image:{{ $hpeers->user->roleEffect() }};"><i class="{{ $hpeers->user->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $hpeers->user->roleName() }}"></i> {{ $hpeers->user->username }}</span></a>
         </td>
         @endif
         @if($hpeers->active == 1) <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif

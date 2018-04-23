@@ -52,7 +52,7 @@
                     <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}" class="img-circle"> @else
                     <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profile', ['id' => $user->id]) }}" class="name">{{ $user->username }}</a> <span>{{ $user->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['id' => $user->id]) }}" class="name">{{ $user->username }}</a> <span>{{ $user->roleName() }}</span> </td>
                   @if(\App\Policy::isModerator(auth()->user()))
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $user->email }}</span> </td>
                   <td class="user-id">

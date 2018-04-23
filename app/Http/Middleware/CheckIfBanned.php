@@ -28,7 +28,7 @@ class CheckIfBanned
     public function handle($request, Closure $next, $guard = null)
     {
         $user = auth()->user();
-        if ($user and $user->group_id == 5) {
+        if ($user and \App\Policy::isBanned($user)) {
             auth()->logout();
             $request->session()->flush();
             return redirect('login')->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));

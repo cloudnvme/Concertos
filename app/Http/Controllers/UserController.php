@@ -62,13 +62,12 @@ class UserController extends Controller
     public function profile($id)
     {
         $user = User::findOrFail($id);
-        $groups = Group::all();
         $followers = Follow::where('target_id', $id)->get();
         $history = $user->history;
         $warnings = Warning::where('user_id', $id)->whereNotNull('torrent')->where('active', 1)->take(3)->get();
         $hitrun = Warning::where('user_id', $id)->latest()->paginate(10);
 
-        return view('user.profile', ['user' => $user, 'groups' => $groups, 'followers' => $followers, 'history' => $history, 'warnings' => $warnings, 'hitrun' => $hitrun]);
+        return view('user.profile', ['user' => $user, 'followers' => $followers, 'history' => $history, 'warnings' => $warnings, 'hitrun' => $hitrun]);
     }
 
     public function editProfile(Request $request, $id)

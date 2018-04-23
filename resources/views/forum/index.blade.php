@@ -26,7 +26,7 @@
 </form>
 	<div class="forum-categories">
 		@foreach($categories as $category)
-			@if($category->getPermission() != null && $category->getPermission()->show_forum == true && $category->getForumsInCategory()->count() > 0)
+			@if(\App\Policy::canViewForum(auth()->user(), $category) && $category->getForumsInCategory()->count() > 0)
         <div class="header gradient teal">
           <div class="inner_content">
             <h1>{{ $category->name }}</h1>

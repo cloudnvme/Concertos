@@ -110,7 +110,7 @@ class ForumController extends Controller
         }
         $category = Forum::findOrFail($forum->parent_id);
         // Check if the user has permission to view the forum
-        if ($category->getPermission()->show_forum != true) {
+        if (!\App\Policy::canViewForum(auth()->user(), $category)) {
             return redirect()->route('forum_index')->with(Toastr::error('You Do Not Have Access To This Forum!', 'Whoops!', ['options']));
         }
 
@@ -146,7 +146,7 @@ class ForumController extends Controller
         $firstPost = Post::where('topic_id', $topic->id)->first();
 
         // The user can post a topic here ?
-        if ($category->getPermission()->read_topic != true) {
+        if (!\App\Policy::canReadTopic(auth()->user(), $topic)) {
             // Redirect him to the forum index
             return redirect()->route('forum_index')->with(Toastr::error('You Do Not Have Access To Read This Topic!', 'Whoops!', ['options']));
         }
@@ -172,7 +172,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if (!$category->getPermission()->reply_topic || ($topic->state == "close" && !\App\Policy::isModerator(auth()->user()))) {
+        if (!\App\Policy::canReplyTopic(auth()->user(), $topic)) {
             return redirect()->route('forum_index')->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }
 
@@ -260,7 +260,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if ($category->getPermission()->start_topic != true) {
+        if (\App\Policy::canCreateTopic($user, $category)) {
             return redirect()->route('forum_index')->with(Toastr::error('You Cannot Start A New Topic Here!', 'Whoops!', ['options']));
         }
 

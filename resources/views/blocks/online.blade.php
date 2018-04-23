@@ -16,14 +16,5 @@
       @endif
       @endforeach
     </div>
-    <div class="panel-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <center>
-            <span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>
-          </center>
-        </div>
-      </div>
-    </div>
   </div>
 </div>

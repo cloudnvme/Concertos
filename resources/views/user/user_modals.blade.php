@@ -42,7 +42,7 @@
     <div class="modal-content">
       <meta charset="utf-8">
       <title>Unban User: {{ $user->username }}</title>
-      {{ Form::open(array('route' => array('unban', $user->username, $user->id))) }}
+      {{ Form::open(array('route' => array('unban', $user->id))) }}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
         <h4 class="modal-title" id="myModalLabel">Unban User: {{ $user->username }}</h4>
@@ -61,11 +61,9 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="report_reason" class="col-sm-3 control-label">New Group</label>
+          <label for="report_reason" class="col-sm-3 control-label">New Role</label>
           <div class="col-sm-9">
-            <select name="group_id" class="form-control">
-                <option value="{{ $user->roleName() }}">{{ $user->roleName() }} (Default)</option>
-            </select>
+            <input type="text" name="role" placeholder="New Role"/>
           </div>
         </div>
         <div class="form-group">

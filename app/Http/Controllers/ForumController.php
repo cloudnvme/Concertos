@@ -260,7 +260,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if (\App\Policy::canCreateTopic($user, $category)) {
+        if (!\App\Policy::canCreateTopic($user, $category)) {
             return redirect()->route('forum_index')->with(Toastr::error('You Cannot Start A New Topic Here!', 'Whoops!', ['options']));
         }
 

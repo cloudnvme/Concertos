@@ -91,8 +91,19 @@ class User extends Authenticatable
 
     public function roleIcon()
     {
+        if ($this->roleName() == 'Bot') {
+            return 'fa fa-android';
+        }
+
+        if ($this->roleName() == 'Owner') {
+            return 'fa fa-user-secret';
+        }
+
+        if ($this->roleName() == 'Uploader') {
+            return 'fa fa-upload';
+        }
+
         return "fa fa-user";
-        return $this->group->icon;
     }
 
     public function roleEffect()
@@ -102,17 +113,29 @@ class User extends Authenticatable
 
     public function roleColor()
     {
+        if ($this->roleName() == 'Bot') {
+            return '#f1c40f';
+        }
+
+        if ($this->roleName() == 'Owner') {
+            return '#00abff';
+        }
+
+        if ($this->roleName() == 'Uploader') {
+            return '#2ECC71';
+        }
+
         return "#7289DA";
     }
 
     public function roleName()
     {
-        return $this->role->name;
+        return $this->role->name ?? 'None';
     }
 
     public function role()
     {
-        return $this->hasOne(Role::class);
+        return $this->hasOne(Role::class)->withDefault();
     }
 
     public function roles()

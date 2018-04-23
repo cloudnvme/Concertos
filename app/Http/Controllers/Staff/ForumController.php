@@ -40,7 +40,6 @@ class ForumController extends Controller
     public function add(Request $request)
     {
         $categories = Forum::where('parent_id', 0)->get();
-        $groups = Group::all();
         if ($request->isMethod('POST')) {
             $parentForum = Forum::findOrFail($request->input('parent_id'));
             $forum = new Forum();
@@ -51,31 +50,9 @@ class ForumController extends Controller
             $forum->parent_id = ($request->input('forum_type') == 'category') ? 0 : $parentForum->id;
             $forum->save();
 
-            // Permissions
-            foreach ($groups as $k => $group) {
-                $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
-                if ($perm == null) {
-                    $perm = new Permission();
-                }
-                $perm->forum_id = $forum->id;
-                $perm->group_id = $group->id;
-                if (array_key_exists($group->id, $request->input('permissions'))) {
-                    $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                    $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                    $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                    $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
-                } else {
-                    $perm->show_forum = false;
-                    $perm->read_topic = false;
-                    $perm->reply_topic = false;
-                    $perm->start_topic = false;
-                }
-                $perm->save();
-            }
-
             return redirect()->route('staff_forum_index')->with(Toastr::success('Forum has been created successfully', 'Yay!', ['options']));
         }
-        return view('Staff.forum.add', ['categories' => $categories, 'groups' => $groups]);
+        return view('Staff.forum.add', ['categories' => $categories]);
     }
 
     /**
@@ -86,7 +63,6 @@ class ForumController extends Controller
     public function edit(Request $request, $id)
     {
         $categories = Forum::where('parent_id', 0)->get();
-        $groups = Group::all();
         $forum = Forum::findOrFail($id);
         if ($request->isMethod('POST')) {
             $forum->name = $request->input('title');
@@ -97,31 +73,9 @@ class ForumController extends Controller
             $forum->parent_id = $request->input('parent_id');
             $forum->save();
 
-            // Permissions
-            foreach ($groups as $k => $group) {
-                $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
-                if ($perm == null) {
-                    $perm = new Permission();
-                }
-                $perm->forum_id = $forum->id;
-                $perm->group_id = $group->id;
-                if (array_key_exists($group->id, $request->input('permissions'))) {
-                    $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                    $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                    $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                    $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
-                } else {
-                    $perm->show_forum = false;
-                    $perm->read_topic = false;
-                    $perm->reply_topic = false;
-                    $perm->start_topic = false;
-                }
-                $perm->save();
-            }
-
             return redirect()->route('staff_forum_index')->with(Toastr::success('Forum has been edited successfully', 'Yay!', ['options']));
         }
-        return view('Staff.forum.edit', ['categories' => $categories, 'groups' => $groups, 'forum' => $forum]);
+        return view('Staff.forum.edit', ['categories' => $categories, 'forum' => $forum]);
     }
 
     /**

@@ -38,7 +38,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->active == 0 || $user->group_id == 1) {
+        if (!\App\Policy::isActivated($user)) {
             auth()->logout();
             $request->session()->flush();
             return redirect()->route('login')->with(Toastr::error('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));

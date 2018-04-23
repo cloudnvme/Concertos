@@ -24,9 +24,10 @@ class ActivationController extends Controller
     public function activate($token)
     {
         $activation = UserActivation::with('user')->where('token', $token)->firstOrFail();
-        if (!empty($activation->user->id) && $activation->user->group->id != 5) {
+        if (!empty($activation->user->id) && !\App\Policy::isBanned($activation->user)) {
             $activation->user->active = true;
-            $activation->user->group_id = $this->group_id;
+            $activation->user->removeRole('Validating');
+            $activation->user->addRole('User');
             $activation->user->save();
 
             // Activity Log

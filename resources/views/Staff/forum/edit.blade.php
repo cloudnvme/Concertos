@@ -57,54 +57,6 @@
 				<input type="text" name="position" class="form-control" placeholder="The position number" value="{{ $forum->position }}">
 			</div>
 
-			<h3>Permissions</h3>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Groups</th>
-						<th>View the forum</th>
-						<th>Read topics</th>
-						<th>Start new topic</th>
-						<th>Reply to topics</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach($groups as $g)
-						<tr>
-							<td>{{ $g->name }}</td>
-							<td>
-								@if($g->getPermissionsByForum($forum)->show_forum == true)
-									<input type="checkbox" checked name="permissions[{{ $g->id }}][show_forum]" value="1">
-								@else
-									<input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1">
-								@endif
-							</td>
-							<td>
-								@if($g->getPermissionsByForum($forum)->read_topic == true)
-									<input type="checkbox" checked name="permissions[{{ $g->id }}][read_topic]" value="1">
-								@else
-									<input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1">
-								@endif
-							</td>
-							<td>
-								@if($g->getPermissionsByForum($forum)->start_topic == true)
-									<input type="checkbox" checked name="permissions[{{ $g->id }}][start_topic]" value="1">
-								@else
-									<input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1">
-								@endif
-							</td>
-							<td>
-								@if($g->getPermissionsByForum($forum)->reply_topic == true)
-									<input type="checkbox" checked name="permissions[{{ $g->id }}][reply_topic]" value="1">
-								@else
-									<input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1">
-								@endif
-							</td>
-						</tr>
-					@endforeach
-				</tbody>
-			</table>
-
 			<button type="submit" class="btn btn-default">Save Forum</button>
 		{{ Form::close() }}
 </div>

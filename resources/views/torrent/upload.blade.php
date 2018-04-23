@@ -22,7 +22,7 @@
 @endsection
 
 @section('content')
-  @if($user->can_upload == 0)
+  @if(!\App\Policy::canUpload($user))
     <div class="container">
       <div class="jumbotron shadowed">
         <div class="container">

@@ -49,9 +49,44 @@ class Policy
         return $user->hasRole('Banned');
     }
 
-    public static function isValidating(User $user)
+    public static function isActivated(User $user)
     {
-        return $user->hasRole('Validating');
+        return !$user->hasRole('Validating');
+    }
+
+    public static function canDownload(User $user)
+    {
+        return $user->can_download == 1;
+    }
+
+    public static function canUpload(User $user)
+    {
+        return $user->can_upload == 1;
+    }
+
+    public static function canChat(User $user)
+    {
+        return $user->can_chat == 1;
+    }
+
+    public static function canRequest(User $user)
+    {
+        return $user->can_requests == 1;
+    }
+
+    public static function canComment(User $user)
+    {
+        return $user->can_comment == 1;
+    }
+
+    public static function canInvite(User $user)
+    {
+        return $user->can_invite == 1;
+    }
+
+    public static function inAutogroup(User $user)
+    {
+        return !self::isModerator($user) && !self::isTrusted($user);
     }
 
     public static function canEditTorrent(User $user, Torrent $torrent)

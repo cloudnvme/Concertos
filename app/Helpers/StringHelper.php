@@ -105,4 +105,20 @@ class StringHelper
         $seconds = ($seconds == 0) ? "" : $seconds . "s";
         return $years . $months . $weeks . $days . $hours . $minutes . $seconds;
     }
+
+    public static function commaList($string)
+    {
+        if ($string == '') {
+            return [];
+        }
+
+        $i = 0;
+        $result = explode(',', $string);
+        foreach ($result as $part) {
+            $result[$i] = trim($part);
+            ++$i;
+        }
+
+        return $result;
+    }
 }

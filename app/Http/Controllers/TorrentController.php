@@ -846,13 +846,8 @@ class TorrentController extends Controller
         // Grab Current User
         $user = auth()->user();
 
-        // User's ratio is too low
-        if ($user->getRatio() < config('other.ratio')) {
-            return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('Your Ratio Is To Low To Download!!!', 'Whoops!', ['options']));
-        }
-
         // User's download rights are revoked
-        if ($user->can_download == 0) {
+        if (!\App\Policy::canDownload($user)) {
             return redirect()->route('torrent', ['id' => $torrent->id])->with(Toastr::error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }
 

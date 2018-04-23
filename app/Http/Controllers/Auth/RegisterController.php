@@ -24,7 +24,6 @@ use App\User;
 use App\Mail\WelcomeUser;
 use App\Shoutbox;
 use App\PrivateMessage;
-use App\Group;
 use App\Invite;
 use App\Rules\Captcha;
 use \Toastr;
@@ -61,7 +60,6 @@ class RegisterController extends Controller
                 return redirect()->route('register', ['code' => $code])->with(Toastr::error('Either The Username/Email is already in use or you missed a field. Make sure password is also min 8 charaters!', 'Whoops!', ['options']));
             } else {
                 // Create The User
-                $group = Group::where('slug', '=', 'validating')->first();
                 $user->username = $request->input('username');
                 $user->email = $request->input('email');
                 $user->password = Hash::make($request->input('password'));
@@ -70,8 +68,9 @@ class RegisterController extends Controller
                 $user->uploaded = config('other.default_upload');
                 $user->downloaded = config('other.default_download');
                 $user->style = config('other.default_style', 0);
-                $user->group_id = $group->id;
                 $user->save();
+                $user->addRole('Validating');
+                $user->setMainRole('Validating');
 
                 if ($key) {
                     // Update The Invite Record

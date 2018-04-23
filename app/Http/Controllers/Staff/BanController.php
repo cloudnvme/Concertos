@@ -45,14 +45,9 @@ class BanController extends Controller
         if (\App\Policy::isModerator($user) || auth()->user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Ban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
-            $user->group_id = 5;
-            $user->can_upload = 0;
-            $user->can_download = 0;
-            $user->can_comment = 0;
-            $user->can_invite = 0;
-            $user->can_request = 0;
-            $user->can_chat = 0;
-            $user->save();
+            $user->roles()->delete();
+            $user->addRole('Banned');
+            $user->setMainRole('Banned');
 
             $staff = auth()->user();
             $v = validator($request->all(), [
@@ -92,14 +87,9 @@ class BanController extends Controller
         if (\App\Policy::isModerator($user) || auth()->user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
-            $user->group_id = $request->input('group_id');
-            $user->can_upload = 1;
-            $user->can_download = 1;
-            $user->can_comment = 1;
-            $user->can_invite = 1;
-            $user->can_request = 1;
-            $user->can_chat = 1;
-            $user->save();
+            $user->roles()->delete();
+            $user->addRole($request->input('role'));
+            $user->setMainRole($request->input('role'));
 
             $staff = auth()->user();
             $v = validator($request->all(), [

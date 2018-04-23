@@ -12,7 +12,6 @@
     <li><a href="{{ route('staff_article_index') }}"><i class="fa fa-newspaper-o"></i> {{ trans('staff.articles') }}</a></li>
     @if(\App\Policy::isAdministrator(auth()->user()))
     <li><a href="{{ route('staff_forum_index') }}"><i class="fa fa-wpforms"></i> {{ trans('staff.forums') }}</a></li>
-    <li><a href="{{ route('staff_groups_index') }}"><i class="fa fa-users"></i> {{ trans('staff.groups') }}</a></li>
     @endif
     <li><a href="{{ route('staff_page_index') }}"><i class="fa fa-file"></i> {{ trans('staff.pages') }}</a></li>
     <li><a href="{{ route('getPolls') }}"><i class="fa fa-pie-chart"></i> {{ trans('staff.polls') }}</a></li>

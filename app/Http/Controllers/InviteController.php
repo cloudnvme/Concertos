@@ -30,7 +30,7 @@ class InviteController extends Controller
         if (config('other.invite-only') == false) {
             Toastr::error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']);
         }
-        if ($user->can_invite == 0) {
+        if (!\App\Policy::canInvite($user)) {
             Toastr::error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']);
         }
         return view('user.invite', ['user' => $user]);
@@ -38,6 +38,10 @@ class InviteController extends Controller
 
     public function process(Request $request)
     {
+        if (!\App\Policy::canInvite(auth()->user())) {
+            Toastr::error('You\\\'re not allowed to invite', 'Whoops!');
+            return redirect()->route('home');
+        }
         $current = new Carbon();
         $user = auth()->user();
         $invites_restricted = config('other.invites_restriced', false);

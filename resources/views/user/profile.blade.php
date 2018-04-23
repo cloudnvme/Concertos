@@ -299,7 +299,7 @@
       </tr>
       <tr>
         <td> {{ trans('user.can-upload') }}</td>
-        @if($user->can_upload == 1)
+        @if(\App\Policy::canUpload($user))
         <td><i class="fa fa-check text-green"></i></td>
         @else
         <td><i class="fa fa-times text-red"></i></td>
@@ -307,7 +307,7 @@
       </tr>
       <tr>
         <td> {{ trans('user.can-download') }}</td>
-        @if($user->can_download == 1)
+        @if(\App\Policy::canDownload($user))
         <td><i class="fa fa-check text-green"></i></td>
         @else
         <td><i class="fa fa-times text-red"></i></td>
@@ -315,7 +315,7 @@
       </tr>
       <tr>
         <td> {{ trans('user.can-comment') }}</td>
-        @if($user->can_comment == 1)
+        @if(\App\Policy::canComment($user))
         <td><i class="fa fa-check text-green"></i></td>
         @else
         <td><i class="fa fa-times text-red"></i></td>
@@ -323,7 +323,7 @@
       </tr>
       <tr>
         <td> {{ trans('user.can-request') }}</td>
-        @if($user->can_request == 1)
+        @if(\App\Policy::canRequest($user))
         <td><i class="fa fa-check text-green"></i></td>
         @else
         <td><i class="fa fa-times text-red"></i></td>
@@ -339,7 +339,7 @@
       </tr>
       <tr>
         <td> {{ trans('user.can-invite') }}</td>
-        @if($user->can_invite == 1)
+        @if(\App\Policy::canInvite($user))
         <td><i class="fa fa-check text-green"></i></td>
         @else
         <td><i class="fa fa-times text-red"></i></td>

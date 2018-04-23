@@ -77,12 +77,8 @@
 					</div>
 
 					<div class="form-group">
-							<select name="group_id" class="form-control">
-									<option value="{{ $user->group->id }}">{{ $user->roleName() }} (Default)</option>
-									@foreach($groups as $g)
-											<option value="{{ $g->id }}">{{ $g->name }}</option>
-									@endforeach
-							</select>
+						<label for="roles">Roles, separated by comma. The first role will be used as main role.</label>
+						<input name="roles" class="form-control" type="text" value="{{ $user->roles->implode('name', ',') }}"/>
 					</div>
 
 					<button type="submit" class="btn btn-default">Save</button>
@@ -95,7 +91,7 @@
     {{ Form::open(array('route' => ['user_permissions', 'id' => $user->id])) }}
 		<label for="hidden" class="control-label">Can Upload?</label>
 		<div class="radio-inline">
-				<label><input type="radio" name="can_upload" @if($user->can_upload == 1) checked @endif value="1">YES</label>
+				<label><input type="radio" name="can_upload" @if(\App\Policy::canUpload($user)) checked @endif value="1">YES</label>
 			</div>
 		<div class="radio-inline">
 				<label><input type="radio" name="can_upload" @if($user->can_upload == 0) checked @endif value="0">NO</label>
@@ -104,7 +100,7 @@
 		<br>
 		<label for="hidden" class="control-label">Can Download?</label>
 		<div class="radio-inline">
-				<label><input type="radio" name="can_download" @if($user->can_download == 1) checked @endif value="1">YES</label>
+				<label><input type="radio" name="can_download" @if(\App\Policy::canDownload($user)) checked @endif value="1">YES</label>
 			</div>
 		<div class="radio-inline">
 				<label><input type="radio" name="can_download" @if($user->can_download == 0) checked @endif value="0">NO</label>
@@ -113,7 +109,7 @@
 		<br>
 		<label for="hidden" class="control-label">Can Comment?</label>
 		<div class="radio-inline">
-				<label><input type="radio" name="can_comment" @if($user->can_comment == 1) checked @endif value="1">YES</label>
+				<label><input type="radio" name="can_comment" @if(\App\Policy::canComment($user)) checked @endif value="1">YES</label>
 			</div>
 		<div class="radio-inline">
 				<label><input type="radio" name="can_comment" @if($user->can_comment == 0) checked @endif value="0">NO</label>
@@ -122,7 +118,7 @@
 		<br>
 		<label for="hidden" class="control-label">Can Invite?</label>
 		<div class="radio-inline">
-				<label><input type="radio" name="can_invite" @if($user->can_invite == 1) checked @endif value="1">YES</label>
+				<label><input type="radio" name="can_invite" @if(\App\Policy::canInvite($user)) checked @endif value="1">YES</label>
 			</div>
 		<div class="radio-inline">
 				<label><input type="radio" name="can_invite" @if($user->can_invite == 0) checked @endif value="0">NO</label>
@@ -131,7 +127,7 @@
 		<br>
 		<label for="hidden" class="control-label">Can Request?</label>
 		<div class="radio-inline">
-				<label><input type="radio" name="can_request" @if($user->can_request == 1) checked @endif value="1">YES</label>
+				<label><input type="radio" name="can_request" @if(\App\Policy::canRequest($user)) checked @endif value="1">YES</label>
 			</div>
 		<div class="radio-inline">
 				<label><input type="radio" name="can_request" @if($user->can_request == 0) checked @endif value="0">NO</label>

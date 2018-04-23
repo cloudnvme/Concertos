@@ -27,6 +27,7 @@ use App\Shoutbox;
 use App\Like;
 use App\Thank;
 use App\Follow;
+use App\Helpers\StringHelper;
 use \Toastr;
 
 class UserController extends Controller
@@ -72,9 +73,8 @@ class UserController extends Controller
     public function userSettings($id)
     {
         $user = User::findOrFail($id);
-        $groups = Group::all();
         $notes = Note::where('user_id', $id)->latest()->paginate(25);
-        return view('Staff.user.user_edit', ['user' => $user, 'groups' => $groups, 'notes' => $notes]);
+        return view('Staff.user.user_edit', ['user' => $user, 'notes' => $notes]);
     }
 
     /**
@@ -87,14 +87,23 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
-        $groups = Group::all();
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') && \App\Policy::isModerator($staff)) {
             $user->username = $request->input('username');
             $user->email = $request->input('email');
             $user->uploaded = $request->input('uploaded');
             $user->downloaded = $request->input('downloaded');
             $user->about = $request->input('about');
-            $user->group_id = (int)$request->input('group_id');
+
+            $user->roles()->delete();
+            $roles = StringHelper::commaList($request->input('roles'));
+            foreach ($roles as $role) {
+                $user->addRole($role);
+            }
+
+            if (!empty($roles)) {
+                $user->setMainRole($roles[0]);
+            }
+
             $user->save();
 
             // Activity Log
@@ -116,7 +125,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') && \App\Policy::isModerator($staff)) {
             $user->can_upload = $request->input('can_upload');
             $user->can_download = $request->input('can_download');
             $user->can_comment = $request->input('can_comment');
@@ -144,7 +153,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') && \App\Policy::isModerator($staff)) {
             $new_password = $request->input('new_password');
             $user->password = Hash::make($new_password);
             $user->save();
@@ -169,6 +178,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
+        if (!\App\Policy::isModerator($staff))
+        {
+            abort(403, "Not staff, but nice try :P");
+        }
         if (\App\Policy::isModerator($user) || auth()->user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
         } else {

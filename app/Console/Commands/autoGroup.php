@@ -42,11 +42,20 @@ class autoGroup extends Command
      */
     public function handle()
     {
+        $min_ratio = config('other.ratio');
+        foreach (User::all() as $user) {
+            if ($user->getRatio($user) < $min_ratio) {
+                $user->roles()->delete();
+                $user->addRole('Leech');
+                $user->setMainRole('Leech');
+            }
+        }
+        return;
+
         // Temp Hard Coding of Immune Groups (Config Files To Come)
         $current = Carbon::now();
         $groups = Group::select('id')->where('autogroup', 1)->get()->toArray();
         $users = User::whereIn('group_id', $groups)->get();
-
         foreach ($users as $user) {
             $hiscount = History::where('user_id', $user->id)->count();
 

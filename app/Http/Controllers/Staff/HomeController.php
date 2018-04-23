@@ -32,8 +32,12 @@ class HomeController extends Controller
     {
         //User Info
         $num_user = User::all()->count();
-        $banned = User::where('group_id', 5)->count();
-        $validating = User::where('group_id', 1)->count();
+        $banned = User::whereHas('roles', function($query) {
+           $query->where('name', 'Banned');
+        })->count();
+        $validating = User::whereHas('roles', function($query) {
+            $query->where('name', 'Validating');
+        })->count();
         //Torrent Info
         $num_torrent = Torrent::all()->count();
         $pending = Torrent::pending()->count();

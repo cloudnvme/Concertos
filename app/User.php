@@ -103,6 +103,10 @@ class User extends Authenticatable
             return 'fa fa-upload';
         }
 
+        if ($this->roleName() == 'Trustee') {
+            return 'fa fa-shield';
+        }
+
         return "fa fa-user";
     }
 
@@ -123,6 +127,10 @@ class User extends Authenticatable
 
         if ($this->roleName() == 'Uploader') {
             return '#2ECC71';
+        }
+
+        if ($this->roleName() == 'Trustee') {
+            return '#BF55EC';
         }
 
         return "#7289DA";

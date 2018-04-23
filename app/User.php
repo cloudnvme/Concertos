@@ -95,7 +95,7 @@ class User extends Authenticatable
             return 'fa fa-android';
         }
 
-        if ($this->roleName() == 'Owner') {
+        if ($this->roleName() == 'Owner' || $this->roleName() == 'Moderator' || $this->roleName() == 'Administrator') {
             return 'fa fa-user-secret';
         }
 
@@ -147,6 +147,10 @@ class User extends Authenticatable
 
         if ($this->roleName() == 'Validating') {
             return '#95A5A6';
+        }
+
+        if ($this->roleName() == 'Moderator') {
+            return '#4ECDC4';
         }
 
         return "#7289DA";

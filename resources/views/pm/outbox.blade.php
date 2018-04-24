@@ -41,7 +41,7 @@
               @foreach($pms as $p)
               <tr>
                 <td class="col-sm-2"><a href="{{ route('profile', ['id' => $p->receiver->id]) }}" title="">{{ $p->receiver->username}}</a></td>
-                <td class="col-sm-5"><a href="{{ route('message', [id' => $user->id , 'pmid' => $p->id]) }}">{{ $p->subject }}</a></td>
+                <td class="col-sm-5"><a href="{{ route('message', ['id' => $user->id , 'pmid' => $p->id]) }}">{{ $p->subject }}</a></td>
                 <td class="col-sm-2">{{ $p->created_at->diffForHumans() }}</td>
               </tr>
               @endforeach

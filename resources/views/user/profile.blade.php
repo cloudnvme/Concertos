@@ -347,7 +347,9 @@
       </tr>
       <tr>
         <td> {{ trans('user.invites') }}</td>
-        @if($user->invites > 0)
+        @if (\App\Policy::hasUnlimitedInvites($user))
+        <td><span class="text-success text-bold"> ∞</span><a href="{{ route('inviteTree', ['id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a></td>
+        @elseif ($user->invites > 0)
         <td><span class="text-success text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a></td>
         @else
         <td><span class="text-danger text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a></td>

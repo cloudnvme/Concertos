@@ -20,6 +20,7 @@ use App\Mail\InviteUser;
 use \Toastr;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
+use App\Policy;
 
 class InviteController extends Controller
 {
@@ -55,7 +56,8 @@ class InviteController extends Controller
             return redirect()->route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'Whoops!', ['options']));
         }
 
-        if ($user->invites > 0) {
+        $unlimited = Policy::hasUnlimitedInvites($user);
+        if ($user->invites > 0 || $unlimited) {
             // Generate a version 4, truly random, UUID
             $code = Uuid::uuid4()->toString();
 
@@ -71,9 +73,11 @@ class InviteController extends Controller
             // send the email
             Mail::to($request->input('email'))->send(new InviteUser($invite));
 
-            // subtract 1 invite
-            $user->invites -= 1;
-            $user->save();
+            if (!$unlimited) {
+                $user->invites -= 1;
+                $user->save();
+            }
+
             \LogActivity::addToLog("Member {$user->username} has sent an invite to {$invite->email} .");
 
             return redirect()->route('invite')->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));

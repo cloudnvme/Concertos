@@ -99,6 +99,11 @@ class Policy
         return $user->can_invite == 1;
     }
 
+    public static function hasUnlimitedInvites(User $user)
+    {
+        return self::isModerator($user) || $user->hasRole('Inviter');
+    }
+
     public static function inAutogroup(User $user)
     {
         return !self::isModerator($user) && !self::isTrusted($user);

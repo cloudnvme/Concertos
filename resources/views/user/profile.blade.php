@@ -331,7 +331,7 @@
       </tr>
       <tr>
         <td> {{ trans('user.can-chat') }}</td>
-        @if($user->can_chat == 1)
+        @if(\App\Policy::canChat($user))
         <td><i class="fa fa-check text-green"></i></td>
         @else
         <td><i class="fa fa-times text-red"></i></td>

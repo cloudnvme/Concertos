@@ -2,9 +2,11 @@
   <div class="chat-message">
     <div class="chat-message__info">
       <div style="color: {{ $message->poster->roleColor() }}" class="chat-message__poster">
-        <i class="{{ $message->poster->roleIcon() }}"></i>
-        {{ $message->poster->roleName() }}
-        {{ $message->poster->username }}
+        <a class="link" href="{{ route('profile', ['id' => $message->poster->id]) }}">
+          <i class="{{ $message->poster->roleIcon() }}"></i>
+          {{ $message->poster->roleName() }}
+          {{ $message->poster->username }}
+        </a>
       </div>
       @if ($message->poster->image != null)
         <img class="chat-message__avatar" src="{{ url("files/img/{$message->poster->image}") }}"></img>

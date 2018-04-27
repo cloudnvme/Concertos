@@ -1,24 +1,22 @@
-var scollBox = $('.shoutbox');
-var next_batch = null;
+var chatbox = $('#chat');
+var next_batch = parseInt(chatbox.attr('data-last'));
 var forceScroll = true;
 let messages = $('.chat-messages .list-group');
+console.log('1');
+chatbox.animate({scrollTop: chatbox.prop('scrollHeight')}, 0);
 
-messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
-
-load_data = {
-  'fetch': 1
-};
+load_data = {};
 $.ajaxSetup({
-  headers: {
-    'X-CSRF-TOKEN': $('input[name=_token]').val()
-  }
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
+    }
 });
 
-messages.scroll(function() {
-  forceScroll = false;
-  let scrollTop = messages.scrollTop() + messages.prop('clientHeight');
-  let scrollHeight = messages.prop('scrollHeight');
-  forceScroll = scrollTop >= scrollHeight;
+chatbox.scroll(function () {
+    forceScroll = false;
+    let scrollTop = chatbox.scrollTop() + chatbox.prop('clientHeight');
+    let scrollHeight = chatbox.prop('scrollHeight');
+    forceScroll = scrollTop >= scrollHeight;
 });
 
 function formatTime(seconds) {
@@ -51,69 +49,76 @@ function updateTime() {
 }
 
 var xhr = new XMLHttpRequest();
+
 function updateMessages() {
-  $('.chat-messages .list-group');
-  if(xhr !== 'undefined'){
-     xhr.abort();
-  }
-  xhr = $.ajax({
-  url: "shoutbox/messages/" + parseInt(next_batch),
-  type: 'get',
-  data: load_data,
-  dataType: 'json',
-  success: function(data) {
-    if (next_batch === null) {
-      next_batch = data.next_batch;
-    } else {
-      next_batch = data.next_batch;
-      data.data.forEach(function(h) {
-        let message = $(h);
-        messages.append(message);
-      });
-    }
-
-    if (forceScroll) {
-      messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
-    }
-  }});
-  updateTime();
-  window.setTimeout(updateMessages, 3000);
-}
-window.setTimeout(updateMessages, 3000);
-
-var xhr = new XMLHttpRequest();
-function editorOnKeyDown(evt, sender = null) {
-  if (evt.key == "Enter" && !evt.shiftKey) {
-    var message = $('#chat-message').bbcode();
-    post_data = {
-      'message': message
-    };
-    if(xhr !== 'undefined'){
-       xhr.abort();
+    if (xhr !== 'undefined') {
+        xhr.abort();
     }
     xhr = $.ajax({
-      url: "shoutbox/send",
-      type: 'post',
-      data: post_data,
-      dataType: 'json',
-      success: function(data) {
-        forceScroll = true;
-        $('#chat-error').addClass('hidden');
-        $('#chat-message').removeClass('invalid');
-        $('#chat-message').val('');
-        if (sender !== null && sender.classList.contains('wysibb-body')) {
-            $('.wysibb-body').html('');
+        url: "shoutbox/messages/" + parseInt(next_batch),
+        type: 'get',
+        data: load_data,
+        dataType: 'json',
+        success: function (data) {
+            if (next_batch === null) {
+                next_batch = data.next_batch;
+            } else {
+                next_batch = data.next_batch;
+            }
+
+            if (data.data.length != 0) {
+                chatbox.append(data.data);
+            }
+
+            if (forceScroll) {
+                chatbox.animate({scrollTop: chatbox.prop('scrollHeight')}, 0);
+            }
         }
-        messages.animate({
-          scrollTop: messages.prop('scrollHeight')
-        }, 0);
-      },
-      error: function(data) {
-        $('#chat-message').addClass('invalid');
-        $('#chat-error').removeClass('hidden');
-        $('#chat-error').text('Whoops Im Currently Offline');
-      }
     });
-  }
+    updateTime();
+    window.setTimeout(updateMessages, 3000);
 }
+
+window.setTimeout(updateMessages, 3000);
+
+
+var xhr = new XMLHttpRequest();
+
+function sendMessage(evt = null) {
+    var message = $('#chat-message').val();
+    post_data = {
+        'message': message
+    };
+    if (xhr !== 'undefined') {
+        xhr.abort();
+    }
+    xhr = $.ajax({
+        url: "shoutbox/send",
+        type: 'post',
+        data: post_data,
+        dataType: 'json',
+        success: function (data) {
+            forceScroll = true;
+            $('#chat-error').addClass('hidden');
+            $('#chat-message').removeClass('invalid');
+            $('#chat-message').val('');
+            messages.animate({
+                scrollTop: messages.prop('scrollHeight')
+            }, 0);
+        },
+        error: function (data) {
+            $('#chat-message').addClass('invalid');
+            $('#chat-error').removeClass('hidden');
+            $('#chat-error').text('Whoops Im Currently Offline');
+        }
+    });
+}
+
+function editorOnKeyDown(evt, sender = null) {
+    if (evt.key == "Enter" && !evt.shiftKey) {
+        sendMessage();
+    }
+}
+
 $("#chat-message").keypress(editorOnKeyDown);
+$("#send-message").click(sendMessage);

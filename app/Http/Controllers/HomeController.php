@@ -52,7 +52,8 @@ class HomeController extends Controller
         $posts = Post::latest()->take(5)->get();     // Fetch Latest Forum Posts
 
         //ShoutBox Block
-        $shoutboxMessages = ShoutboxController::getMessages()['data'];
+        $shoutboxMessages = ShoutboxController::getMessages();
+        $lastMessage = $shoutboxMessages->last();
 
         //Online Block
         $user = User::oldest('username')->get();
@@ -62,7 +63,7 @@ class HomeController extends Controller
 
         return view('home.home', ['user' => $user, 'articles' => $articles, 'torrents' => $torrents,
             'best' => $best, 'dying' => $dying, 'leeched' => $leeched, 'dead' => $dead, 'topics' => $topics, 'posts' => $posts,
-            'articles' => $articles, 'shoutboxMessages' => $shoutboxMessages, 'featured' => $featured]);
+            'articles' => $articles, 'shoutboxMessages' => $shoutboxMessages, 'featured' => $featured, 'lastMessage' => $lastMessage]);
     }
 
     /**

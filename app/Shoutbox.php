@@ -12,9 +12,12 @@
 
 namespace App;
 
+use Emojione\Client;
+use Emojione\Ruleset;
 use Illuminate\Database\Eloquent\Model;
 use Decoda\Decoda;
 use App\Helpers\Bbcode;
+
 
 class Shoutbox extends Model
 {
@@ -40,5 +43,10 @@ class Shoutbox extends Model
     public static function getMessageHtml($message)
     {
         return Bbcode::parse($message);
+    }
+
+    public function asHtml() {
+        $client = new Client(new Ruleset());
+        return $client->shortnameToUnicode(Shoutbox::getMessageHtml($this->message));
     }
 }

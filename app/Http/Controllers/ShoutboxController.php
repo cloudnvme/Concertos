@@ -100,7 +100,7 @@ class ShoutboxController extends Controller
         });
 
         $messages = $messages->reverse();
-        $next_batch = null;
+
         if ($messages->count() !== 0) {
             $next_batch = $messages->last()->id;
         }
@@ -109,83 +109,11 @@ class ShoutboxController extends Controller
                 return $value->id > $after;
             });
         }
+        return $messages;
+    }
 
-        $data = [];
-        $flag = false;
-        foreach ($messages as $message) {
-            $class = '';
-			if (!empty($message->mentions)){
-				if (in_array(auth()->user()->id, explode(',', $message->mentions))) {
-					$class = 'mentioned';
-					$show = true;
-				} elseif (in_array(auth()->user()->id, explode(',', $message->user))){
-                    $class = 'mentions';
-                    $show = true;
-				} else {
-                    $show = false;
-                }
-			} elseif ($message->mentions == '1'){
-				$show = true;
-			} elseif ($message->mentions == '2'){
-				$show = true;
-			} else {
-				$show = true;
-			}
-			if ($message->user == auth()->user()->id){
-				$show = true;
-			}
-			if ($message->user == '1'){
-				$show = true;
-			}
-			if ($message->user == '2'){
-				$show = true;
-			}
-			if ($show){
-				$flag = true;
-				if ($message->poster->image != null) {
-					$avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
-				} else {
-					$avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="img/profile.png">';
-				}
-
-				$flag = true;
-				$delete = '';
-				if (\App\Policy::isModerator(auth()->user()) || $message->poster->id == auth()->user()->id) {
-					$appurl = config('app.url');
-					$delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
-				}
-
-				$flag = true;
-				if ($message->poster->isOnline()) {
-					$online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="Online!"></i>';
-				} else {
-					$online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="Offline!"></i>';
-				}
-
-                $flag = true;
-                if (auth()->user()->censor == 1) {
-                    $censorMessage = \LaravelEmojiOne::toImage(LanguageCensor::censor(Shoutbox::getMessageHtml($message->message)));
-                } else {
-                    $censorMessage = \LaravelEmojiOne::toImage(Shoutbox::getMessageHtml($message->message));
-                }
-
-				$user_url = route('profile', ['id' => $message->poster->id]);
-				$data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
-					' . ($flag ? $avatar : "") . '
-					<h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->roleIcon()) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->roleName()) . '"></i>
-                    &nbsp;<a data-toggle="tooltip" title="" data-original-title="PrivateMessage" style="cursor: pointer; color:' . ($message->poster->roleColor()) . '; background-image:' . ($message->poster->roleEffect()) . ';" onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')">'
-					. e($message->poster->username) . ' <i class="fa fa-comment-o"></i></a> - <a href=\'' . $user_url . '\'>Profile</a>
-					' . ($flag ? $online : "") . '
-					</span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
-					</h4>
-					<p class="message-content">
-					' . ($flag ? $censorMessage : "") . '
-					' . ($flag ? $delete : "") . '
-					</p></li>';
-			}
-        }
-
-        return ['data' => $data, 'next_batch' => $next_batch];
+    public static function renderMessages($messages) {
+       return view('chat.messages', ['messages' => $messages]);
     }
 
     /**
@@ -197,8 +125,8 @@ class ShoutboxController extends Controller
     {
         if ($request->ajax()) {
             $messagesNext = self::getMessages($after);
-            $data = $messagesNext['data'];
-            $next_batch = $messagesNext['next_batch'];
+            $data = self::renderMessages($messagesNext)->render();
+            $next_batch = $messagesNext->last()->id ?? (int)$after;
             return response()->json(['success' => true, 'data' => $data, 'next_batch' => $next_batch]);
         }
     }

@@ -537,8 +537,9 @@ class User extends Authenticatable
 
     // Return the size (pretty formated) which can be safely downloaded
     // without falling under the minimum ratio.
-    public function untilRatio($ratio)
+    public function untilRatio($ratio = null)
     {
+        $ratio = $ratio ?? config('other.ratio');
         if ($ratio == 0.0) {
             return "∞";
         }

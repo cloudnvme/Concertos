@@ -1,0 +1,274 @@
+@font-face {
+    font-family: "Merriweather";
+    src: url("/fonts/Merriweather-Regular.otf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: unset;
+    text-decoration: none;
+}
+
+html {
+    background-color: rgb(207, 207, 207);
+    font-family: 'Nimbus Sans';
+}
+
+:root {
+    --nav-color: white;
+    --nav-background-color: #272634;
+}
+
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: [start] auto [nav-left] 1fr [nav-right] auto [end];
+    grid-template-rows: [nav-top] 3rem [content-top] 1fr [footer-top] auto [footer-bottom];
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+}
+
+.nav {
+    display: flex;
+    background-color: var(--nav-background-color);
+    grid-column: start / end;
+    grid-row: nav-top / content-top;
+    justify-content: center;
+    align-items: center;
+    color: var(--nav-color);
+}
+
+
+.logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    display: flex;
+    grid-column: start / nav-left;
+    grid-row: nav-top / content-top;
+    color: var(--nav-color);
+    align-items: center;
+    margin-left: 1rem;
+    text-decoration: none;
+    z-index: 3;
+}
+
+.logo__symbol {
+    margin-left: 0.25rem;
+}
+
+.footer {
+    background-color: var(--nav-background-color);
+    color: var(--nav-color);
+    grid-column: start / end;
+    grid-row: footer-top / footer-bottom;
+}
+
+.user-info {
+    display: flex;
+    grid-column: nav-right / end;
+    grid-row: nav-top / content-top;
+    color: var(--nav-color);
+    justify-content: right;
+    align-items: center;
+    margin-right: 0.25rem;
+}
+
+.user-info__item {
+    margin-right: 1rem;
+}
+
+.user-info__content {
+    left: 0;
+    width: 100%;
+    height: 3rem;
+    display: none;
+    position: absolute;
+    background-color: var(--nav-background-color);
+    color: var(--nav-color);
+    z-index: 2;
+}
+
+.user-info:hover .user-info__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    background-color: rgb(239, 239, 239);
+    width: 70rem;
+    padding: 1rem;
+    max-width: 100%;
+    grid-column: start / end;
+    grid-row: content-top / footer-top;
+    justify-self: center;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    color: var(--nav-color);
+    background-color: var(--nav-background-color);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 3rem;
+}
+
+.section__link,
+.nav__link,
+.chat-message__profile-link,
+.link {
+    color: unset;
+    text-decoration: none;
+}
+
+.section__link:hover,
+.nav__link:hover,
+.chat-message__profile-link:hover,
+.link:hover {
+    text-decoration: underline;
+}
+
+.section__title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.section__title--main {
+    text-decoration: none;
+    color: unset;
+}
+
+.nav__link {
+    margin-right: 0.5em;
+}
+
+.nav__link--right {
+    text-align: right;
+}
+
+.block {
+    width: 100%;
+}
+
+.block--simple {
+    margin-bottom: unset;
+}
+
+.block__title {
+    background-color: var(--nav-background-color);
+    color: var(--nav-color);
+    font-size: 1.25rem;
+    padding: 0.25rem;
+}
+
+.block__content {
+    border: 2px solid var(--nav-background-color);
+
+    padding: 0.25rem;
+}
+
+.block__content--sized {
+    height: 20rem;
+    overflow-y: scroll;
+    padding: 0.5rem;
+}
+
+.block__footer {
+    margin-top: 1em;
+}
+
+
+
+.emojione {
+    width: 1rem;
+    height: 1rem;
+}
+
+.table {
+    width: 100%;
+}
+
+.table tr {
+    text-align: left;
+}
+
+.table td {
+    white-space: nowrap;
+    margin-left: 1rem;
+}
+
+.btn {
+    padding: 0.25rem;
+    margin-top: 0.25rem;
+    border: 1px solid darkcyan;
+    border-radius: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.btn:hover {
+    background-color: darkcyan;
+    color: white;
+}
+
+.textarea {
+    display: block;
+    width: 100%;
+}
+
+.textarea--vertical {
+    resize: vertical;
+}
+
+.v-sep {
+    height: 1rem;
+}
+
+.v-sep--small {
+    height: 0.50rem;
+}
+
+.v-sep--mini {
+    height: 0.25rem;
+}
+
+.chat-message__text {
+    margin-left: 1em;
+    align-self: center;
+}
+
+.chat-message a {
+    font-weight: bold;
+}
+
+.chat-message__text a:hover {
+    text-decoration: underline;
+}
+
+.chat-message {
+    padding-top: 0.25rem;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chat-message__avatar {
+    width: 3rem;
+    height: 3rem;
+}
+
+.scrollable-y {
+    overflow-y: scroll;
+    height: 30rem;
+}

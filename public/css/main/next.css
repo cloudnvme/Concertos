@@ -204,7 +204,6 @@ html {
 }
 
 .table td {
-    white-space: nowrap;
     margin-left: 1rem;
 }
 
@@ -271,4 +270,8 @@ html {
 .scrollable-y {
     overflow-y: scroll;
     height: 30rem;
+}
+
+.latest-posts__header-post {
+    width: 35rem;
 }

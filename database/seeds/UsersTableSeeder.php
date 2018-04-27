@@ -27,7 +27,6 @@ class UsersTableSeeder extends Seeder
             [
                 'username' => 'System',
                 'email' => 'system@none.com',
-                'group_id' => 9,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
                 'passkey' => md5(uniqid() . time() . microtime()),
                 'active' => 1
@@ -35,7 +34,6 @@ class UsersTableSeeder extends Seeder
             [
                 'username' => 'Bot',
                 'email' => 'bot@none.com',
-                'group_id' => 9,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
                 'passkey' => md5(uniqid() . time() . microtime()),
                 'active' => 1
@@ -43,7 +41,6 @@ class UsersTableSeeder extends Seeder
             [
                 'username' => env('DEFAULT_OWNER_NAME'),
                 'email' => env('DEFAULT_OWNER_EMAIL'),
-                'group_id' => 10,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
                 'passkey' => md5(uniqid() . time() . microtime()),
                 'active' => 1
@@ -53,7 +50,14 @@ class UsersTableSeeder extends Seeder
         \DB::table('users')->delete();
 
         foreach ($users as $user) {
-            App\User::create($user);
+            $u = App\User::create($user);
+            if ($u->username === env('DEFAULT_OWNER_NAME')) {
+                $u->addRole('Owner');
+                $u->setMainRole('Owner');
+            } else {
+                $u->addRole('Bot');
+                $u->setMainRole('Bot');
+            }
         }
     }
 }

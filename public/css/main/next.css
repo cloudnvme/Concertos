@@ -28,7 +28,7 @@ html {
 .grid-wrapper {
     display: grid;
     grid-template-columns: [start] auto [nav-left] 1fr [nav-right] auto [end];
-    grid-template-rows: [nav-top] 3rem [content-top] 1fr [footer-top] auto [footer-bottom];
+    grid-template-rows: [nav-top] 3rem [info-bar-top] auto [content-top] 1fr [footer-top] auto [footer-bottom];
     width: 100vw;
     height: 100vh;
     max-width: 100%;
@@ -38,10 +38,25 @@ html {
     display: flex;
     background-color: var(--nav-background-color);
     grid-column: start / end;
-    grid-row: nav-top / content-top;
+    grid-row: nav-top / info-bar-top;
     justify-content: center;
     align-items: center;
     color: var(--nav-color);
+}
+
+.info-bar {
+    grid-column: start / end;
+    grid-row: info-bar-top / content-top;
+    display: none;
+}
+
+.info-bar--visible {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: inherit;
+    background-color: #e4d162;
+    height: 3rem;
 }
 
 
@@ -50,7 +65,7 @@ html {
     font-weight: bold;
     display: flex;
     grid-column: start / nav-left;
-    grid-row: nav-top / content-top;
+    grid-row: nav-top / info-bar-top;
     color: var(--nav-color);
     align-items: center;
     margin-left: 1rem;
@@ -72,7 +87,7 @@ html {
 .user-info {
     display: flex;
     grid-column: nav-right / end;
-    grid-row: nav-top / content-top;
+    grid-row: nav-top / info-bar-top;
     color: var(--nav-color);
     justify-content: right;
     align-items: center;

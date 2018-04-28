@@ -22,12 +22,25 @@
       <div class="nav">
         <a href="{{ route('home') }}" class="nav__link">Home</a>
         <a href="{{ route('profile', ['id' => auth()->user()->id]) }}" class="nav__link">Profile</a>
+        <a href="{{ route('inbox', ['id' => auth()->user()->id]) }}" class="nav__link">Inbox</a>
         <a href="{{ route('torrents') }}" class="nav__link">Torrents</a>
         <a href="{{ route('requests') }}" class="nav__link">Requests</a>
         <a href="{{ route('forum_index') }}" class="nav__link">Forums</a>
         <a href="{{ route('upload') }}" class="nav__link">Upload</a>
         <a href="{{ route('bookmarks') }}" class="nav__link">Bookmarks</a>
       </div>
+      @if (auth()->user()->unreadCount() == 1)
+        <div class="info-bar info-bar--visible">
+          <a href="{{ route('inbox', ['id' => auth()->user()->id]) }}" class="nav__link">You have 1 unread notification</a>
+        </div>
+      @elseif (auth()->user()->unreadCount() > 1)
+        <div class="info-bar info-bar--visible">
+          <a href="{{ route('inbox', ['id' => auth()->user()->id]) }}" class="nav__link">You have {{ auth()->user()->unreadCount() }} unread notifications</a>
+        </div>
+      @else
+        <div clas="info-bar"></div>
+      @endif
+
       <div class="user-info">
         {{ auth()->user()->username  }}
         <div class="user-info__content">

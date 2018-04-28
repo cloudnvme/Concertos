@@ -23,6 +23,7 @@ use App\Shoutbox;
 use App\Post;
 use App\FeaturedTorrent;
 use App\Mail\Contact;
+use App\PrivateMessage;
 use \Toastr;
 
 class HomeController extends Controller
@@ -60,10 +61,11 @@ class HomeController extends Controller
 
         //Featured Torrents
         $featured = FeaturedTorrent::with('torrent')->get();
+        $unreadCount = PrivateMessage::where('reciever_id', auth()->user()->id)->where('read', 0)->count();
 
         return view('home.home', ['user' => $user, 'articles' => $articles, 'torrents' => $torrents,
             'best' => $best, 'dying' => $dying, 'leeched' => $leeched, 'dead' => $dead, 'topics' => $topics, 'posts' => $posts,
-            'articles' => $articles, 'shoutboxMessages' => $shoutboxMessages, 'featured' => $featured, 'lastMessage' => $lastMessage]);
+            'articles' => $articles, 'shoutboxMessages' => $shoutboxMessages, 'featured' => $featured, 'lastMessage' => $lastMessage, 'unreadCount' => $unreadCount]);
     }
 
     /**

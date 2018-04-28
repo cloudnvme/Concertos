@@ -251,6 +251,11 @@ class User extends Authenticatable
         return $this->hasMany(\App\PrivateMessage::class, "reciever_id");
     }
 
+    public function unreadCount()
+    {
+        return $this->pm_receiver()->where('read', 0)->count();
+    }
+
     /**
      * Has many peers
      *

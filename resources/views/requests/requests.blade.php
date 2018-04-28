@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.next')
 
 @section('title')
 <title>Requests - {{ config('other.title') }}</title>
@@ -15,21 +15,21 @@
 @section('content')
   <div class="container box">
     <form class="request-search" action="{{ route('requests') }}" method="get">
-      <label class="form-group">
-        <span class="col-sm-1 label label-default">Title</span>
-        <input type="text" class="bar" name="title" placeholder="Title"/>
+      <label class="flex mbox mbox--small-bottom">
+        <span class="col col--small badge mbox mbox--mini-right">Title</span>
+        <input type="text" class="flex__expanded" name="title" placeholder="Title"/>
       </label>
 
-      <div class="form-group">
-        <span class="col-sm-1 label label-default">IDs</span>
-        <input type="text" class="bar" name="imdb" placeholder="IMDB"/>
-        <input type="text" class="bar" name="tmdb" placeholder="TMDB"/>
+      <div class="flex mbox mbox--small-bottom">
+        <span class="col col--small badge mbox mbox--mini-right">IDs</span>
+        <input type="text" class="flex__expanded mbox mbox--mini-right" name="imdb" placeholder="IMDB"/>
+        <input type="text" class="flex__expanded" name="tmdb" placeholder="TMDB"/>
       </div>
 
-      <div class="form-group">
-        <span class="col-sm-1 label label-default">Categories</span>
+      <div class="flex mbox mbox--small-bottom">
+        <span class="col col--small badge mbox mbox--mini-right">Categories</span>
         @foreach ($repository->categories() as $id => $category)
-          <div class="category badge-extra">
+          <div class="category badge badge--extra mbox mbox--mini-right">
             <label class="v-checkbox">
               <input type="checkbox" name="category_{{ $id }}"/>
               <span></span>
@@ -39,10 +39,10 @@
         @endforeach
       </div>
 
-      <div class="form-group">
-        <span class="col-sm-1 label label-default">Types</span>
+      <div class="flex">
+        <span class="col col--small badge mbox mbox--mini-right mbox--small-bottom">Types</span>
         @foreach ($repository->types() as $id => $type)
-          <div class="type badge-extra">
+          <div class="type badge badge--extra mbox mbox--mini-right mbox--small-bottom">
             <label class="v-checkbox">
               <input type="checkbox" name="type_{{ $id }}"/>
               <span></span>
@@ -52,33 +52,33 @@
         @endforeach
       </div>
 
-      <div class="form-group">
-        <span class="col-sm-1 label label-default">Extra</span>
-        <label class="badge-extra v-checkbox">
+      <div class="flex">
+        <span class="col col--small badge mbox mbox--mini-right mbox--small-bottom">Extra</span>
+        <label class="badge badge--extra v-checkbox mbox mbox--mini-right mbox--small-bottom">
           <input name="my_requests" type="checkbox">
           <span></span>
           <i class="fa fa-user"></i>
           My Requests
         </label>
-        <label class="badge-extra v-checkbox">
+        <label class="badge badge--extra v-checkbox mbox mbox--mini-right mbox--small-bottom">
           <input name="unfilled" type="checkbox">
           <span></span>
           <i class="fa fa-times-circle"></i>
           Unfilled
         </label>
-        <label class="badge-extra v-checkbox">
+        <label class="badge badge--extra v-checkbox mbox mbox--mini-right mbox--small-bottom">
           <input name="claimed" type="checkbox">
           <span></span>
           <i class="fa fa-suitcase"></i>
           Claimed
         </label>
-        <label class="badge-extra v-checkbox">
+        <label class="badge badge--extra v-checkbox mbox mbox--mini-right mbox--small-bottom">
           <input name="pending" type="checkbox">
           <span></span>
           <i class="fa fa-question-circle"></i>
           Pending
         </label>
-        <label class="badge-extra v-checkbox">
+        <label class="badge badge--extra v-checkbox mbox mbox--mini-right mbox--small-bottom">
           <input name="filled" type="checkbox">
           <span></span>
           <i class="fa fa-check-circle"></i>
@@ -86,20 +86,20 @@
         </label>
       </div>
 
-      <input type="submit" value="Search"/>
-      <a href="{{ route('add_request') }}">
-        <input type="button" class="v-button" value="Add request"/>
-      </a>
+      <div class="buttons mbox mbox--bottom">
+        <input class="btn" type="submit" value="Search"/>
+        <a href="{{ route('add_request') }}">
+          <input type="button" class="btn" value="Add request"/>
+        </a>
+      </div>
 
-      <div class="separator"></div>
-
-      <div class="form-group">
+      <div class="stats mbox mbox--bottom">
         <span class="text-bold" id="stats">Stats:</span>
-        <span class="badge-extra text-bold">{{ $num_req }} Requests</span>
+        <span class="badge badge--extra text-bold">{{ $num_req }} Requests</span>
       </div>
     </form>
 
-    <table class="requests">
+    <table class="requests table">
       <thead>
         <tr>
           <th class="category">Category</th>

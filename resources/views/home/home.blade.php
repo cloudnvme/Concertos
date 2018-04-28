@@ -62,10 +62,10 @@
   <div class="block">
     <div class="block__title">Latest Posts</div>
     <div class="block__content">
-      <table class="table table-condensed table-striped table-bordered">
+      <table class="table latest-posts">
         <thead>
         <tr>
-          <th class="torrents-filename">{{ trans('forum.post') }}</th>
+          <th class="latest-posts__header-post">{{ trans('forum.post') }}</th>
           <th>{{ trans('forum.topic') }}</th>
           <th>{{ trans('forum.author') }}</th>
           <th>{{ trans('forum.created') }}</th>

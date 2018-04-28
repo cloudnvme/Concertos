@@ -144,7 +144,7 @@
                 {{ $torrent->name }}
               </a>
               @if ($torrent->tags->isNotEmpty())
-                <div class="flex tags mbox mbox--small-top mbox--small-bottom">
+                <div class="tags">
                   @foreach($torrent->tags as $tag)
                     <span class="link tags__tag badge badge--user badge--condensed mbox mbox--small-right mbox--small-bottom">
                       <a href="{{ route('torrents', ['tags' => $tag->name]) }}">{{ $tag->name }}</a>
@@ -156,42 +156,42 @@
               </div>
               <div class="flex">
                 @if(!$torrent->anon)
-                  <span class="badge mbox mbox--small-right mbox--small-bottom">
+                  <span class="badge mbox--small-right">
                   <i class="fa fa-upload"></i>
                   By <a class="link"
                         href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>
                 </span>
                 @endif
-                <span class="badge mbox mbox--small-right mbox--small-bottom">
+                <span class="badge mbox--small-right">
                   <i class="fa fa-heart"></i>
                   {{ $torrent->thanks->count() }}
                 </span>
                 @if($torrent->free)
-                  <span class="badge mbox mbox--small-right mbox--small-bottom">
+                  <span class="badge mbox--small-right">
                     <i class="fa fa-star"></i>
                     <a class="link" href="{{ route('torrents', ['freeleech' => 'on']) }}">Freeleech</a>
                   </span>
                 @endif
                 @if($torrent->doubleup)
-                  <span class="badge mbox mbox--small-right mbox--small-bottom">
+                  <span class="badge mbox--small-right">
                     <i class="fa fa-gem"></i>
                     <a class="link" href="{{ route('torrents', ['doubleupload' => 'on']) }}">Double Upload</a>
                   </span>
                 @endif
                 @if($torrent->featured)
-                  <span class="badge mbox mbox--small-right mbox--small-bottom">
+                  <span class="badge mbox--small-right">
                     <i class="fa fa-certificate"></i>
                     <a class="link" href="{{ route('torrents', ['featured' => 'on']) }}">Featured</a>
                   </span>
                 @endif
                 @if(config('other.freeleech'))
-                  <span class="badge mbox mbox--small-right mbox--small-bottom">
+                  <span class="badge mbox--small-right">
                     <i class="fa fa-star"></i>
                     <a class="link" href="{{ route('torrents') }}">Global Freeleech</a>
                   </span>
                 @endif
                 @if(\App\Policy::isFreeleech($user))
-                  <span class="badge mbox mbox--small-right mbox--small-bottom">
+                  <span class="badge mbox--small-right">
                     <i class="fa fa-star"></i>
                     <a class="link" href="{{ route('torrents') }}">Special Freeleech</a>
                   </span>

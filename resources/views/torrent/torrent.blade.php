@@ -153,8 +153,9 @@
               <td>
                 <div class="tags">
                   @foreach ($torrent->tags as $tag)
-                    <a class="link" href="{{ route('torrents', ['tags' => $tag->name]) }}"><span
-                        class="tag badge badge--user">{{ $tag->name }}</span></a>
+                    <span class="tags__tag badge badge--user">
+                      <a class="link" href="{{ route('torrents', ['tags' => $tag->name]) }}">{{ $tag->name }}</a>
+                    </span>
                   @endforeach
                 </div>
               </td>

@@ -447,3 +447,13 @@ html {
     white-space: pre-wrap;
     font-family: "Hack", "Monospace";
 }
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tags__tag {
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+}

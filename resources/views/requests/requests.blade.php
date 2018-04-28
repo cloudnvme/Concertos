@@ -26,7 +26,7 @@
         <input type="text" class="flex__expanded" name="tmdb" placeholder="TMDB"/>
       </div>
 
-      <div class="flex mbox mbox--small-bottom">
+      <div class="flex flex--fluid mbox mbox--small-bottom">
         <span class="col col--small badge mbox mbox--mini-right">Categories</span>
         @foreach ($repository->categories() as $id => $category)
           <div class="category badge badge--extra mbox mbox--mini-right">
@@ -39,7 +39,7 @@
         @endforeach
       </div>
 
-      <div class="flex">
+      <div class="flex flex--fluid">
         <span class="col col--small badge mbox mbox--mini-right mbox--small-bottom">Types</span>
         @foreach ($repository->types() as $id => $type)
           <div class="type badge badge--extra mbox mbox--mini-right mbox--small-bottom">

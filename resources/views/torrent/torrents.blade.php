@@ -40,7 +40,7 @@
         <input type="text" class="flex__expanded" name="tags" placeholder="Tags, separated by commas"/>
       </div>
 
-      <div class="flex mbox mbox--small-bottom">
+      <div class="flex flex--fluid mbox mbox--small-bottom">
         <span class="col col--small badge mbox mbox--small-right">Categories</span>
         @foreach($repository->categories() as $id => $category)
           <div class="badge badge--extra mbox mbox--small-right">
@@ -53,7 +53,7 @@
         @endforeach
       </div>
 
-      <div class="flex mbox mbox--small-bottom">
+      <div class="flex flex--fluid mbox mbox--small-bottom">
         <span class="col col--small badge mbox mbox--small-right mbox--small-bottom">Types</span>
         @foreach($repository->types() as $id => $type)
           <div class="badge badge--extra mbox mbox--small-right mbox--small-bottom">

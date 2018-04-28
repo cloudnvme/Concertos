@@ -19,7 +19,7 @@ html {
 }
 
 :root {
-    --nav-color: white;
+    --nav-color: #eee;
     --nav-background-color: #272634;
 }
 
@@ -210,15 +210,15 @@ html {
 .btn {
     padding: 0.25rem;
     margin-top: 0.25rem;
-    border: 1px solid darkcyan;
+    border: 1px solid var(--nav-background-color);
     border-radius: 0.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
 .btn:hover {
-    background-color: darkcyan;
-    color: white;
+    background-color: var(--nav-background-color);
+    color: var(--nav-color);
 }
 
 .textarea {
@@ -274,4 +274,145 @@ html {
 
 .latest-posts__header-post {
     width: 35rem;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.flex__expanded {
+    flex-grow: 1;
+}
+
+.badge {
+    padding: 0.25rem;
+    background: var(--nav-background-color);
+    color: var(--nav-color);
+    border-radius: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+}
+
+.badge--condensed {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
+.badge--extra {
+    color: #333;
+    border-radius: 10px;
+    background: rgba(76, 79, 80, 0.14);
+}
+
+.badge--primary {
+    color: #eee;
+    background-color: darkcyan;
+    border-radius: 10px;
+}
+
+.badge--user {
+    border: 1px solid #CCCCCC;
+    background-color: transparent;
+    border-radius: 5px;
+    color: #333;
+}
+
+.col {
+
+}
+
+.col--small {
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mbox {
+
+}
+
+.mbox---right {
+    margin-right: 1rem;
+}
+
+.mbox--bottom {
+    margin-bottom: 1rem;
+}
+
+.mbox--small-right {
+    margin-right: 0.5rem;
+}
+
+.mbox--mini-right {
+    margin-right: 0.25rem;
+}
+
+.mbox--small-bottom {
+    margin-bottom: 0.5rem;
+}
+
+.mbox--small-top {
+    margin-top: 0.5rem;
+}
+
+.v-checkbox > input {
+    display: none;
+}
+
+.v-checkbox > span {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border: 1px solid var(--nav-background-color);
+    border-radius: 1em;
+}
+
+.v-checkbox > input:checked + span {
+    background-color: var(--nav-color);
+}
+
+.v-checkbox--light > span {
+    border: 1px solid #eee;
+}
+
+.v-checkbox--light > input:checked + span {
+    background-color: #eee;
+}
+
+.torrents__title {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.torrents__row > td {
+    padding-bottom: 1rem;
+}
+
+.torrents__header > th {
+    font-weight: bold;
+}
+
+.torrents__header-category {
+    width: 10rem;
+}
+
+
+.stats__item {
+    margin-right: 0.25rem;
+}
+
+.text-thin {
+    font-weight: 400;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.torrent-icon {
+    font-size: 1.5rem;
 }

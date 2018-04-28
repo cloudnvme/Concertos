@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.next')
 
 @section('title')
   <title>{{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
@@ -19,29 +19,31 @@
 @section('content')
   <div class="container box">
     <form class="torrent-search" action="/torrents" method="get">
-      <div class="form-group">
-        <label for="search" class="col-sm-1 label label-default">Name</label>
-        <input type="text" class="bar" name="title" placeholder="Title"/>
-      </div>
-      <div class="form-group">
-        <label for="uploader" class="col-sm-1 label label-default">Uploader</label>
-        <input type="text" class="bar" name="uploader" placeholder="Username of uploader"/>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-1 label label-default">IDs</label>
-        <input type="text" class="bar" name="tmdb" placeholder="TMDB ID"/>
-        <input type="text" class="bar" name="imdb" placeholder="IMDB ID"/>
+      <div class="flex mbox mbox--small-bottom">
+        <label for="search" class="col col--small badge mbox mbox--mini-right">Name</label>
+        <input type="text" class="flex__expanded" name="title" placeholder="Title"/>
       </div>
 
-      <div class="form-group">
-        <label class="col-sm-1 label label-default">Tags</label>
-        <input type="text" class="bar" name="tags" placeholder="Tags, separated by commas"/>
+      <div class="flex mbox mbox--small-bottom">
+        <label for="uploader" class="col col--small badge mbox mbox--mini-right">Uploader</label>
+        <input type="text" class="flex__expanded" name="uploader" placeholder="Username of uploader"/>
       </div>
 
-      <div class="form-group">
-        <span class="label label-default">Categories</span>
+      <div class="flex mbox mbox--small-bottom">
+        <label class="col col--small badge mbox mbox--mini-right">IDs</label>
+        <input type="text" class="flex__expanded mbox mbox--small-right" name="tmdb" placeholder="TMDB ID"/>
+        <input type="text" class="flex__expanded" name="imdb" placeholder="IMDB ID"/>
+      </div>
+
+      <div class="flex mbox mbox--small-bottom">
+        <label class="col col--small badge mbox mbox--mini-right">Tags</label>
+        <input type="text" class="flex__expanded" name="tags" placeholder="Tags, separated by commas"/>
+      </div>
+
+      <div class="flex mbox mbox--small-bottom">
+        <span class="col col--small badge mbox mbox--small-right">Categories</span>
         @foreach($repository->categories() as $id => $category)
-          <div class="badge-extra">
+          <div class="badge badge--extra mbox mbox--small-right">
             <label class="v-checkbox">
               <input type="checkbox" name="category_{{ $id }}"/>
               <span></span>
@@ -51,10 +53,10 @@
         @endforeach
       </div>
 
-      <div class="form-group">
-        <span class="label label-default">Types</span>
+      <div class="flex mbox mbox--small-bottom">
+        <span class="col col--small badge mbox mbox--small-right mbox--small-bottom">Types</span>
         @foreach($repository->types() as $id => $type)
-          <div class="badge-extra">
+          <div class="badge badge--extra mbox mbox--small-right mbox--small-bottom">
             <label class="v-checkbox">
               <input type="checkbox" name="type_{{ $id }}"/>
               <span></span>
@@ -64,10 +66,10 @@
         @endforeach
       </div>
 
-      <div class="form-group">
-        <span class="label label-default">Discount</span>
-        <div class="badge-extra">
-          <label class="v-checkbox">
+      <div class="flex mbox mbox--small-bottom">
+        <span class="badge mbox mbox--small-right">Discount</span>
+        <div class="badge mbox mbox--small-right">
+          <label class="v-checkbox v-checkbox--light">
             <input id="freeleech" name="freeleech" type="checkbox">
             <span></span>
             <i class="fa fa-star"></i>
@@ -75,17 +77,17 @@
           </label>
         </div>
 
-        <div class="badge-extra">
-          <label class="v-checkbox">
+        <div class="badge mbox mbox--small-right">
+          <label class="v-checkbox v-checkbox--light">
             <input id="doubleupload" name="doubleupload" type="checkbox">
             <span></span>
-            <i class="fa fa-diamond"></i>
+            <i class="fa fa-gem"></i>
             Double Upload
           </label>
         </div>
 
-        <div class="badge-extra">
-          <label class="v-checkbox">
+        <div class="badge mbox mbox--small-right">
+          <label class="v-checkbox v-checkbox--light">
             <input id="featured" name="featured" type="checkbox">
             <span></span>
             <i class="fa fa-certificate"></i>
@@ -94,43 +96,43 @@
         </div>
       </div>
 
-      <input type="submit" value="Search"/>
+      <input type="submit" value="Search" class="btn mbox mbox--bottom"/>
     </form>
 
-    <div class="block" id="stats">
+    <div class="block mbox mbox--bottom" id="stats">
       <strong>Stats:</strong>
-      <span class="badge-extra text-bold">
-        <i class="fa fa-file-o">
+      <span class="stats__item badge badge--extra text-bold">
+        <i class="fa fa-file text-thin">
           {{ $count }} Torrents
         </i>
       </span>
-      <span class="badge-extra">
-        <i class="fa fa-smile-o">
+      <span class="stats__item badge badge--extra">
+        <i class="fa fa-smile text-thin">
           {{ $alive }} Alive
         </i>
       </span>
-      <span class="badge-extra">
-        <i class="fa fa-frown-o">
+      <span class="stats__item badge badge--extra">
+        <i class="fa fa-frown text-thin">
           {{ $dead }} Dead
         </i>
       </span>
     </div>
 
     <div class="block">
-      <table class="torrents">
+      <table class="table torrents">
         <thead>
-        <tr>
-          <th class="category">Category</th>
-          <th class="name">Name</th>
-          <th class="time">Time</th>
-          <th class="size">Size</th>
+        <tr class="torrents__header">
+          <th class="torrents__header-category">Category</th>
+          <th class="torrents__header-name">Name</th>
+          <th class="torrents__header_time">Time</th>
+          <th class="torrents__header-size">Size</th>
           <th class="completed">C</th>
           <th class="seeders">S</th>
           <th class="leechers">L</th>
         </tr>
         </thead>
         @foreach($torrents as $torrent)
-          <tr>
+          <tr class="torrents__row">
             <td>
               <i class="fa torrent-icon {{ $torrent->category->icon }}"></i>
               <a class="link" href="{{ route('torrents', ['type_' . $torrent->type->id => 'on']) }}">{{ $torrent->type->name }}</a>
@@ -138,13 +140,13 @@
                  href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>
             </td>
             <td>
-              <a class="view-torrent" href="{{ route('torrent', ['id' => $torrent->id]) }}">
+              <a class="torrents__title link" href="{{ route('torrent', ['id' => $torrent->id]) }}">
                 {{ $torrent->name }}
               </a>
               @if ($torrent->tags->isNotEmpty())
-                <div>
+                <div class="tags mbox mbox--small-top mbox--small-bottom">
                   @foreach($torrent->tags as $tag)
-                    <span class="tag badge-user">
+                    <span class="link tags__tag badge badge--user badge--condensed mbox mbox--small-right">
                       <a href="{{ route('torrents', ['tags' => $tag->name]) }}">{{ $tag->name }}</a>
                     </span>
                   @endforeach
@@ -152,44 +154,44 @@
               @endif
               <div>
               </div>
-              <div>
+              <div class="flex">
                 @if(!$torrent->anon)
-                  <span class="badge-extra text-bold">
+                  <span class="badge mbox mbox--small-right mbox--small-bottom">
                   <i class="fa fa-upload"></i>
                   By <a class="link"
                         href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>
                 </span>
                 @endif
-                <span class="badge-extra text-bold">
+                <span class="badge mbox mbox--small-right mbox--small-bottom">
                   <i class="fa fa-heart"></i>
                   {{ $torrent->thanks->count() }}
                 </span>
                 @if($torrent->free)
-                  <span class="badge-extra text-bold">
+                  <span class="badge mbox mbox--small-right mbox--small-bottom">
                     <i class="fa fa-star"></i>
                     <a class="link" href="{{ route('torrents', ['freeleech' => 'on']) }}">Freeleech</a>
                   </span>
                 @endif
                 @if($torrent->doubleup)
-                  <span class="badge-extra text-bold">
-                    <i class="fa fa-diamond"></i>
+                  <span class="badge mbox mbox--small-right mbox--small-bottom">
+                    <i class="fa fa-gem"></i>
                     <a class="link" href="{{ route('torrents', ['doubleupload' => 'on']) }}">Double Upload</a>
                   </span>
                 @endif
                 @if($torrent->featured)
-                  <span class="badge-extra text-bold">
+                  <span class="badge mbox mbox--small-right mbox--small-bottom">
                     <i class="fa fa-certificate"></i>
                     <a class="link" href="{{ route('torrents', ['featured' => 'on']) }}">Featured</a>
                   </span>
                 @endif
                 @if(config('other.freeleech'))
-                  <span class="badge-extra text-bold">
+                  <span class="badge mbox mbox--small-right mbox--small-bottom">
                     <i class="fa fa-star"></i>
                     <a class="link" href="{{ route('torrents') }}">Global Freeleech</a>
                   </span>
                 @endif
                 @if(\App\Policy::isFreeleech($user))
-                  <span class="badge-extra text-bold">
+                  <span class="badge mbox mbox--small-right mbox--small-bottom">
                     <i class="fa fa-star"></i>
                     <a class="link" href="{{ route('torrents') }}">Special Freeleech</a>
                   </span>

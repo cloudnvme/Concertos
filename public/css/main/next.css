@@ -1,3 +1,5 @@
+@import url('/fonts/hack/hack.css');
+
 @font-face {
     font-family: "Nimbus Sans";
     src: url("/fonts/NimbusSanL-Reg.otf");
@@ -184,6 +186,10 @@ html {
     padding: 0.5rem;
 }
 
+.block__content--filled {
+    padding: unset;
+}
+
 .block__footer {
     margin-top: 1em;
 }
@@ -242,27 +248,27 @@ html {
     height: 0.25rem;
 }
 
-.chat-message__text {
+.message__text {
     margin-left: 1em;
     align-self: center;
 }
 
-.chat-message a {
+.message a {
     font-weight: bold;
 }
 
-.chat-message__text a:hover {
+.message__text a:hover {
     text-decoration: underline;
 }
 
-.chat-message {
+.message {
     padding-top: 0.25rem;
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.chat-message__avatar {
+.message__avatar {
     width: 3rem;
     height: 3rem;
 }
@@ -372,7 +378,7 @@ html {
 }
 
 .v-checkbox > input:checked + span {
-    background-color: var(--nav-color);
+    background-color: var(--nav-background-color);
 }
 
 .v-checkbox--light > span {
@@ -415,4 +421,29 @@ html {
 
 .torrent-icon {
     font-size: 1.5rem;
+}
+
+.torrent td:first-child {
+    width: 8rem;
+    padding-bottom: 0.5rem;
+}
+
+.torrent__meta-title {
+    font-size: 0.25rem;
+    font-weight: bold;
+}
+
+.heading {
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.torrent #comments {
+    margin-bottom: -0.5rem;
+}
+
+.code {
+    white-space: pre-wrap;
+    font-family: "Hack", "Monospace";
 }

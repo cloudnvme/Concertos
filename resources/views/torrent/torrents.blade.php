@@ -144,9 +144,9 @@
                 {{ $torrent->name }}
               </a>
               @if ($torrent->tags->isNotEmpty())
-                <div class="tags mbox mbox--small-top mbox--small-bottom">
+                <div class="flex tags mbox mbox--small-top mbox--small-bottom">
                   @foreach($torrent->tags as $tag)
-                    <span class="link tags__tag badge badge--user badge--condensed mbox mbox--small-right">
+                    <span class="link tags__tag badge badge--user badge--condensed mbox mbox--small-right mbox--small-bottom">
                       <a href="{{ route('torrents', ['tags' => $tag->name]) }}">{{ $tag->name }}</a>
                     </span>
                   @endforeach

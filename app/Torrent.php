@@ -150,7 +150,8 @@ class Torrent extends Model
      */
     public function getDescriptionHtml()
     {
-        return Bbcode::parse($this->description);
+        $client = new \Emojione\Client(new \Emojione\Ruleset());
+        return Bbcode::parse($client->shortnameToUnicode($this->description));
     }
 
     /**

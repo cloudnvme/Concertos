@@ -251,7 +251,7 @@
     <div class="block mbox mbox--small-bottom">
       <div class="block__title">Description</div>
       <div class="block__content">
-        @emojione($torrent->getDescriptionHtml())
+        {!! $torrent->getDescriptionHtml() !!}
       </div>
     </div>
 

@@ -384,6 +384,10 @@ html {
     margin-bottom: 0.5rem;
 }
 
+.mbox--mini-bottom {
+    margin-bottom: 0.25rem;
+}
+
 .mbox--small-top {
     margin-top: 0.5rem;
 }
@@ -418,7 +422,7 @@ html {
 }
 
 .torrents__row > td {
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 .torrents__header > th {

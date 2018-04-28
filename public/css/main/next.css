@@ -23,6 +23,8 @@ html {
 :root {
     --nav-color: #eee;
     --nav-background-color: #272634;
+    --danger--background--color: #b45555;
+    --danger--color: #3b1717;
 }
 
 .grid-wrapper {
@@ -299,6 +301,9 @@ html {
 
 .flex {
     display: flex;
+}
+
+.flex--fluid {
     flex-wrap: wrap;
     width: 100%;
 }
@@ -342,14 +347,17 @@ html {
 }
 
 .col {
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .col--small {
     width: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.col--medium {
+    width: 10rem;
 }
 
 .mbox {
@@ -476,4 +484,20 @@ html {
 .pagination > .page-item {
     display: inline;
     font-size: 1.25rem;
+}
+
+.danger-symbol {
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.block--danger > .block__content {
+    border-color: var(--danger--background--color);
+}
+
+.block--danger > .block__title {
+    background-color: var(--danger--background--color);
+    color: var(--danger--color);
 }

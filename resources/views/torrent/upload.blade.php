@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.next')
 
 @section('title')
   <title>Upload - {{ config('other.title') }}</title>
@@ -42,28 +42,27 @@
         <hr>
       </div>
     @endif
-    <div class="torrent box container">
-      <div class="danger box">
-        <i class="danger-symbol fa fa-exclamation-triangle"></i>
-        <p>
-          Please use
-          <a
-            href="{{ route('announce', ['passkey' => $user->passkey]) }}">{{ route('announce', ['passkey' => $user->passkey]) }}</a>
-          as URL when creating a new torrent. If you want to use your torrent without downloading it from the site you
-          need
-          to set the private flag and the source to {{config('torrent.source')}}. TMDB or IMDB is required for all
-          uploads
-          when available! It is used to grab posters/backdrops and extra info! Remember to set the source
-          to {{config('other.source')}}
-          if you want to use it directly without redownloading! MAKE SURE TO FILL IN ALL FIELDS!
-        </p>
+
+    <div class="upload">
+      <div class="block block--danger mbox mbox--bottom">
+        <div class="block__title">Before Uploading</div>
+        <div class="block__content flex">
+          <i class="danger-symbol fa fa-exclamation-triangle"></i>
+          <div class="flex__expanded">
+            Please use <a href="{{ route('announce', ['passkey' => $user->passkey]) }}">{{ route('announce', ['passkey' => $user->passkey]) }}</a>
+            as URL when creating a new torrent. If you want to use your torrent without downloading it from the site you need
+            to set the private flag and the source to {{config('torrent.source')}}. TMDB or IMDB is required for all
+            uploads when available! It is used to grab posters/backdrops and extra info! Remember to set the source
+            to {{config('other.source')}} if you want to use it directly without redownloading! MAKE SURE TO FILL IN ALL FIELDS!
+          </div>
+        </div>
       </div>
 
+      <div class="heading">Upload a Torrent</div>
       <div class="upload col-md-12">
-        <h3 class="upload-title">Upload A Torrent</h3>
         {{ Form::open(['route' => 'upload', 'files' => true, 'class' => 'upload-form']) }}
-        <div class="form-group">
-          <label for="torrent" class="label label-default">Torrent File</label>
+        <div class="flex mbox mbox--small-bottom">
+          <label for="torrent" class="label badge badge col col--medium mbox mbox--mini-right">Torrent File</label>
           <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent"
                  onchange="updateTorrentName()" required>
         </div>
@@ -73,48 +72,48 @@
           <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
       </div>--}}
 
-        <div class="form-group">
-          <label for="name" class="label label-default">Title</label>
-          <input type="text" name="name" id="title" class="bar" required/>
+        <div class="flex mbox mbox--small-bottom">
+          <label for="name" class="badge col col--medium mbox mbox--mini-right">Title</label>
+          <input type="text" name="name" id="title" class="flex__expanded" required/>
         </div>
 
-        <div class="form-group">
-          <label for="name" class="label label-default">Tags</label>
-          <input type="text" name="tags" class="bar" required>
+        <div class="flex mbox mbox--small-bottom">
+          <label for="name" class="badge col col--medium mbox mbox--mini-right">Tags</label>
+          <input type="text" name="tags" class="flex__expanded" required>
         </div>
 
-        <div class="form-group">
-          <label for="name" class="label label-default">IMDB ID <b>(Required)</b></label>
-          <input type="number" name="imdb" value="0" class="bar" required>
+        <div class="flex mbox mbox--small-bottom">
+          <label for="name" class="badge col col--medium mbox mbox--mini-right">IMDB ID <b>(Required)</b></label>
+          <input type="number" name="imdb" value="0" class="flex__expanded" required>
         </div>
 
-        <div class="form-group">
-          <label for="name" class="label label-default">TMDB ID <b>(Required)</b></label>
-          <input type="number" name="tmdb" value="0" class="bar" required>
+        <div class="flex mbox mbox--small-bottom">
+          <label for="name" class="badge col col--medium mbox mbox--mini-right">TMDB ID <b>(Required)</b></label>
+          <input type="number" name="tmdb" value="0" class="flex__expanded" required>
         </div>
 
-        <div class="form-group">
-          <label for="name" class="label label-default">TVDB ID <b>(Optional)</b></label>
-          <input type="number" name="tvdb" value="0" class="bar" required>
+        <div class="flex mbox mbox--small-bottom">
+          <label for="name" class="badge col col--medium mbox mbox--mini-right">TVDB ID <b>(Optional)</b></label>
+          <input type="number" name="tvdb" value="0" class="flex__expanded" required>
         </div>
 
-        <div class="form-group">
-          <label for="name" class="label label-default">MAL ID <b>(Optional)</b></label>
-          <input type="number" name="mal" value="0" class="bar" required>
+        <div class="flex mbox mbox--small-bottom">
+          <label for="name" class="badge col col--medium mbox mbox--mini-right">MAL ID <b>(Optional)</b></label>
+          <input type="number" name="mal" value="0" class="flex__expanded" required>
         </div>
 
-        <div class="form-group">
-          <label for="category_id" class="label label-default">Category</label>
-          <select name="category_id" class="bar">
+        <div class="flex mbox mbox--small-bottom">
+          <label for="category_id" class="badge col col--medium mbox mbox--mini-right">Category</label>
+          <select name="category_id" class="flex__expanded">
             @foreach($categories as $category)
               <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="type" class="label label-default">Type</label>
-          <select name="type_id" class="bar">
+        <div class="flex mbox mbox--small-bottom">
+          <label for="type" class="badge col col--medium mbox mbox--mini-right">Type</label>
+          <select name="type_id" class="flex__expanded">
             @foreach($types as $type)
               <option value="{{ $type->id }}">{{ $type->name }}</option>
             @endforeach
@@ -122,15 +121,15 @@
         </div>
 
         <div>
-          <label for="description"><h3>Description</h3></label>
-          <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control"></textarea>
+          <div class="heading">Description</div>
+          <textarea class="textarea textarea--vertical" id="upload-form-description" name="description" cols="30" rows="10" class="form-control"></textarea>
         </div>
 
         <div class="parser"></div>
         <center id="upload-buttons">
-          <button type="submit" name="preview" value="true" id="preview" class="v-button">Preview</button>
-          <button id="add" class="v-button">Add MediaInfo Parser</button>
-          <button type="submit" name="post" value="true" id="post" class="v-button">Upload</button>
+          <button type="submit" name="preview" value="true" id="preview" class="btn">Preview</button>
+          <button id="add" class="btn">Add MediaInfo Parser</button>
+          <button type="submit" name="post" value="true" id="post" class="btn">Upload</button>
           <label class="v-checkbox">
             <input type="checkbox" name="anonymous"/>
             <span></span>
@@ -155,8 +154,11 @@
 
   <script type="text/javascript">
       $('#add').on('click', function (e) {
+          if ($('#mediainfo').length != 0) {
+              return;
+          }
           e.preventDefault();
-          var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo Parser</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>';
+          var optionHTML = '<div class="flex flex--fluid"><div class="heading">Mediainfo</div><textarea rows="2" class="textarea" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>';
           $('.parser').append(optionHTML);
       });
   </script>

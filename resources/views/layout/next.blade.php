@@ -103,6 +103,8 @@
           <a href="{{ route('page', ['id' => 7]) }}" class="section__link">Terms of Use</a>
         </div>
       </div>
+
+      @yield('javascripts')
     </div>
 
     {!! Toastr::message()  !!}

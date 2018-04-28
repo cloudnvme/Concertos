@@ -472,3 +472,8 @@ html {
     margin-right: 0.25rem;
     margin-bottom: 0.25rem;
 }
+
+.pagination > .page-item {
+    display: inline;
+    font-size: 1.25rem;
+}

@@ -14,7 +14,7 @@
     </div>
     <div class="block__footer">
       <div id="chat-error"></div>
-      <textarea id="chat-message" class="textarea textarea--vertical"></textarea>
+      <textarea id="chat-message" class="textarea textarea--vertical" rows="10"></textarea>
       <button id="send-message" class="btn">Send</button>
     </div>
   </div>

@@ -290,6 +290,10 @@ html {
     height: 3rem;
 }
 
+.message__user {
+    white-space: nowrap;
+}
+
 .message__info {
     display: flex;
     flex-direction: column;

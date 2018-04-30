@@ -1,9 +1,12 @@
 var chatbox = $('#chat');
 var next_batch = parseInt(chatbox.attr('data-last'));
 var forceScroll = true;
-let messages = $('.chat-messages .list-group');
-console.log('1');
-chatbox.animate({scrollTop: chatbox.prop('scrollHeight')}, 0);
+
+window.onload = function() {
+    chatbox.animate({
+        scrollTop: chatbox.prop('scrollHeight')
+    }, 0);
+};
 
 load_data = {};
 $.ajaxSetup({
@@ -75,7 +78,7 @@ function updateMessages() {
             }
         }
     });
-    updateTime();
+    //updateTime();
     window.setTimeout(updateMessages, 3000);
 }
 

@@ -133,19 +133,3 @@
   </div>
   <script type="text/javascript" src="{{ url('js/shout.js?v=05') }}"></script>
 @endsection
-
-@section('content_x')
-<div class="container-fluid">
-  @include('blocks.news')
-
-  @if(!auth()->user()->chat_hidden)
-    @include('blocks.chat')
-  @endif
-
-  @include('blocks.featured')
-  @include('blocks.top_torrents')
-  @include('blocks.latest_topics')
-  @include('blocks.latest_posts')
-  @include('blocks.online')
-</div>
-@endsection

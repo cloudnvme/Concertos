@@ -213,8 +213,6 @@ html {
     margin-top: 1em;
 }
 
-
-
 .emojione {
     width: 1rem;
     height: 1rem;
@@ -314,6 +312,11 @@ html {
     flex-grow: 1;
 }
 
+.flex__centered {
+    align-items: center;
+    justify-content: center;
+}
+
 .badge {
     padding: 0.25rem;
     background: var(--nav-background-color);
@@ -321,6 +324,9 @@ html {
     border-radius: 0.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
 }
 
@@ -349,9 +355,7 @@ html {
 }
 
 .col {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
 }
 
 .col--small {
@@ -360,6 +364,10 @@ html {
 
 .col--medium {
     width: 10rem;
+}
+
+.col--big {
+    width: 20rem;
 }
 
 .mbox {
@@ -435,6 +443,20 @@ html {
     width: 10rem;
 }
 
+.table--2 {
+
+}
+
+.table--2__title {
+    font-weight: bold;
+    font-size: 0.25rem;
+}
+
+.table--2__title {
+    width: 8rem;
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+}
 
 .stats__item {
     margin-right: 0.25rem;

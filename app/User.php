@@ -662,4 +662,9 @@ class User extends Authenticatable
         return History::where('user_id', '=', $this->id)
             ->sum('seedtime');
     }
+
+    public function fullName()
+    {
+        return view('user.title', ['user' => $this])->render();
+    }
 }

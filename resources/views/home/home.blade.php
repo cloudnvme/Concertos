@@ -38,7 +38,8 @@
         <tbody>
         @foreach($featured as $key => $f)
           <tr>
-            <td><a class="link" href="{{ route('torrent', ['id' => $f->torrent->id]) }}">{{ $f->torrent->name }}</a></td>
+            <td><a class="link" href="{{ route('torrent', ['id' => $f->torrent->id]) }}">{{ $f->torrent->name }}</a>
+            </td>
             <td>{{ $f->torrent->getSize() }}</td>
             <td>{{ $f->torrent->seeders }}</td>
             <td>{{ $f->torrent->leechers }}</td>
@@ -75,7 +76,9 @@
         @foreach($posts as $p)
           @if ($p->topic->viewable())
             <tr>
-              <td><a href="{{ route('forum_topic', array('id' => $p->topic->id)) }}?page={{$p->getPageNumber()}}#post-{{$p->id}}">{{ preg_replace('#\[[^\]]+\]#', '', str_limit($p->content), 40) }}...</a></td>
+              <td><a
+                  href="{{ route('forum_topic', array('id' => $p->topic->id)) }}?page={{$p->getPageNumber()}}#post-{{$p->id}}">{{ preg_replace('#\[[^\]]+\]#', '', str_limit($p->content), 40) }}
+                  ...</a></td>
               <td>{{ $p->topic->name }}</td>
               <td>{{ $p->user->username }}</td>
               <td>{{ $p->updated_at->diffForHumans() }}</td>
@@ -121,11 +124,31 @@
       @foreach($user as $u)
         @if($u->isOnline())
           @if($u->hidden == 1)
-            <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">{{ strtoupper(trans('common.hidden')) }} @if(\App\Policy::isModerator(auth()->user()))<a href="{{ route('profile', array('id' => $u->id)) }}"> ({{ $u->username }} @if($u->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warning') }}"></i>@endif)</a>@endif</span>
+            <span class="badge-user text-orange text-bold no-break" style="margin-bottom: 10px;">
+              {{ strtoupper(trans('common.hidden')) }}
+              @if(\App\Policy::isModerator(auth()->user()))
+                <a href="{{ route('profile', array('id' => $u->id)) }}">
+                  ({{ $u->username }}
+                  @if($u->getWarning() > 0)
+                    <i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title=""
+                       data-original-title="{{ trans('common.active-warning') }}">
+
+                    </i>
+                  @endif
+                  )
+                </a>
+              @endif
+            </span>
           @else
-            <a href="{{ route('profile', array('id' => $u->id)) }}"><span class="badge-user text-bold" style="color:{{ $u->roleColor() }}; background-image:{{ $u->roleEffect() }}; margin-bottom: 10px;"><i class="{{ $u->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $u->roleName() }}"></i> {{ $u->username }} @if($u->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warning') }}"></i>
+            <a href="{{ route('profile', array('id' => $u->id)) }}">
+              <span class="badge-user text-bold no-break no-break" style="color:{{ $u->roleColor() }}; background-image:{{ $u->roleEffect() }}; margin-bottom: 10px;">
+                <i class="{{ $u->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $u->roleName() }}"></i>
+                {{ $u->username }}
+                @if($u->getWarning() > 0)
+                  <i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warning') }}"></i>
                 @endif
-      </span></a>
+              </span>
+            </a>
           @endif
         @endif
       @endforeach

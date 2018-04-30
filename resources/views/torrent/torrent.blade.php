@@ -39,16 +39,25 @@
             <td>
               {{ $torrent->name }}
               <a href="{{ route('download', ['id' => $torrent->id]) }}">
-                <input type="button" class="btn" value="Download"/>
+                <button class="btn">
+                  <i class="fa fa-download"></i>
+                  Download
+                </button>
               </a>
 
               @if (auth()->user()->hasBookmarked($torrent->id))
                 <a href="{{ route('unbookmark', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="Remove Bookmark"/>
+                  <button class="btn">
+                    <i class="fa fa-bookmark"></i>
+                    Remove Bookmark
+                  </button>
                 </a>
               @else
                 <a href="{{ route('bookmark', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="Bookmark"/>
+                  <button class="btn">
+                    <i class="fa fa-bookmark"></i>
+                    Bookmark
+                  </button>
                 </a>
               @endif
               @if (!\App\Policy::isModerator($user) && $user->id === $torrent->user->id)
@@ -113,7 +122,10 @@
                    href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>
               @endif
               <a href="{{ route('torrentThank', ['id' => $torrent->id]) }}">
-                <input type="button" class="btn" value="Thank Uploader"/>
+                <button class="btn">
+                  <i class="fas fa-hand-holding-heart"></i>
+                  Thank Uploader
+                </button>
               </a>
               <span class="badge badge--extra text-bold">
             <i class="fa fa-heart"></i>
@@ -188,58 +200,93 @@
               <td>
                 @if ($torrent->free)
                   <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}">
-                    <input type="button" class="btn" value="Revoke Freeleech"/>
+                    <button class="btn">
+                      <i class="fa fa-star"></i>
+                      Revoke Freeleech
+                    </button>
                   </a>
                 @else
                   <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}">
-                    <input type="button" class="btn" value="Grant Freeleech"/>
+                    <button class="btn">
+                      <i class="fa fa-star"></i>
+                      Grant Freeleech
+                    </button>
                   </a>
                 @endif
 
                 @if ($torrent->doubleup)
                   <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}">
-                    <input type="button" class="btn" value="Revoke Double Upload"/>
+                    <button class="btn">
+                      <i class="fa fa-gem"></i>
+                      Revoke Double Upload
+                    </button>
                   </a>
                 @else
                   <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}">
-                    <input type="button" class="btn" value="Grant Double Upload"/>
+                    <button class="btn">
+                      <i class="fa fa-gem"></i>
+                      Grant Double Upload
+                    </button>
                   </a>
                 @endif
 
                 <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="Sticky"/>
+                  <button class="btn">
+                    <i class="fas fa-thumbtack"></i>
+                    Sticky
+                  </button>
                 </a>
 
                 <a href="{{ route('bumpTorrent', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="Bump"/>
+                  <button class="btn">
+                    <i class="fas fa-fire"></i>
+                    Bump
+                  </button>
                 </a>
 
                 @if ($torrent->featured)
                   <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}">
-                    <input type="button" class="btn" value="Revoke Feature"/>
+                    <button class="btn">
+                      <i class="fa fa-certificate"></i>
+                      Revoke Feature
+                    </button>
                   </a>
                 @else
                   <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}">
-                    <input type="button" class="btn" value="Feature"/>
+                    <button class="btn">
+                      <i class="fa fa-certificate"></i>
+                      Feature
+                    </button>
                   </a>
                 @endif
 
                 <a href="{{ route('edit', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="Edit"/>
+                  <button class="btn">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                  </button>
                 </a>
 
                 <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="Peers"/>
+                  <button class="btn">
+                    <i class="fas fa-users"></i>
+                    Peers
+                  </button>
                 </a>
 
                 <a href="{{ route('history', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="History"/>
+                  <button class="btn">
+                    <i class="fas fa-history"></i>
+                    History
+                  </button>
                 </a>
 
                 <a href="{{ route('confirm_delete', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="Delete"/>
+                  <button class="btn">
+                    <i class="fas fa-eraser"></i>
+                    Delete
+                  </button>
                 </a>
-
               </td>
             </tr>
           @endif
@@ -294,7 +341,10 @@
       <div class="block__title">Your Comment</div>
       <div class="block__content">
         <textarea class="textarea textarea--vertical" id="content" name="content" cols="30" rows="5"></textarea>
-        <button type="submit" class="btn">{{ trans('common.submit') }}</button>
+        <button type="submit" class="btn">
+          <i class="fa fa-paper-plane"></i>
+          {{ trans('common.submit') }}
+        </button>
         <label class="v-checkbox">
           <input type="checkbox" name="anonymous"/>
           <span></span>

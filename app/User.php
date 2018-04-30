@@ -92,7 +92,7 @@ class User extends Authenticatable
     public function roleIcon()
     {
         if ($this->roleName() == 'Bot') {
-            return 'fa fa-android';
+            return 'fas fa-cogs';
         }
 
         if ($this->roleName() == 'Owner' || $this->roleName() == 'Moderator' || $this->roleName() == 'Administrator') {

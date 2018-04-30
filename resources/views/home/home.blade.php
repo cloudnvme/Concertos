@@ -15,7 +15,10 @@
     <div class="block__footer">
       <div id="chat-error"></div>
       <textarea id="chat-message" class="textarea textarea--vertical" rows="10"></textarea>
-      <button id="send-message" class="btn">Send</button>
+      <button id="send-message" class="btn">
+        <i class="far fa-paper-plane"></i>
+        Send
+      </button>
     </div>
   </div>
   <div class="v-sep"></div>

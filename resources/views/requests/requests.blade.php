@@ -87,9 +87,15 @@
       </div>
 
       <div class="buttons mbox mbox--bottom">
-        <input class="btn" type="submit" value="Search"/>
+        <button type="submit" class="btn">
+          <i class="fa fa-search"></i>
+          Search
+        </button>
         <a href="{{ route('add_request') }}">
-          <input type="button" class="btn" value="Add request"/>
+          <button type="button" class="btn">
+            <i class="far fa-file"></i>
+            Add Request
+          </button>
         </a>
       </div>
 

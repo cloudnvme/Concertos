@@ -290,6 +290,13 @@ html {
     height: 3rem;
 }
 
+.message__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .scrollable-y {
     overflow-y: scroll;
     height: 30rem;

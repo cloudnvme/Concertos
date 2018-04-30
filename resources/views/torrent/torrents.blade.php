@@ -20,28 +20,28 @@
   <div class="container box">
     <form class="torrent-search" action="/torrents" method="get">
       <div class="flex mbox mbox--small-bottom">
-        <label for="search" class="col col--small badge mbox mbox--mini-right">Name</label>
+        <label for="search" class="col col--small badge badge--centered mbox mbox--mini-right">Name</label>
         <input type="text" class="flex__expanded" name="title" placeholder="Title"/>
       </div>
 
       <div class="flex mbox mbox--small-bottom">
-        <label for="uploader" class="col col--small badge mbox mbox--mini-right">Uploader</label>
+        <label for="uploader" class="col col--small badge badge--centered mbox mbox--mini-right">Uploader</label>
         <input type="text" class="flex__expanded" name="uploader" placeholder="Username of uploader"/>
       </div>
 
       <div class="flex mbox mbox--small-bottom">
-        <label class="col col--small badge mbox mbox--mini-right">IDs</label>
+        <label class="col col--small badge badge--centered mbox mbox--mini-right">IDs</label>
         <input type="text" class="flex__expanded mbox mbox--small-right" name="tmdb" placeholder="TMDB ID"/>
         <input type="text" class="flex__expanded" name="imdb" placeholder="IMDB ID"/>
       </div>
 
       <div class="flex mbox mbox--small-bottom">
-        <label class="col col--small badge mbox mbox--mini-right">Tags</label>
+        <label class="col col--small badge badge--centered mbox mbox--mini-right">Tags</label>
         <input type="text" class="flex__expanded" name="tags" placeholder="Tags, separated by commas"/>
       </div>
 
       <div class="flex flex--fluid mbox mbox--small-bottom">
-        <span class="col col--small badge mbox mbox--small-right">Categories</span>
+        <span class="col col--small badge badge--centered mbox mbox--small-right">Categories</span>
         @foreach($repository->categories() as $id => $category)
           <div class="badge badge--extra mbox mbox--small-right">
             <label class="v-checkbox">
@@ -54,7 +54,7 @@
       </div>
 
       <div class="flex flex--fluid mbox mbox--small-bottom">
-        <span class="col col--small badge mbox mbox--small-right mbox--small-bottom">Types</span>
+        <span class="col col--small badge badge--centered mbox mbox--small-right mbox--small-bottom">Types</span>
         @foreach($repository->types() as $id => $type)
           <div class="badge badge--extra mbox mbox--small-right mbox--small-bottom">
             <label class="v-checkbox">
@@ -67,7 +67,7 @@
       </div>
 
       <div class="flex mbox mbox--small-bottom">
-        <span class="badge mbox mbox--small-right">Discount</span>
+        <span class="badge badge--centered mbox mbox--small-right">Discount</span>
         <div class="badge mbox mbox--small-right">
           <label class="v-checkbox v-checkbox--light">
             <input id="freeleech" name="freeleech" type="checkbox">

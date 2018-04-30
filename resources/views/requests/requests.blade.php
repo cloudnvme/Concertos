@@ -16,18 +16,18 @@
   <div class="container box">
     <form class="request-search" action="{{ route('requests') }}" method="get">
       <label class="flex mbox mbox--small-bottom">
-        <span class="col col--small badge mbox mbox--mini-right">Title</span>
+        <span class="col col--small badge badge--centered mbox mbox--mini-right">Title</span>
         <input type="text" class="flex__expanded" name="title" placeholder="Title"/>
       </label>
 
       <div class="flex mbox mbox--small-bottom">
-        <span class="col col--small badge mbox mbox--mini-right">IDs</span>
+        <span class="col col--small badge badge--centered mbox mbox--mini-right">IDs</span>
         <input type="text" class="flex__expanded mbox mbox--mini-right" name="imdb" placeholder="IMDB"/>
         <input type="text" class="flex__expanded" name="tmdb" placeholder="TMDB"/>
       </div>
 
       <div class="flex flex--fluid mbox mbox--small-bottom">
-        <span class="col col--small badge mbox mbox--mini-right">Categories</span>
+        <span class="col col--small badge badge--centered mbox mbox--mini-right">Categories</span>
         @foreach ($repository->categories() as $id => $category)
           <div class="category badge badge--extra mbox mbox--mini-right">
             <label class="v-checkbox">
@@ -40,7 +40,7 @@
       </div>
 
       <div class="flex flex--fluid">
-        <span class="col col--small badge mbox mbox--mini-right mbox--small-bottom">Types</span>
+        <span class="col col--small badge badge--centered mbox mbox--mini-right mbox--small-bottom">Types</span>
         @foreach ($repository->types() as $id => $type)
           <div class="type badge badge--extra mbox mbox--mini-right mbox--small-bottom">
             <label class="v-checkbox">
@@ -53,7 +53,7 @@
       </div>
 
       <div class="flex">
-        <span class="col col--small badge mbox mbox--mini-right mbox--small-bottom">Extra</span>
+        <span class="col col--small badge badge--centered mbox mbox--mini-right mbox--small-bottom">Extra</span>
         <label class="badge badge--extra v-checkbox mbox mbox--mini-right mbox--small-bottom">
           <input name="my_requests" type="checkbox">
           <span></span>

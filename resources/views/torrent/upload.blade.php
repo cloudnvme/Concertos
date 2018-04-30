@@ -62,7 +62,7 @@
       <div class="upload col-md-12">
         {{ Form::open(['route' => 'upload', 'files' => true, 'class' => 'upload-form']) }}
         <div class="flex mbox mbox--small-bottom">
-          <label for="torrent" class="label badge badge col col--medium mbox mbox--mini-right">Torrent File</label>
+          <label for="torrent" class="label badge badge--centered badge col col--medium mbox mbox--mini-right">Torrent File</label>
           <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent"
                  onchange="updateTorrentName()" required>
         </div>
@@ -73,37 +73,37 @@
       </div>--}}
 
         <div class="flex mbox mbox--small-bottom">
-          <label for="name" class="badge col col--medium mbox mbox--mini-right">Title</label>
+          <label for="name" class="badge badge--centered col col--medium mbox mbox--mini-right">Title</label>
           <input type="text" name="name" id="title" class="flex__expanded" required/>
         </div>
 
         <div class="flex mbox mbox--small-bottom">
-          <label for="name" class="badge col col--medium mbox mbox--mini-right">Tags</label>
+          <label for="name" class="badge badge--centered col col--medium mbox mbox--mini-right">Tags</label>
           <input type="text" name="tags" class="flex__expanded" required>
         </div>
 
         <div class="flex mbox mbox--small-bottom">
-          <label for="name" class="badge col col--medium mbox mbox--mini-right">IMDB ID <b>(Required)</b></label>
+          <label for="name" class="badge badge--centered col col--medium mbox mbox--mini-right">IMDB ID <b>(Required)</b></label>
           <input type="number" name="imdb" value="0" class="flex__expanded" required>
         </div>
 
         <div class="flex mbox mbox--small-bottom">
-          <label for="name" class="badge col col--medium mbox mbox--mini-right">TMDB ID <b>(Required)</b></label>
+          <label for="name" class="badge badge--centered col col--medium mbox mbox--mini-right">TMDB ID <b>(Required)</b></label>
           <input type="number" name="tmdb" value="0" class="flex__expanded" required>
         </div>
 
         <div class="flex mbox mbox--small-bottom">
-          <label for="name" class="badge col col--medium mbox mbox--mini-right">TVDB ID <b>(Optional)</b></label>
+          <label for="name" class="badge badge--centered col col--medium mbox mbox--mini-right">TVDB ID <b>(Optional)</b></label>
           <input type="number" name="tvdb" value="0" class="flex__expanded" required>
         </div>
 
         <div class="flex mbox mbox--small-bottom">
-          <label for="name" class="badge col col--medium mbox mbox--mini-right">MAL ID <b>(Optional)</b></label>
+          <label for="name" class="badge badge--centered col col--medium mbox mbox--mini-right">MAL ID <b>(Optional)</b></label>
           <input type="number" name="mal" value="0" class="flex__expanded" required>
         </div>
 
         <div class="flex mbox mbox--small-bottom">
-          <label for="category_id" class="badge col col--medium mbox mbox--mini-right">Category</label>
+          <label for="category_id" class="badge badge--centered col col--medium mbox mbox--mini-right">Category</label>
           <select name="category_id" class="flex__expanded">
             @foreach($categories as $category)
               <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -112,7 +112,7 @@
         </div>
 
         <div class="flex mbox mbox--small-bottom">
-          <label for="type" class="badge col col--medium mbox mbox--mini-right">Type</label>
+          <label for="type" class="badge badge--centered col col--medium mbox mbox--mini-right">Type</label>
           <select name="type_id" class="flex__expanded">
             @foreach($types as $type)
               <option value="{{ $type->id }}">{{ $type->name }}</option>

@@ -50,7 +50,7 @@
   <div class="block mbox mbox--small-bottom">
     <div class="block__title">Message</div>
     <div class="block__content">
-      {{ $pm->message }}
+      {!! $pm->getMessageHtml() !!}
     </div>
   </div>
 

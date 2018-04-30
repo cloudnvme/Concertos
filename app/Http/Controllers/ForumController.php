@@ -140,7 +140,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // Get all posts
-        $posts = $topic->posts()->paginate(25);
+        $posts = $topic->posts()->paginate(15);
 
         // First post
         $firstPost = Post::where('topic_id', $topic->id)->first();

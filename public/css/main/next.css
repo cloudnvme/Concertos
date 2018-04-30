@@ -317,7 +317,7 @@ html {
     justify-content: center;
 }
 
-.flex--row {
+.flex--column {
     flex-direction: column;
 }
 

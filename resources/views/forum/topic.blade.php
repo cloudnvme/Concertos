@@ -75,7 +75,7 @@
           </div>
 
           <div class="flex">
-            <div class="post__info flex flex__centered flex--row pbox pbox--small">
+            <div class="post__info flex flex__centered flex--column pbox pbox--small">
               @if($p->user->image != null)
                 <img class="post__avatar" src="{{ url('files/img/' . $p->user->image) }}"/>
               @else
@@ -90,7 +90,7 @@
           </div>
         </div>
       @endforeach
-
+      {{ $posts->links() }}
     </div>
   </div>
 

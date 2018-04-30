@@ -126,9 +126,9 @@
           <th class="torrents__header-name">Name</th>
           <th class="torrents__header_time">Time</th>
           <th class="torrents__header-size">Size</th>
-          <th class="completed">C</th>
           <th class="seeders">S</th>
           <th class="leechers">L</th>
+          <th class="completed">C</th>
         </tr>
         </thead>
         @foreach($torrents as $torrent)
@@ -200,9 +200,9 @@
             </td>
             <td>{{ $torrent->age() }}</td>
             <td>{{ \App\Helpers\StringHelper::formatBytes($torrent->size) }}</td>
-            <td>{{ $torrent->times_completed }}</td>
             <td>{{ $torrent->seeders }}</td>
             <td>{{ $torrent->leechers }}</td>
+            <td>{{ $torrent->times_completed }}</td>
           </tr>
         @endforeach
       </table>

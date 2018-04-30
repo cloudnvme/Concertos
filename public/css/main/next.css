@@ -612,3 +612,8 @@ html {
     min-width: 8rem;
     min-height: 8rem;
 }
+
+.post__user-title {
+    max-width: 10rem;
+    word-break: break-all;
+}

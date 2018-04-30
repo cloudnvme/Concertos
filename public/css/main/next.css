@@ -358,6 +358,10 @@ html {
 
 }
 
+.col--block {
+    display: inline-block;
+}
+
 .col--small {
     width: 5rem;
 }

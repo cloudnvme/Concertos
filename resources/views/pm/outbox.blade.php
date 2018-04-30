@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.next')
 
 @section('breadcrumb')
 <li class="active">
@@ -9,47 +9,79 @@
 @endsection
 
 @section('content')
-<div class="container">
-  <div class="header gradient silver">
-    <div class="inner_content">
-      <h1>{{ trans('pm.private') }} {{ trans('pm.messages') }} - {{ trans('pm.outbox') }}</h1>
+  <div class="mbox mbox--small-bottom">
+    <a href="{{ route('create', array('id' => auth()->user()->id)) }}">
+      <button class="btn">
+        <i class="fa fa-pencil-alt"></i>
+        {{ trans('pm.new') }}
+      </button>
+    </a>
+    <a href="{{ route('inbox', array('id' => auth()->user()->id)) }}">
+      <button class="btn">
+        <i class="fas fa-cloud-download-alt"></i>
+        {{ trans('pm.inbox') }}
+      </button>
+    </a>
+    <a href="{{ route('outbox', array('id' => auth()->user()->id)) }}">
+      <button class="btn">
+        <i class="fas fa-cloud-upload-alt"></i>
+        {{ trans('pm.outbox') }}
+      </button>
+    </a>
+  </div>
+
+  <div class="block">
+    <div class="block__title">Messages</div>
+    <div class="block__content">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>
+            <label class="v-checkbox">
+              <input id="check" type="checkbox" name="pm_id">
+              <span></span>
+            </label>
+          </th>
+          <th>To</th>
+          <th>{{ trans('pm.subject') }}</th>
+          <th>Sent at</th>
+          <th>{{ trans('pm.read') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($pms as $p)
+          {{ Form::hidden('invisible', 'id', array('id' => 'id')) }}
+          <tr>
+            <td>
+              <label class="v-checkbox">
+                <input id="check" type="checkbox" name="pm_id">
+                <span></span>
+              </label>
+            </td>
+            <td>
+              <a class="link" href="{{ route('profile', ['id' => $p->receiver->id]) }}" title="">{{ $p->receiver->username}}</a>
+            </td>
+            <td>
+              <a class="link" href="{{ route('message', ['id' => $user->id , 'pmid' => $p->id]) }}">{{ $p->subject }}</a>
+            </td>
+            <td>
+              {{ $p->created_at->diffForHumans() }}
+            </td>
+
+            @if ($p->read == 0)
+              <td>
+                <span class='label label--danger'>{{ trans('pm.unread') }}</span>
+              </td>
+            @else ($p->read >= 1)
+              <td>
+                <span class='label label--success'>{{ trans('pm.read') }}</span>
+              </td>
+            @endif
+          </tr>
+          {{ Form::close() }}
+        @endforeach
+        </tbody>
+      </table>
     </div>
   </div>
-        <div class="row">
-          <div class="col-md-2">
-            <div class="block">
-              <a href="{{ route('create', array('id' => auth()->user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
-              <div class="separator"></div>
-              <div class="list-group">
-                <a href="{{ route('inbox', array('id' => auth()->user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
-                <a href="{{ route('outbox', array('id' => auth()->user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
-              </div>
-            </div>
-          </div>
-
-        <div class="col-md-10">
-            <div class="block">
-          <table class="table table-striped table-hover table-bordered">
-            <thead>
-              <tr>
-                <td class="col-sm-2">{{ trans('pm.to') }}</td>
-                <td class="col-sm-6">{{ trans('pm.subject') }}</td>
-                <td class="col-sm-2">{{ trans('pm.sent-at') }}</td>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($pms as $p)
-              <tr>
-                <td class="col-sm-2"><a href="{{ route('profile', ['id' => $p->receiver->id]) }}" title="">{{ $p->receiver->username}}</a></td>
-                <td class="col-sm-5"><a href="{{ route('message', ['id' => $user->id , 'pmid' => $p->id]) }}">{{ $p->subject }}</a></td>
-                <td class="col-sm-2">{{ $p->created_at->diffForHumans() }}</td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-          {{ $pms->links() }}
-        </div>
-      </div>
-    </div>
-    </div>
-  @endsection
+@endsection

@@ -96,7 +96,10 @@
         </div>
       </div>
 
-      <input type="submit" value="Search" class="btn mbox mbox--bottom"/>
+      <button type="submit" class="btn mbox mbox--bottom">
+        <i class="fa fa-search"></i>
+        Search
+      </button>
     </form>
 
     <div class="block mbox mbox--bottom" id="stats">

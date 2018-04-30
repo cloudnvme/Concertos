@@ -86,7 +86,7 @@
               <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
             </div>
 
-            <div class="post__message flex flex__expanded pbox--mini">{!! $p->getContentHtml() !!}</div>
+            <div class="post__message pbox pbox--mini">{!! $p->getContentHtml() !!}</div>
           </div>
         </div>
       @endforeach

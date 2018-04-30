@@ -317,6 +317,10 @@ html {
     justify-content: center;
 }
 
+.flex--row {
+    flex-direction: column;
+}
+
 .badge {
     padding: 0.25rem;
     background: var(--nav-background-color);
@@ -534,4 +538,77 @@ html {
 .block--danger > .block__title {
     background-color: var(--danger--background--color);
     color: var(--danger--color);
+}
+
+.pbox {
+
+}
+
+.pbox--small-bottom {
+    padding-bottom: 0.5rem;
+}
+
+.pbox--mini {
+    padding: 0.25rem;
+}
+
+.pbox--small {
+    padding: 0.5rem;
+}
+
+.pbox--small-top {
+    padding-top: 0.5rem;
+}
+
+.label {
+
+}
+
+.label--primary {
+    color: darkcyan;
+}
+
+.label--info {
+    color: blue;
+}
+
+.label--success {
+    color: darkgreen;
+}
+
+.label--warning {
+    color: orangered;
+}
+
+.label--danger {
+    color: darkred;
+}
+
+.text {
+
+}
+
+.text--danger {
+    color: darkred;
+}
+
+.post__info {
+    min-height: 15rem;
+    min-width: 15rem;
+    border: 1px dotted black;
+}
+
+.post__message {
+    border: 1px dotted black;
+    border-left: unset;
+}
+
+.post__header {
+    background-color: var(--nav-background-color);
+    color: white;
+}
+
+.post__avatar {
+    min-width: 8rem;
+    min-height: 8rem;
 }

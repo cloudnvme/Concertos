@@ -127,7 +127,7 @@
         <div class="parser"></div>
         <center id="upload-buttons">
           <button type="submit" name="preview" value="true" id="preview" class="btn">Preview</button>
-          <button id="add" class="btn">Add MediaInfo Parser</button>
+          <button id="add" type="button" class="btn">Add MediaInfo Parser</button>
           <button type="submit" name="post" value="true" id="post" class="btn">Upload</button>
           <label class="v-checkbox">
             <input type="checkbox" name="anonymous"/>

@@ -11,6 +11,10 @@ class ChatboxController {
         this.counter = 3;
         this.autoUpdateId = null;
         this.updating = false;
+
+        this.chatbox.addEventListener("scroll", (e) => {
+            this.forceScroll = this.chatbox.scrollHeight - this.chatbox.scrollTop == this.chatbox.clientHeight;
+        });
     }
 
     scrollDown() {
@@ -39,6 +43,7 @@ class ChatboxController {
             credentials: "same-origin"
         });
 
+        this.forceScroll = true;
         await this.updateMessages();
     }
 
@@ -61,7 +66,9 @@ class ChatboxController {
             this.resetUpdate();
         }
         this.nextBatch = j.nextBatch;
-        this.scrollDown();
+        if (this.forceScroll) {
+            this.scrollDown();
+        }
         this.updating = false;
     }
 

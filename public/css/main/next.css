@@ -245,6 +245,16 @@ html {
     color: var(--nav-color);
 }
 
+.btn-light {
+    border-color: var(--nav-color);
+    color: var(--nav-color);
+}
+
+.btn-light:hover {
+    background-color: var(--nav-color);
+    color: var(--nav-background-color);
+}
+
 .textarea {
     display: block;
     width: 100%;
@@ -631,4 +641,29 @@ html {
 
 .no-break {
     white-space: nowrap;
+}
+
+.profile-block {
+    background-color: var(--nav-background-color);
+    color: var(--nav-color);
+    display: flex;
+    align-items: center;
+}
+
+
+.profile-block__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.profile-block__avatar {
+    width: 10rem;
+    height: 10rem;
+}
+
+.public-info td:first-child,
+.private-info td:first-child {
+    width: 15rem;
+    font-weight: bold;
+    padding-bottom: 0.5rem;
 }

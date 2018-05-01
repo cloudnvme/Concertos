@@ -11,7 +11,6 @@ class ChatboxController {
         this.counter = 3;
         this.autoUpdateId = null;
         this.updating = false;
-        console.log(token);
     }
 
     scrollDown() {

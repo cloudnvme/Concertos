@@ -49,11 +49,11 @@
             {{ auth()->user()->roleName() }} {{ auth()->user()->username  }}</span>
           <span class="user-info__item">
             <i class="fa fa-download"></i>
-            Download: {{ auth()->user()->getUploaded() }}
+            Download: {{ auth()->user()->getDownloaded() }}
           </span>
           <span class="user-info__item">
             <i class="fa fa-upload"></i>
-            Upload: {{ auth()->user()->getDownloaded() }}
+            Upload: {{ auth()->user()->getUploaded() }}
           </span>
           <span class="user-info__item">
             <i class="fa fa-signal"></i>

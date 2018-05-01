@@ -63,8 +63,7 @@
         {{ Form::open(['route' => 'upload', 'files' => true, 'class' => 'upload-form']) }}
         <div class="flex mbox mbox--small-bottom">
           <label for="torrent" class="label badge badge--centered badge col col--medium mbox mbox--mini-right">Torrent File</label>
-          <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent"
-                 onchange="updateTorrentName()" required>
+          <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent" required>
         </div>
 
         {{--<div class="form-group">
@@ -144,68 +143,5 @@
 @endsection
 
 @section('javascripts')
-  <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
-  <script>
-      $(document).ready(function () {
-          var wbbOpt = {}
-          $("#upload-form-description").wysibb(wbbOpt);
-      });
-  </script>
-
-  <script type="text/javascript">
-      $('#add').on('click', function (e) {
-          if ($('#mediainfo').length != 0) {
-              return;
-          }
-          e.preventDefault();
-          var optionHTML = '<div class="flex flex--fluid"><div class="heading">Mediainfo</div><textarea rows="2" class="textarea" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>';
-          $('.parser').append(optionHTML);
-      });
-  </script>
-  <script>
-      function updateTorrentName() {
-          let name = document.querySelector("#title");
-          let torrent = document.querySelector("#torrent");
-          let fileEndings = [".mkv.torrent", ".torrent"];
-          let allowed = ["1.0", "2.0", "5.1", "7.1", "H.264"];
-          let separators = ["-", " ", "."];
-          if (name !== null && torrent !== null) {
-              let value = torrent.value.split('\\').pop().split('/').pop();
-              fileEndings.forEach(function (e) {
-                  if (value.endsWith(e)) {
-                      value = value.substr(0, value.length - e.length);
-                  }
-              });
-              value = value.replace(/\./g, " ");
-              allowed.forEach(function (a) {
-                  search = a.replace(/\./g, " ");
-                  let replaceIndexes = [];
-                  let pos = value.indexOf(search);
-                  while (pos !== -1) {
-                      let start = pos > 0 ? value[pos - 1] : " ";
-                      let end = pos + search.length < value.length ? value[pos + search.length] : " ";
-                      if (separators.includes(start) && separators.includes(end)) {
-                          replaceIndexes.push(pos);
-                      }
-                      pos = value.indexOf(search, pos + search.length);
-                  }
-                  newValue = "";
-                  ignore = 0;
-                  for (let i = 0; i < value.length; ++i) {
-                      if (ignore > 0) {
-                          --ignore;
-                      } else if (replaceIndexes.length > 0 && replaceIndexes[0] == i) {
-                          replaceIndexes.shift();
-                          newValue += a;
-                          ignore = a.length - 1;
-                      } else {
-                          newValue += value[i];
-                      }
-                  }
-                  value = newValue;
-              })
-              name.value = value;
-          }
-      }
-  </script>
+  <script src="{{ url('js/upload.js') }}"></script>
 @endsection

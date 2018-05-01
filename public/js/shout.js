@@ -1,127 +1,98 @@
-var chatbox = $('#chat');
-var next_batch = parseInt(chatbox.attr('data-last'));
-var forceScroll = true;
+class ChatboxController {
+    constructor() {
+        this.chatbox = document.querySelector("#chat");
+        this.forceScroll = true;
+        let token = document.querySelector("meta[name=csrf-token]").getAttribute("content");
+        this.headers = new Headers({
+            "X-CSRF-TOKEN": token
+        });
+        this.nextBatch = parseInt(this.chatbox.getAttribute("data-last"));
+        this.time = Date.now();
+        this.counter = 3;
+        this.autoUpdateId = null;
+        this.updating = false;
+        console.log(token);
+    }
 
-window.onload = function() {
-    chatbox.animate({
-        scrollTop: chatbox.prop('scrollHeight')
-    }, 0);
+    scrollDown() {
+        this.chatbox.scrollTop = this.chatbox.scrollHeight;
+    }
+
+    delay() {
+        return 1000 * Math.random() * Math.pow(2, this.counter);
+    }
+
+    resetUpdate() {
+        this.counter = 3;
+        if (this.autoUpdateId !== null) {
+            clearTimeout(this.autoUpdateId);
+            this.autoUpdate();
+        }
+    }
+
+    async sendMessage(message) {
+        let body = new URLSearchParams();
+        body.append('message', message);
+        let r = await fetch("/shoutbox/send", {
+            method: "POST",
+            body: body,
+            headers: this.headers,
+            credentials: "same-origin"
+        });
+
+        await this.updateMessages();
+    }
+
+    async updateMessages(after = null) {
+        if (this.updating) {
+            return;
+        }
+        this.updating = true;
+        after = after === null ? this.nextBatch : after;
+        let r = await fetch("/shoutbox/messages/" + after.toString(), {
+            method: "GET",
+            headers: this.headers,
+            credentials: "same-origin"
+        });
+        let j = await r.json();
+        this.chatbox.insertAdjacentHTML('beforeend', j.data);
+        if (this.nextBatch === j.nextBatch) {
+            this.counter = Math.min(this.counter + 1, 6);
+        } else {
+            this.resetUpdate();
+        }
+        this.nextBatch = j.nextBatch;
+        this.scrollDown();
+        this.updating = false;
+    }
+
+    async autoUpdate() {
+        let delay = this.delay();
+
+        this.autoUpdateId = setTimeout(() => {
+            requestAnimationFrame(() => {
+                this.updateMessages();
+                this.autoUpdate();
+            });
+        }, delay);
+    }
+}
+
+let controller = new ChatboxController();
+window.onload = () => {
+    controller.scrollDown();
 };
-
-load_data = {};
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-    }
+let sendButton = document.querySelector("#send-message");
+let messageText = document.querySelector("#chat-message");
+sendButton.addEventListener("click", (e) => {
+    controller.sendMessage(messageText.value);
+    messageText.value = "";
 });
 
-chatbox.scroll(function () {
-    forceScroll = false;
-    let scrollTop = chatbox.scrollTop() + chatbox.prop('clientHeight');
-    let scrollHeight = chatbox.prop('scrollHeight');
-    forceScroll = scrollTop >= scrollHeight;
+messageText.addEventListener("keyup", (e) => {
+    if (e.key == "Enter" && !e.shiftKey) {
+        controller.sendMessage(messageText.value);
+        messageText.value = "";
+    }
 });
-
-function formatTime(seconds) {
-    const MINUTE = 60;
-    const HOUR = MINUTE * 60;
-    let suffix = "second";
-    let value = seconds;
-    if (seconds >= HOUR) {
-        suffix = "hour";
-        value = Math.floor(seconds / HOUR);
-    } else if (seconds >= MINUTE) {
-        suffix = "minute";
-        value = Math.floor(seconds / MINUTE);
-    }
-
-    if (value != 1) {
-        suffix += "s";
-    }
-
-    return value.toString() + " " + suffix;
-}
-
-function updateTime() {
-    messages.children().each(function (i, message) {
-        let createdAt = parseInt(message.getAttribute('data-created'));
-        let text = $(".text-muted > small > em", message);
-        let deltaTime = Math.floor((new Date).getTime() / 1000) - createdAt;
-        text.text(formatTime(deltaTime) + " ago");
-    })
-}
-
-var xhr = new XMLHttpRequest();
-
-function updateMessages() {
-    if (xhr !== 'undefined') {
-        xhr.abort();
-    }
-    xhr = $.ajax({
-        url: "shoutbox/messages/" + parseInt(next_batch),
-        type: 'get',
-        data: load_data,
-        dataType: 'json',
-        success: function (data) {
-            if (next_batch === null) {
-                next_batch = data.next_batch;
-            } else {
-                next_batch = data.next_batch;
-            }
-
-            if (data.data.length != 0) {
-                chatbox.append(data.data);
-            }
-
-            if (forceScroll) {
-                chatbox.animate({scrollTop: chatbox.prop('scrollHeight')}, 0);
-            }
-        }
-    });
-    //updateTime();
-    window.setTimeout(updateMessages, 3000);
-}
-
-window.setTimeout(updateMessages, 3000);
-
-
-var xhr = new XMLHttpRequest();
-
-function sendMessage(evt = null) {
-    var message = $('#chat-message').val();
-    post_data = {
-        'message': message
-    };
-    if (xhr !== 'undefined') {
-        xhr.abort();
-    }
-    xhr = $.ajax({
-        url: "shoutbox/send",
-        type: 'post',
-        data: post_data,
-        dataType: 'json',
-        success: function (data) {
-            forceScroll = true;
-            $('#chat-error').addClass('hidden');
-            $('#chat-message').removeClass('invalid');
-            $('#chat-message').val('');
-            messages.animate({
-                scrollTop: messages.prop('scrollHeight')
-            }, 0);
-        },
-        error: function (data) {
-            $('#chat-message').addClass('invalid');
-            $('#chat-error').removeClass('hidden');
-            $('#chat-error').text('Whoops Im Currently Offline');
-        }
-    });
-}
-
-function editorOnKeyDown(evt, sender = null) {
-    if (evt.key == "Enter" && !evt.shiftKey) {
-        sendMessage();
-    }
-}
-
-$("#chat-message").keypress(editorOnKeyDown);
-$("#send-message").click(sendMessage);
+controller.autoUpdate();

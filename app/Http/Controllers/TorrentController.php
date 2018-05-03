@@ -446,7 +446,30 @@ class TorrentController extends Controller
             });
         }
 
-        $torrents = $torrents->orderBy('created_at', 'desc')->paginate(25);
+        $column = 'created_at';
+        $direction = 'desc';
+
+        $allowed_directions = [
+            'asc',
+            'desc'
+        ];
+
+        $allowed_columns = [
+            'created_at',
+            'seeders',
+            'leechers',
+            'times_completed'
+        ];
+
+        if (in_array($request->input('direction'), $allowed_directions)) {
+            $direction = $request->input('direction');
+        }
+
+        if (in_array($request->input('order_by'), $allowed_columns)) {
+            $order_by = $request->input('order_by');
+        }
+
+        $torrents = $torrents->orderBy($column, $direction)->paginate(25);
         return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead', 'count', 'request'));
     }
 

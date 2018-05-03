@@ -67,7 +67,7 @@
       </div>
 
       <div class="flex mbox mbox--small-bottom">
-        <span class="badge badge--centered mbox mbox--small-right">Discount</span>
+        <span class="badge badge--centered col col--small mbox mbox--small-right">Discount</span>
         <div class="badge mbox mbox--small-right">
           <label class="v-checkbox v-checkbox--light">
             <input id="freeleech" name="freeleech" type="checkbox">
@@ -94,6 +94,20 @@
             Featured Torrent
           </label>
         </div>
+      </div>
+
+      <div class="flex mbox mbox--small-bottom">
+        <div for="ordering" class="col col--small badge badge--centered mbox mbox--mini-right">Ordering</div>
+        <select class="mbox mbox--mini-right" name="order_by">
+          <option value="created_at">Time</option>
+          <option value="seeders">Seeders</option>
+          <option value="leechers">Leechers</option>
+          <option value="times_completed">Completed</option>
+        </select>
+        <select name="direction">
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
       </div>
 
       <button type="submit" class="btn mbox mbox--bottom">

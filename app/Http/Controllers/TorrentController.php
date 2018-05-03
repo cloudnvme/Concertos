@@ -466,7 +466,7 @@ class TorrentController extends Controller
         }
 
         if (in_array($request->input('order_by'), $allowed_columns)) {
-            $order_by = $request->input('order_by');
+            $column = $request->input('order_by');
         }
 
         $torrents = $torrents->orderBy($column, $direction)->paginate(25);

@@ -210,6 +210,6 @@
         @endforeach
       </table>
     </div>
-    {{ $torrents->links() }}
+    {{ $torrents->appends($request->all())->links() }}
   </div>
 @endsection

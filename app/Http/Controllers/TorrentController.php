@@ -447,8 +447,7 @@ class TorrentController extends Controller
         }
 
         $torrents = $torrents->orderBy('created_at', 'desc')->paginate(25);
-
-        return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead', 'count'));
+        return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead', 'count', 'request'));
     }
 
     /**

@@ -480,11 +480,6 @@ html {
 }
 
 .table--2__title {
-    font-weight: bold;
-    font-size: 0.25rem;
-}
-
-.table--2__title {
     width: 8rem;
     font-weight: bold;
     padding-bottom: 0.5rem;

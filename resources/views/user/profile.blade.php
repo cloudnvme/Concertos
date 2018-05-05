@@ -115,12 +115,12 @@
 
         <tr>
           <td>Total Downloaded</td>
-          <td>{{ $user->getUploaded() }}</td>
+          <td>{{ $user->getDownloaded() }}</td>
         </tr>
 
         <tr>
           <td>Total Uploaded</td>
-          <td>{{ $user->getDownloaded() }}</td>
+          <td>{{ $user->getUploaded() }}</td>
         </tr>
 
         <tr>

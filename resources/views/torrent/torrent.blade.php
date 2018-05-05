@@ -305,7 +305,7 @@
     @if ($torrent->mediainfo !== null)
       <div class="block mbox mbox--small-bottom">
         <div class="block__title">Mediainfo</div>
-        <div class="block__content code scrollable-y">{{ $torrent->mediainfo }}</div>
+        <div class="block__content code">{{ $torrent->mediainfo }}</div>
       </div>
     @endif
 

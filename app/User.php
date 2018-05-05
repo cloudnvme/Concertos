@@ -25,6 +25,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use function theodorejb\polycast\to_int;
 use App\Helpers\StringHelper;
 use App\Helpers\Bbcode;
+use Illuminate\Support\Facades\DB;
 
 /**
  * User-Related Template
@@ -254,6 +255,14 @@ class User extends Authenticatable
     public function unreadCount()
     {
         return $this->pm_receiver()->where('read', 0)->count();
+    }
+
+    public function unmoderatedCount()
+    {
+        if (!\App\Policy::isModerator($this)) {
+            return 0;
+        }
+        return DB::table('torrents')->where('status', '=', '0')->count();
     }
 
     /**

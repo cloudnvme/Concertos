@@ -37,6 +37,14 @@
         <div class="info-bar info-bar--visible">
           <a href="{{ route('inbox', ['id' => auth()->user()->id]) }}" class="nav__link">You have {{ auth()->user()->unreadCount() }} unread notifications</a>
         </div>
+      @elseif (auth()->user()->unmoderatedCount() == 1)
+        <div class="info-bar info-bar--visible">
+          <a href="{{ route('moderation') }}" class="nav__link">You need to moderate {{ auth()->user()->unmoderatedCount() }} torrent</a>
+        </div>
+      @elseif (auth()->user()->unmoderatedCount() > 1)
+        <div class="info-bar info-bar--visible">
+          <a href="{{ route('moderation') }}" class="nav__link">You need to moderate {{ auth()->user()->unmoderatedCount() }} torrents</a>
+        </div>
       @else
         <div clas="info-bar"></div>
       @endif

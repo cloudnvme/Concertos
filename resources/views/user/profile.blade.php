@@ -114,6 +114,21 @@
         </tr>
 
         <tr>
+          <td>Total Downloaded</td>
+          <td>{{ $user->getUploaded() }}</td>
+        </tr>
+
+        <tr>
+          <td>Total Uploaded</td>
+          <td>{{ $user->getDownloaded() }}</td>
+        </tr>
+
+        <tr>
+          <td>Ratio</td>
+          <td>{{ $user->getRatio() }}</td>
+        </tr>
+
+        <tr>
           <td>Total Uploads</td>
           <td>{{ $user->torrents->count() }}</td>
         </tr>

@@ -229,6 +229,11 @@
           </tr>
 
           <tr>
+            <td>Email</td>
+            <td>{{ $user->email }}</td>
+          </tr>
+
+          <tr>
             <td>Last Login</td>
             <td>
               @if ($user->last_login != null)

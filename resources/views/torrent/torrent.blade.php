@@ -309,6 +309,30 @@
       </div>
     @endif
 
+    <div class="block mbox mbox--small-bottom">
+      <div class="block__title">Files</div>
+      <div class="block__content">
+        <table class="table scrollable-y">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>{{ trans('common.name') }}</th>
+            <th>{{ trans('torrent.size') }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          @foreach($torrent->files as $k => $f)
+            <tr>
+              <td>{{ $k + 1 }}</td>
+              <td>{{ $f->name }}</td>
+              <td>{{ $f->getSize() }}</td>
+            </tr>
+          @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     @if ($comments->isNotEmpty())
       <div class="block mbox mbox--small-bottom">
         <div class="block__title">Comments</div>

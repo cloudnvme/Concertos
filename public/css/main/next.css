@@ -314,7 +314,7 @@ html {
 
 .scrollable-y {
     overflow-y: scroll;
-    height: 30rem;
+    max-height: 30rem;
 }
 
 .latest-posts__header-post {

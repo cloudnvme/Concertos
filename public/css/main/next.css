@@ -520,8 +520,11 @@ html {
     margin-bottom: -0.5rem;
 }
 
-.code {
+.pre {
     white-space: pre-wrap;
+}
+
+.code {
     font-family: "Hack", "Monospace";
 }
 

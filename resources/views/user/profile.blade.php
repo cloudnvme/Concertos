@@ -122,6 +122,7 @@
           <td>Total Downloads</td>
           <td>{{ $history->where('actual_downloaded', '>', 0)->count() }}</td>
         </tr>
+
         <tr>
           <td>Total Seeding</td>
           <td>{{ $user->getSeeding() }}</td>
@@ -138,13 +139,10 @@
         </tr>
 
         <tr>
-          <td>About Me</td>
-          <td>{{ $user->getAboutHTML() }}</td>
-        </tr>
-        <tr>
           <td>BONs</td>
           <td>{{ $user->getSeedbonus() }}</td>
         </tr>
+
         <tr>
           <td>Freeleech Tokens</td>
           <td>{{ $user->fl_tokens }}</td>
@@ -208,6 +206,15 @@
       </table>
     </div>
   </div>
+
+  @if ($user->about != null)
+    <div class="block mbox mbox--small-bottom">
+      <div class="block__title">About Me</div>
+      <div class="block__content">
+        {!! $user->getAboutHtml() !!}
+      </div>
+    </div>
+  @endif
 
   @if (auth()->user()->id == $user->id || \App\Policy::isModerator(auth()->user()))
     <div class="block mbox mbox--small-bottom">

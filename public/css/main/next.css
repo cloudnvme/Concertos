@@ -528,6 +528,11 @@ html {
     font-family: "Hack", "Monospace";
 }
 
+.decoda-code {
+    white-space: pre-wrap;
+    font-family: "Hack", "Monospace";
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;

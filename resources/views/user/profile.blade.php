@@ -109,8 +109,8 @@
         </tr>
 
         <tr>
-          <td>Group</td>
-          <td>{{ $user->roleName() }}</td>
+          <td>Groups</td>
+          <td>{{ $user->rolesAsString() }}</td>
         </tr>
 
         <tr>

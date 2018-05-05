@@ -12,11 +12,11 @@
 
 namespace App;
 
-use Emojione\Client;
-use Emojione\Ruleset;
+
 use Illuminate\Database\Eloquent\Model;
 use Decoda\Decoda;
 use App\Helpers\Bbcode;
+use App\Helpers\StringHelper;
 
 
 class Shoutbox extends Model
@@ -46,7 +46,6 @@ class Shoutbox extends Model
     }
 
     public function asHtml() {
-        $client = new Client(new Ruleset());
-        return $client->shortnameToUnicode(Shoutbox::getMessageHtml($this->message));
+        return StringHelper::renderEmoji(Shoutbox::getMessageHtml($this->message));
     }
 }

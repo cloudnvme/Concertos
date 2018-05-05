@@ -12,6 +12,9 @@
 
 namespace App\Helpers;
 
+use Emojione\Client;
+use Emojione\Ruleset;
+
 class StringHelper
 {
     const KIB = 1024;
@@ -120,5 +123,10 @@ class StringHelper
         }
 
         return $result;
+    }
+
+    public static function renderEmoji($string) {
+        $client = new Client(new Ruleset());
+        return $client->shortnameToUnicode($string);
     }
 }

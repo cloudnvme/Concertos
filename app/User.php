@@ -570,7 +570,7 @@ class User extends Authenticatable
      */
     public function getAboutHtml()
     {
-        return Bbcode::parse($this->about);
+        return StringHelper::renderEmoji(Bbcode::parse($this->about));
     }
 
     /**

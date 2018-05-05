@@ -12,6 +12,7 @@
 
 namespace App;
 
+use App\Helpers\StringHelper;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
 
@@ -60,6 +61,6 @@ class Comment extends Model
      */
     public function getContentHtml()
     {
-        return Bbcode::parse($this->content);
+        return StringHelper::renderEmoji(Bbcode::parse($this->content));
     }
 }

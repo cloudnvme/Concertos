@@ -138,9 +138,9 @@
                 <ul class="list-inline">
                 <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>{{ trans('torrent.size') }}: </strong> {{ $feature->torrent->getSize() }}</span>
                 <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>{{ trans('torrent.released') }}: </strong> {{ $feature->torrent->created_at->diffForHumans() }}</span>
-                <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>{{ trans('torrent.seeders') }}: </strong> {{ $feature->torrent->seeders }}</li></span>
-                <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>{{ trans('torrent.leechers') }}: </strong> {{ $feature->torrent->leechers }}</li></span>
-                <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>{{ trans('torrent.completed') }}: </strong> {{ $feature->torrent->times_completed }}</li></span>
+                <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>{{ trans('torrent.short-seeders') }}: </strong> {{ $feature->torrent->seeders }}</li></span>
+                <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>{{ trans('torrent.short-leechers') }}: </strong> {{ $feature->torrent->leechers }}</li></span>
+                <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>{{ trans('torrent.short-completed') }}: </strong> {{ $feature->torrent->times_completed }}</li></span>
                 <br>
                 <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('blocks.featured-until') }}: {{ $feature->created_at->addDay(7)->toFormattedDateString() }} ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)</span>
                 <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('blocks.featured-by') }}: {{ $feature->user->username }}!</span>

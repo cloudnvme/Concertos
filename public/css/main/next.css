@@ -670,3 +670,7 @@ html {
     font-weight: bold;
     padding-bottom: 0.5rem;
 }
+
+.decoda-list > li {
+    margin-left: 2rem;
+}

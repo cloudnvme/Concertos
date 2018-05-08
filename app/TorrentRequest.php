@@ -15,6 +15,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
 use Carbon\Carbon;
+use App\Helpers\StringHelper;
 
 /**
  * Torrent Requests
@@ -143,7 +144,7 @@ class TorrentRequest extends Model
      */
     public function getDescriptionHtml()
     {
-        return Bbcode::parse($this->description);
+        return StringHelper::renderEmoji(Bbcode::parse($this->description));
     }
 
     public function age()

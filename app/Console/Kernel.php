@@ -54,6 +54,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('removeFeaturedTorrent')->hourly();
         $schedule->command('autoGraveyard')->daily();
         $schedule->command('recycleInvites')->daily();
+        $schedule->command('featureRandom')->daily();
     }
 
     /**

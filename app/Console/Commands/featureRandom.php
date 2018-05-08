@@ -61,7 +61,7 @@ class featureRandom extends Command
                 continue;
             }
 
-            $torrent->featured = 1;
+            $torrent->free = 1;
             $torrent->doubleup = 1;
             $torrent->featured = 1;
             $torrent->save();

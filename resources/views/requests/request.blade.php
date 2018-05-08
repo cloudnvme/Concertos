@@ -64,7 +64,7 @@
         </tr>
         <tr>
           <td class="table--2__title">Description</td>
-          <td>{{ $torrentRequest->getDescriptionHtml()  }}</td>
+          <td>{!! $torrentRequest->getDescriptionHtml() !!}</td>
         </tr>
         <tr>
           <td class="table--2__title">Requested by</td>

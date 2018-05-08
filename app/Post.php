@@ -22,6 +22,7 @@ use App\Helpers\Bbcode;
  */
 class Post extends Model
 {
+    const PAGINATION_MAX = 15;
 
     /**
      * Rules
@@ -111,7 +112,7 @@ class Post extends Model
 
     public function getPageNumber()
     {
-        $result = ($this->getPostNumber() - 1) / 25 + 1;
+        $result = ($this->getPostNumber() - 1) / self::PAGINATION_MAX + 1;
         $result = floor($result);
         return $result;
     }

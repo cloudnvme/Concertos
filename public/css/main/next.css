@@ -675,3 +675,13 @@ html {
 .decoda-list > li {
     margin-left: 2rem;
 }
+
+.decoda-quote-body {
+    border-left: 3px solid black;
+    margin-left: 0.5rem;
+    padding-left: 0.25rem;
+}
+
+.decoda-quote-body {
+    font-weight: bold;
+}

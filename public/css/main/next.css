@@ -153,6 +153,10 @@ html {
     text-decoration: none;
 }
 
+.post__message > a {
+    font-weight: bold;
+}
+
 .section__link:hover,
 .nav__link:hover,
 .chat-message__profile-link:hover,

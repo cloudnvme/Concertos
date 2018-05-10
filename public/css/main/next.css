@@ -147,7 +147,8 @@ html {
 .section__link,
 .nav__link,
 .chat-message__profile-link,
-.link {
+.link,
+.post__message > a {
     color: unset;
     text-decoration: none;
 }
@@ -155,7 +156,8 @@ html {
 .section__link:hover,
 .nav__link:hover,
 .chat-message__profile-link:hover,
-.link:hover {
+.link:hover,
+.post__message > a:hover {
     text-decoration: underline;
 }
 

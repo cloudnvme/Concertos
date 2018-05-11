@@ -24,7 +24,7 @@ class FailedLoginAttempt extends Model
     {
         return static::create([
             'user_id' => is_null($user) ? null : $user->id,
-            'username' => $username,
+            'username' => $user->username ?? null,
             'ip_address' => $ip
         ]);
     }

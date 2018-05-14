@@ -28,6 +28,9 @@
         <a href="{{ route('forum_index') }}" class="nav__link">Forums</a>
         <a href="{{ route('upload') }}" class="nav__link">Upload</a>
         <a href="{{ route('bookmarks') }}" class="nav__link">Bookmarks</a>
+        @if (\App\Policy::isModerator(auth()->user()))
+          <a href="{{ route('staff_dashboard') }}" class="nav__link">Moderation</a>
+        @endif
       </div>
       @if (auth()->user()->unreadCount() == 1)
         <div class="info-bar info-bar--visible">

@@ -56,7 +56,7 @@
 		</div>
 	</div>
 
-	<div class="block">
+	<div class="block mbox mbox--small-bottom">
 		<div class="block__title">General tools</div>
 		<div class="block__content flex flex--column">
 			<a href="{{ route('staff_article_index') }}"><i class="far fa-newspaper"></i> {{ trans('staff.articles') }}</a>
@@ -68,7 +68,7 @@
 		</div>
 	</div>
 
-	<div class="block">
+	<div class="block mbox mbox--small-bottom">
 		<div class="block__title">Torrent tools</div>
 		<div class="block__content flex flex--column">
 			<a href="{{ route('staff_torrent_index') }}"><i class="fas fa-file"></i> {{ trans('staff.torrents') }}</a>
@@ -81,7 +81,7 @@
 		</div>
 	</div>
 
-	<div class="block">
+	<div class="block mbox mbox--small-bottom">
 		<div class="block__title">User tools</div>
 		<div class="block__content flex flex--column">
 			<a href="{{ route('user_search') }}"><i class="fa fa-users"></i> {{ trans('staff.user-search') }}</a>

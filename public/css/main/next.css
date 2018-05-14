@@ -697,3 +697,7 @@ html {
 .decoda-quote-head {
     font-weight: bold;
 }
+
+.decoda-image {
+    max-width: 100%;
+}

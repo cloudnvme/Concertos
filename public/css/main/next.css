@@ -441,6 +441,10 @@ html {
     margin-top: 0.5rem;
 }
 
+.mbox--mini-top {
+    margin-top: 0.25rem;
+}
+
 .v-checkbox > input {
     display: none;
 }

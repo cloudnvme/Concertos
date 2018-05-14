@@ -676,7 +676,9 @@ html {
 }
 
 .public-info td:first-child,
-.private-info td:first-child {
+.private-info td:first-child,
+.site-stats td:first-child,
+.moderation-tools td:first-child {
     width: 15rem;
     font-weight: bold;
     padding-bottom: 0.5rem;

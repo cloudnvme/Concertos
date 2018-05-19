@@ -8,7 +8,7 @@
   <div class="block block--fixed">
     <div class="block__title">Chatbox</div>
     <div class="block__content">
-      <div id="chat" data-last="{{ $lastMessage->id }}" class="scrollable-y">
+      <div id="chat" data-last="{{ $lastMessage->id ?? "" }}" class="scrollable-y">
         {!! \App\Http\Controllers\ShoutboxController::renderMessages($shoutboxMessages) !!}
       </div>
     </div>

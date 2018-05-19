@@ -582,28 +582,14 @@ class User extends Authenticatable
         return StringHelper::renderEmoji(Bbcode::parse($this->about));
     }
 
-    /**
-     * @method getSeedbonus
-     *
-     * Formats the seebonus of the User
-     *
-     * @access public
-     * @return decimal
-     */
+
     public function getSeedbonus()
     {
         return number_format($this->seedbonus, 2, '.', ' ');
     }
 
-    /**
-     * @method getSeeding
-     *
-     * Gets the amount of torrents a user seeds
-     *
-     * @access public
-     * @return integer
-     */
-    public function getSeeding()
+
+    public function countSeedingTorrents()
     {
         return Peer::where('user_id', '=', $this->id)
             ->where('seeder', '=', '1')
@@ -611,30 +597,15 @@ class User extends Authenticatable
             ->count();
     }
 
-    /**
-     * @method getSeeding
-     *
-     * Gets the amount of torrents a user seeds
-     *
-     * @access public
-     * @return integer
-     */
-    public function getUploads()
+    public function countUploadedTorrents()
     {
         return Torrent::withAnyStatus()
             ->where('user_id', '=', $this->id)
             ->count();
     }
 
-    /**
-     * @method getLeeching
-     *
-     * Gets the amount of torrents a user seeds
-     *
-     * @access public
-     * @return integer
-     */
-    public function getLeeching()
+
+    public function countLeechingTorrents()
     {
         return Peer::where('user_id', '=', $this->id)
             ->where('left', '>', '0')
@@ -650,14 +621,6 @@ class User extends Authenticatable
             ->count();
     }
 
-    /**
-     * @method getTotalSeedTime
-     *
-     * Gets the users total seedtime
-     *
-     * @access public
-     * @return integer
-     */
     public function getTotalSeedTime()
     {
         return History::where('user_id', '=', $this->id)

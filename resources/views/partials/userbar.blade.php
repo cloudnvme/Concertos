@@ -14,10 +14,10 @@
       <li><i class="fa fa-signal text-blue text-bold"></i> {{ trans('common.ratio') }}: {{ auth()->user()->getRatioString() }}</li>
       <li><i class="fa fa-exchange text-orange text-bold"></i> {{ trans('common.buffer') }}: {{ auth()->user()->calculateBuffer(config('other.ratio')) }}</li>
       <li><i class="fa fa-upload text-green text-bold"></i>
-        <a href="{{ route('myactive', array('id' => auth()->user()->id)) }}" title="{{ trans('torrent.my-active-torrents') }}"><span class="text-blue"> {{ trans('torrent.seeding') }}:</span></a> {{ auth()->user()->getSeeding() }}
+        <a href="{{ route('myactive', array('id' => auth()->user()->id)) }}" title="{{ trans('torrent.my-active-torrents') }}"><span class="text-blue"> {{ trans('torrent.seeding') }}:</span></a> {{ auth()->user()->countSeedingTorrents() }}
       </li>
       <li><i class="fa fa-download text-red text-bold"></i>
-        <a href="{{ route('myactive', array('id' => auth()->user()->id)) }}" title="{{ trans('torrent.my-active-torrents') }}"><span class="text-blue"> {{ trans('torrent.leeching') }}:</span></a> {{ auth()->user()->getLeeching() }}
+        <a href="{{ route('myactive', array('id' => auth()->user()->id)) }}" title="{{ trans('torrent.my-active-torrents') }}"><span class="text-blue"> {{ trans('torrent.leeching') }}:</span></a> {{ auth()->user()->countLeechingTorrents() }}
       </li>
       <li><i class="fa fa-exclamation-circle text-orange text-bold"></i>
         <a href="#" title="{{ trans('torrent.hit-and-runs') }}"><span class="text-blue"> {{ trans('common.warnings') }}:</span></a> {{ auth()->user()->countWarnings() }}

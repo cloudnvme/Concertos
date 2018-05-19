@@ -140,12 +140,12 @@
 
         <tr>
           <td>Total Seeding</td>
-          <td>{{ $user->getSeeding() }}</td>
+          <td>{{ $user->countSeedingTorrents() }}</td>
         </tr>
 
         <tr>
           <td>Total Leeching</td>
-          <td>{{ $user->getLeeching() }}</td>
+          <td>{{ $user->countLeechingTorrents() }}</td>
         </tr>
 
         <tr>

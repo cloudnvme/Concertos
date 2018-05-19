@@ -50,7 +50,7 @@
               @endif
             </td>
             <td>
-              <span class="text-green">{{ $u->user->getUploads() }}</span>
+              <span class="text-green">{{ $u->user->countUploadedTorrents() }}</span>
             </td>
           </tr>
           @endforeach

@@ -147,7 +147,7 @@ class TorrentRequest extends Model
         return StringHelper::renderEmoji(Bbcode::parse($this->description));
     }
 
-    public function age()
+    public function getAge()
     {
         return Carbon::parse($this->created_at)->diffForHumans();
     }

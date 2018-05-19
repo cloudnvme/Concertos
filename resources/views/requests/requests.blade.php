@@ -144,7 +144,7 @@
               {{ $request->bounty }}
             </td>
             <td>
-              {{ $request->age() }}
+              {{ $request->getAge() }}
             </td>
             <td>
               @if ($request->claimed !== null && $request->filled_hash === null)

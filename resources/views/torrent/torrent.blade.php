@@ -135,7 +135,7 @@
           </tr>
           <tr>
             <td class="torrent__meta-title">Uploaded</td>
-            <td>{{ $torrent->age() }}</td>
+            <td>{{ $torrent->getAge() }}</td>
           </tr>
           <tr>
             <td class="torrent__meta-title">Size</td>

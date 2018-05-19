@@ -231,7 +231,7 @@ class Torrent extends Model
         return $this->free || config('other.freeleech') || $pfree;
     }
 
-    public function age() {
+    public function getAge() {
         return Carbon::parse($this->created_at)->diffForHumans();
     }
 }

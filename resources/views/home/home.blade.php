@@ -132,7 +132,7 @@
               @if(\App\Policy::isModerator(auth()->user()))
                 <a href="{{ route('profile', array('id' => $u->id)) }}">
                   ({{ $u->username }}
-                  @if($u->getWarning() > 0)
+                  @if($u->countWarnings() > 0)
                     <i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title=""
                        data-original-title="{{ trans('common.active-warning') }}">
 
@@ -147,7 +147,7 @@
               <span class="badge-user text-bold no-break no-break" style="color:{{ $u->roleColor() }}; background-image:{{ $u->roleEffect() }}; margin-bottom: 10px;">
                 <i class="{{ $u->roleIcon() }}" data-toggle="tooltip" title="" data-original-title="{{ $u->roleName() }}"></i>
                 {{ $u->username }}
-                @if($u->getWarning() > 0)
+                @if($u->countWarnings() > 0)
                   <i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warning') }}"></i>
                 @endif
               </span>

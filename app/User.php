@@ -642,15 +642,7 @@ class User extends Authenticatable
             ->count();
     }
 
-    /**
-     * @method getWarning
-     *
-     * Gets count on users active warnings
-     *
-     * @access public
-     * @return integer
-     */
-    public function getWarning()
+    public function countWarnings()
     {
         return Warning::where('user_id', '=', $this->id)
             ->whereNotNull('torrent')

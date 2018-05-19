@@ -9,7 +9,7 @@
           {!! $comment->user->getColoredFullName() !!}
         @endif
       </div>
-      @if ($comment->user->image != null || $comment->anon)
+      @if (!$comment->anon && $comment->user->image != null)
         <img class="message__avatar" src="{{ url("files/img/{$comment->user->image}") }}"></img>
       @else
         <img class="message__avatar" src="{{ url("img/profile.png") }}"></img>

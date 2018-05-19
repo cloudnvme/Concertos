@@ -153,7 +153,7 @@ class CommentController extends Controller
 
         $comment = new Comment();
         $comment->content = $request->input('content');
-        $comment->anon = $request->input('anonymous');
+        $comment->anon = $request->input('anonymous') == 'on';
         $comment->user_id = $user->id;
         $comment->requests_id = $torrentRequest->id;
         $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'requests_id' => 'required']);

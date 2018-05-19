@@ -90,73 +90,6 @@ class User extends Authenticatable
         return $this->hasMany(\App\Poll::class);
     }
 
-    public function roleIcon()
-    {
-        if ($this->roleName() == 'Bot') {
-            return 'fas fa-cogs';
-        }
-
-        if ($this->roleName() == 'Owner' || $this->roleName() == 'Moderator' || $this->roleName() == 'Administrator') {
-            return 'fa fa-user-secret';
-        }
-
-        if ($this->roleName() == 'Uploader') {
-            return 'fa fa-upload';
-        }
-
-        if ($this->roleName() == 'Trustee') {
-            return 'fa fa-shield';
-        }
-
-        if ($this->roleName() == 'Banned') {
-            return 'fa fa-ban';
-        }
-
-        if ($this->roleName() == 'Validating') {
-            return 'fa fa-question-circle';
-        }
-
-        return "fa fa-user";
-    }
-
-    public function roleEffect()
-    {
-        return "none";
-    }
-
-    public function roleColor()
-    {
-        if ($this->roleName() == 'Bot') {
-            return '#f1c40f';
-        }
-
-        if ($this->roleName() == 'Owner') {
-            return '#00abff';
-        }
-
-        if ($this->roleName() == 'Uploader') {
-            return '#2ECC71';
-        }
-
-        if ($this->roleName() == 'Trustee') {
-            return '#BF55EC';
-        }
-
-        if ($this->roleName() == 'Banned') {
-            return 'red';
-        }
-
-        if ($this->roleName() == 'Validating') {
-            return '#95A5A6';
-        }
-
-        if ($this->roleName() == 'Moderator') {
-            return '#4ECDC4';
-        }
-
-        return "#7289DA";
-    }
-
     public function roleName()
     {
         return $this->role()->name ?? 'None';
@@ -223,6 +156,21 @@ class User extends Authenticatable
         }
 
         return $roles->implode('name', ', ');
+    }
+
+    public function roleIcon()
+    {
+        return $this->role()->getIcon();
+    }
+
+    public function roleEffect()
+    {
+        return $this->role()->getEffect();
+    }
+
+    public function roleColor()
+    {
+        return $this->role()->getColor();
     }
 
     /**

@@ -151,4 +151,8 @@ class TorrentRequest extends Model
     {
         return Carbon::parse($this->created_at)->diffForHumans();
     }
+
+    public function renderComments() {
+        return view('partials.comments', ['comments' => $this->comments])->render();
+    }
 }

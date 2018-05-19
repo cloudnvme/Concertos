@@ -207,26 +207,7 @@
     <div class="block mbox mbox--small-bottom">
       <div class="block__title">Comments</div>
       <div class="block__content">
-        @foreach ($comments as $comment)
-          <div class="message">
-            <div class="message__info">
-              <div style="color: {{ $comment->user->roleColor() }}" class="message__user">
-                <a class="link" href="{{ route('profile', ['id' => $comment->user->id]) }}">
-                  <i class="{{ $comment->user->roleIcon() }}"></i>
-                  {{ $comment->user->roleName() }}
-                  {{ $comment->user->username }}
-                </a>
-              </div>
-              @if ($comment->user->image != null)
-                <img class="message__avatar" src="{{ url("files/img/{$comment->user->image}") }}"></img>
-              @else
-                <img class="message__avatar" src="{{ url("img/profile.png") }}"></img>
-              @endif
-              <div class="message__time">{{ $comment->created_at }}</div>
-            </div>
-            <div class="message__text">@emojione($comment->getContentHtml())</div>
-          </div>
-        @endforeach
+        {!! $torrentRequest->renderComments() !!}
       </div>
     </div>
   @endif

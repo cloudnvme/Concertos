@@ -577,6 +577,11 @@ class User extends Authenticatable
 
     public function getFullName()
     {
-        return view('user.title', ['user' => $this])->render();
+        return view('user.title', ['user' => $this, 'colored' => false])->render();
+    }
+
+    public function getColoredFullName()
+    {
+        return view('user.title', ['user' => $this, 'colored' => true])->render();
     }
 }

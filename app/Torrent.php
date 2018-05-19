@@ -234,4 +234,8 @@ class Torrent extends Model
     public function getAge() {
         return Carbon::parse($this->created_at)->diffForHumans();
     }
+
+    public function renderComments() {
+        return view('partials.comments', ['comments' => $this->comments])->render();
+    }
 }

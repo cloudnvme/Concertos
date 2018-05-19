@@ -28,7 +28,7 @@
     @endif
 
     <div class="profile-block__info">
-      <div class="profile-block__title">{!! $user->fullName() !!}</div>
+      <div class="profile-block__title">{!! $user->getFullName() !!}</div>
       <div class="profile-block__age">Member since {{ $user->created_at }}</div>
 
       @if(auth()->user()->id != $user->id)

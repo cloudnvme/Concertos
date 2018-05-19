@@ -672,7 +672,7 @@ class User extends Authenticatable
             ->sum('seedtime');
     }
 
-    public function fullName()
+    public function getFullName()
     {
         return view('user.title', ['user' => $this])->render();
     }

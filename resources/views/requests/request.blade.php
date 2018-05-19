@@ -68,7 +68,7 @@
         </tr>
         <tr>
           <td class="table--2__title">Requested by</td>
-          <td>{!! $torrentRequest->user->fullName() !!}</td>
+          <td>{!! $torrentRequest->user->getFullName() !!}</td>
         </tr>
 
         @if ($torrentRequest->filled_hash === null)
@@ -192,7 +192,7 @@
           <tbody>
           @foreach ($voters as $voter)
             <tr>
-              <td class="col col--big">{!! $voter->user->fullName() !!}</td>
+              <td class="col col--big">{!! $voter->user->getFullName() !!}</td>
               <td>{{ $voter->seedbonus }}</td>
               <td>{{ $voter->created_at->diffForHumans() }}</td>
             </tr>

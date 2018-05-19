@@ -81,7 +81,7 @@
               @else
                 <img class="post__avatar" src="{{ url('img/profile.png') }}"/>
               @endif
-              <div class="mbox mbox--small-top">{!! $p->user->fullName() !!}</div>
+              <div class="mbox mbox--small-top">{!! $p->user->getFullName() !!}</div>
               <div class="post__user-title">{{ $p->user->title }}</div>
               <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
             </div>

@@ -38,7 +38,7 @@
     <div class="block__title">Header</div>
     <div class="block__content">
       <div>
-        <span class="col col--block col--small text-bold">From:</span> {!! $pm->sender->fullName() !!}
+        <span class="col col--block col--small text-bold">From:</span> {!! $pm->sender->getFullName() !!}
       </div>
 
       <div>

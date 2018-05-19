@@ -12,7 +12,7 @@
       <li><i class="fa fa-arrow-up text-green text-bold"></i> {{ trans('common.upload') }}: {{ auth()->user()->getUploaded() }}</li>
       <li><i class="fa fa-arrow-down text-red text-bold"></i> {{ trans('common.download') }}: {{ auth()->user()->getDownloaded() }}</li>
       <li><i class="fa fa-signal text-blue text-bold"></i> {{ trans('common.ratio') }}: {{ auth()->user()->getRatioString() }}</li>
-      <li><i class="fa fa-exchange text-orange text-bold"></i> {{ trans('common.buffer') }}: {{ auth()->user()->untilRatio(config('other.ratio')) }}</li>
+      <li><i class="fa fa-exchange text-orange text-bold"></i> {{ trans('common.buffer') }}: {{ auth()->user()->calculateBuffer(config('other.ratio')) }}</li>
       <li><i class="fa fa-upload text-green text-bold"></i>
         <a href="{{ route('myactive', array('id' => auth()->user()->id)) }}" title="{{ trans('torrent.my-active-torrents') }}"><span class="text-blue"> {{ trans('torrent.seeding') }}:</span></a> {{ auth()->user()->getSeeding() }}
       </li>

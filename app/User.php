@@ -551,7 +551,7 @@ class User extends Authenticatable
 
     // Return the size (pretty formated) which can be safely downloaded
     // without falling under the minimum ratio.
-    public function untilRatio($ratio = null)
+    public function calculateBuffer($ratio = null)
     {
         $ratio = $ratio ?? config('other.ratio');
         if ($ratio == 0.0) {

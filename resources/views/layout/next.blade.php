@@ -68,7 +68,7 @@
           </span>
           <span class="user-info__item">
             <i class="fa fa-signal"></i>
-            Buffer: {{ auth()->user()->untilRatio() }}
+            Buffer: {{ auth()->user()->calculateBuffer() }}
           </span>
           <span class="user-info__item">
             <i class="fas fa-percent"></i>

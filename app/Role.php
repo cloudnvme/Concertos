@@ -62,7 +62,7 @@ class Role extends Model
         }
 
         if ($this->name == 'Trustee') {
-            return 'fa fa-shield';
+            return 'fas fa-shield-alt';
         }
 
         if ($this->name == 'Banned') {

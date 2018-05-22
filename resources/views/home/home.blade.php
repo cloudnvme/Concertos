@@ -32,9 +32,9 @@
         <tr>
           <th>Name</th>
           <th>Size</th>
-          <th>Seeders</th>
-          <th>Leechers</th>
-          <th>Completed</th>
+          <th>{{ trans('torrent.short-seeds') }} </th>
+          <th>{{ trans('torrent.short-leechs') }} </th>
+          <th>{{ trans('torrent.short-completed') }} </th>
           <th>Featured By</th>
         </tr>
         </thead>

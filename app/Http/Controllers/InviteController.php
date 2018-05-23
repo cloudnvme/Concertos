@@ -29,10 +29,10 @@ class InviteController extends Controller
     {
         $user = auth()->user();
         if (config('other.invite-only') == false) {
-            Toastr::error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']);
+            Toastr::error('Invitations are Currently Disabled due to Open Registration!', 'Whoops!', ['options']);
         }
         if (!\App\Policy::canInvite($user)) {
-            Toastr::error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']);
+            Toastr::error('Your Invite Rights Have Been Revoked!', 'Whoops!', ['options']);
         }
         return view('user.invite', ['user' => $user]);
     }
@@ -53,7 +53,7 @@ class InviteController extends Controller
         $exists = Invite::where('email', $request->input('email'))->first();
         $member = User::where('email', $request->input('email'))->first();
         if ($exists || $member) {
-            return redirect()->route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'Whoops!', ['options']));
+            return redirect()->route('invite')->with(Toastr::error('The email address you\\\'re trying to send an invite to has already been sent one or is already in use.', 'Whoops!', ['options']));
         }
 
         $unlimited = Policy::hasUnlimitedInvites($user);

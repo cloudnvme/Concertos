@@ -151,7 +151,7 @@
         @foreach($torrents as $torrent)
           <tr class="torrents__row">
             <td>
-              <i class="fa torrent-icon {{ $torrent->category->icon }}"></i>
+              <i class="torrent-icon {{ $torrent->category->icon }}"></i>
               <a class="link" href="{{ route('torrents', ['type_' . $torrent->type->id => 'on']) }}">{{ $torrent->type->name }}</a>
               <a class="link"
                  href="{{ route('torrents', ['category_' . $torrent->category->id => 'on']) }}">{{ $torrent->category->name }}</a>

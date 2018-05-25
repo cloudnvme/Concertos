@@ -653,6 +653,10 @@ html {
     word-break: break-all;
 }
 
+.post__button {
+    display: inline-block;
+}
+
 .no-break {
     white-space: nowrap;
 }

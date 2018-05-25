@@ -84,6 +84,33 @@
               <div class="mbox mbox--small-top">{!! $p->user->getFullName() !!}</div>
               <div class="post__user-title">{{ $p->user->title }}</div>
               <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
+              <div>
+                <button class="btn">
+                  <i class="fas fa-quote-left"></i>
+                  Quote
+                </button>
+
+                @if ($p->user->id == auth()->user()->id || \App\Policy::isModerator(auth()->user()))
+                  <a href="{{ route('forum_post_edit', ['id' => $topic->id, 'post_id' => $p->id]) }}">
+                    <button class="btn">
+                      <i class="fas fa-edit"></i>
+                      Edit
+                    </button>
+                  </a>
+                @endif
+
+                @if (\App\Policy::isModerator((auth()->user())))
+                  <form class="post__button"
+                        action="{{ route('forum_post_delete', ['id' => $topic->id, 'post_id' => $p->id]) }}"
+                        method="POST">
+                    @csrf
+                    <button class="btn">
+                      <i class="fas fa-eraser"></i>
+                      Delete
+                    </button>
+                  </form>
+                @endif
+              </div>
             </div>
 
             <div class="post__message flex__expanded pbox pbox--mini">{!! $p->getContentHtml() !!}</div>
@@ -95,20 +122,21 @@
   </div>
 
   @if ($topic->state != 'close' || \App\Policy::isModerator(auth()->user()))
-  <div class="block">
-    <div class="block__title">Reply</div>
-    <div class="block__content">
-      <form role="form" method="POST" action="{{ route('forum_reply',['id' => $topic->id]) }}">
-        {{ csrf_field() }}
-        @if ($topic->state == 'close' && \App\Policy::isModerator(auth()->user()))
-          <div class="text text--danger">This topic is closed, but you can still reply due to you
-            being {{auth()->user()->roleName()}}.
-          </div>
-        @endif
-        <textarea class="textarea textarea--vertical" name="content" id="topic-response" cols="30" rows="10"></textarea>
-        <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
-      </form>
+    <div class="block">
+      <div class="block__title">Reply</div>
+      <div class="block__content">
+        <form role="form" method="POST" action="{{ route('forum_reply',['id' => $topic->id]) }}">
+          {{ csrf_field() }}
+          @if ($topic->state == 'close' && \App\Policy::isModerator(auth()->user()))
+            <div class="text text--danger">This topic is closed, but you can still reply due to you
+              being {{auth()->user()->roleName()}}.
+            </div>
+          @endif
+          <textarea class="textarea textarea--vertical" name="content" id="topic-response" cols="30"
+                    rows="10"></textarea>
+          <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+        </form>
+      </div>
     </div>
-  </div>
   @endif
 @endsection

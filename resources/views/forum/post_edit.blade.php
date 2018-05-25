@@ -50,7 +50,7 @@
 
 	<div class="col-md-12">
 		<h2>{{ trans('common.edit') }} {{ trans('forum.post') }} {{ strtolower(trans('forum.in')) }}: {{ $forum->name }}</h2>
-        <form role="form" method="POST" action="{{ route('forum_post_edit',['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id]) }}">
+        <form role="form" method="POST" action="{{ route('forum_post_edit',['slug' => $topic->slug, 'id' => $topic->id, 'post_id' => $post->id]) }}">
         {{ csrf_field() }}
 			<div class="form-group">
 				<textarea id="content" name="content" cols="30" rows="10" class="form-control">{{ $post->content }}</textarea>

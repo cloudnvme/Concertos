@@ -296,9 +296,9 @@ Route::group(['middleware' => 'language'], function () {
         // Open Topic
         Route::get('/topic/{id}/open', 'ForumController@openTopic')->name('forum_open');
         // Edit Post
-        Route::any('/topic/{id}/post-{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
+        Route::any('/topic/{id}/post/{post_id}/edit', 'ForumController@postEdit')->name('forum_post_edit');
         // Delete Post
-        Route::any('/topic/{id}/post-{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
+        Route::post('/topic/{id}/post/{post_id}/delete', 'ForumController@postDelete')->name('forum_post_delete');
         // Reply To Topic
         Route::post('/topic/{id}/reply', 'ForumController@reply')->name('forum_reply');
         // Edit Topic

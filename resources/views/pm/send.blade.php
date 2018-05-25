@@ -41,7 +41,7 @@
         {{ csrf_field() }}
         <div class="flex mbox mbox--mini-bottom">
           <div class="badge col col--small mbox mbox--mini-right">To</div>
-          <input name="receiver" class="flex__expanded" type="text" required/>
+          <input name="receiver" class="flex__expanded" type="text" value="{{ $to }}" required/>
         </div>
 
         <div class="flex mbox mbox--small-bottom">

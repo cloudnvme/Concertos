@@ -115,12 +115,13 @@ class PrivateMessageController extends Controller
      * @return View pm.send
      *
      */
-    public function makePrivateMessage($id)
+    public function makePrivateMessage(Request $request, $id)
     {
         $user = auth()->user();
         $usernames = User::oldest('username')->get();
+        $to = $request->input('to', "");
 
-        return view('pm.send', ['usernames' => $usernames, 'user' => $user]);
+        return view('pm.send', ['usernames' => $usernames, 'user' => $user, 'to' => $to]);
     }
 
     /**

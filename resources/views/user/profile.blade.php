@@ -31,6 +31,13 @@
       <div class="profile-block__title">{!! $user->getFullName() !!}</div>
       <div class="profile-block__age">Member since {{ $user->created_at }}</div>
 
+      <a href="{{ route('create', ['id' => auth()->user(), 'to' => $user->username]) }}">
+        <button class="btn btn-light">
+          <i class="fas fa-pencil-alt"></i>
+          Send PM
+        </button>
+      </a>
+
       @if(auth()->user()->id != $user->id)
         @if(auth()->user()->isFollowing($user->id))
           <a href="{{ route('unfollow', ['user' => $user->id]) }}">

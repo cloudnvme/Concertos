@@ -470,7 +470,9 @@ class TorrentController extends Controller
         }
 
         $torrents = $torrents->orderBy($column, $direction)->paginate(25);
-        return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead', 'count', 'request'));
+        $map = compact('repository', 'torrents', 'user', 'alive', 'dead', 'count', 'request');
+        $map['categories'] = Category::all();
+        return view('torrent.torrents', $map);
     }
 
     /**

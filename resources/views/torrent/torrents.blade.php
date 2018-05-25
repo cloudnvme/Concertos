@@ -42,12 +42,13 @@
 
       <div class="flex flex--fluid mbox mbox--small-bottom">
         <span class="col col--small badge badge--centered mbox mbox--small-right">Categories</span>
-        @foreach($repository->categories() as $id => $category)
+        @foreach($categories as $category)
           <div class="badge badge--extra mbox mbox--small-right">
             <label class="v-checkbox">
-              <input type="checkbox" name="category_{{ $id }}"/>
+              <input type="checkbox" name="category_{{ $category->id }}"/>
               <span></span>
-              {{ $category }}
+              <i class="{{ $category->getIcon()}}"></i>
+              {{ $category->getName() }}
             </label>
           </div>
         @endforeach

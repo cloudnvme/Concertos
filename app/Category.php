@@ -48,4 +48,14 @@ class Category extends Model
     {
         return $this->hasMany(\App\TorrentRequest::class);
     }
+
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
 }

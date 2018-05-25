@@ -84,14 +84,14 @@
               <div class="mbox mbox--small-top">{!! $p->user->getFullName() !!}</div>
               <div class="post__user-title">{{ $p->user->title }}</div>
               <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
-              <div>
+              <div class="post__buttons">
                 <button class="btn">
                   <i class="fas fa-quote-left"></i>
                   Quote
                 </button>
 
                 @if ($p->user->id == auth()->user()->id || \App\Policy::isModerator(auth()->user()))
-                  <a href="{{ route('forum_post_edit', ['id' => $topic->id, 'post_id' => $p->id]) }}">
+                  <a class="mbox mbox--mini-left" href="{{ route('forum_post_edit', ['id' => $topic->id, 'post_id' => $p->id]) }}">
                     <button class="btn">
                       <i class="fas fa-edit"></i>
                       Edit
@@ -100,7 +100,7 @@
                 @endif
 
                 @if (\App\Policy::isModerator((auth()->user())))
-                  <form class="post__button"
+                  <form class="post__button mbox mbox--mini-left"
                         action="{{ route('forum_post_delete', ['id' => $topic->id, 'post_id' => $p->id]) }}"
                         method="POST">
                     @csrf

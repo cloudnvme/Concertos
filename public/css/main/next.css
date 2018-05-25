@@ -429,6 +429,10 @@ html {
     margin-right: 0.25rem;
 }
 
+.mbox--mini-left {
+    margin-left: 0.25rem;
+}
+
 .mbox--small-bottom {
     margin-bottom: 0.5rem;
 }
@@ -653,8 +657,8 @@ html {
     word-break: break-all;
 }
 
-.post__button {
-    display: inline-block;
+.post__buttons {
+    display: flex;
 }
 
 .no-break {

@@ -633,7 +633,6 @@ html {
 
 .post__info {
     min-height: 15rem;
-    min-width: 15rem;
     border: 1px dotted black;
 }
 
@@ -659,6 +658,7 @@ html {
 
 .post__buttons {
     display: flex;
+    white-space: nowrap;
 }
 
 .no-break {

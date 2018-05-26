@@ -65,7 +65,7 @@ return [
     'invite-friend' => 'Invite your friend (Email + Message Required)',
     
     'invite-tree' => 'Invite Tree',
-    'invites-send' => 'Invites Send',
+    'invites-sent' => 'Invites Sent',
     'sender' => 'Sender',
     'code' => 'Code',
     'created-on' => 'Created on',

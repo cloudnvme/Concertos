@@ -65,7 +65,7 @@ return [
     'invite-friend' => 'Zaproś znajomego (E-mail + wiadomość wymagane)',
     
     'invite-tree' => 'Drzewo relacji zaproszeń',
-    'invites-send' => 'Zaproszenia wysłane',
+    'invites-sent' => 'Zaproszenia wysłane',
     'sender' => 'Wysyłający',
     'code' => 'Kod',
     'created-on' => 'Utworzone',

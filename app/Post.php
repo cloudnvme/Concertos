@@ -116,4 +116,9 @@ class Post extends Model
         $result = floor($result);
         return $result;
     }
+
+    public function quote()
+    {
+        return "[quote]" . $this->content . "[/quote]";
+    }
 }

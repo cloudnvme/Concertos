@@ -662,4 +662,13 @@ class ForumController extends Controller
             return redirect()->route('forum_topic', ['id' => $post->topic->id])->with(Toastr::success('Dislike Successfully Applied!', 'Yay', ['options']));
         }
     }
+
+    public function quotePost($id)
+    {
+        $post = Post::findOrFail($id);
+        return response()->json([
+            'status' => 'success',
+            'data' => $post->quote()
+        ]);
+    }
 }

@@ -152,6 +152,9 @@ Route::group(['middleware' => 'language'], function () {
         // Page
         Route::get('/p/{id}', 'PageController@page')->name('page');
 
+        //Post
+        Route::get('/post/{id}/quote', 'ForumController@quotePost')->name('quotePost');
+
         // Private Messages System
         Route::get('/user/{id}/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
         Route::get('/user/{id}/message/{pmid}', 'PrivateMessageController@getPrivateMessageById')->name('message');

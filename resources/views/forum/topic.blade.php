@@ -26,6 +26,10 @@
   </li>
 @endsection
 
+@section('head-bottom')
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('content')
   <div class="pbox pbox--small-bottom">
     @if(auth()->check() && (\App\Policy::isModerator(auth()->user()) || $topic->user_id == auth()->user()->id))
@@ -85,7 +89,7 @@
               <div class="post__user-title">{{ $p->user->title }}</div>
               <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
               <div class="post__buttons">
-                <button class="btn">
+                <button class="btn quote-btn">
                   <i class="fas fa-quote-left"></i>
                   Quote
                 </button>
@@ -139,4 +143,8 @@
       </div>
     </div>
   @endif
+@endsection
+
+@section('javascripts')
+  <script src="{{ url('js/topic.js') }}"></script>
 @endsection

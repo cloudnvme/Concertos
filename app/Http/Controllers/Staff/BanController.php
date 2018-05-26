@@ -51,22 +51,21 @@ class BanController extends Controller
 
             $staff = auth()->user();
             $v = validator($request->all(), [
-            'owned_by' => 'required',
-            'created_by' => 'required|numeric',
-            'ban_reason' => 'required',
+            'reason' => 'required',
             ]);
+
+            if (!$v->passes()) {
+                Toastr::error("You need to fill out all the fields!");
+                return redirect()->route('home');
+            }
 
             $ban = new Ban();
             $ban->owned_by = $user->id;
             $ban->created_by = $staff->id;
-            $ban->ban_reason = $request->input('ban_reason');
+            $ban->ban_reason = $request->input('reason');
             $ban->save();
 
-            // Activity Log
             \LogActivity::addToLog("Staff Member {$staff->username} has banned member {$user->username}.");
-
-            // Send Email
-            Mail::to($user->email)->send(new BanUser($user));
 
             return redirect()->route('home')->with(Toastr::success('User Is Now Banned!', 'Yay!', ['options']));
         }
@@ -87,15 +86,21 @@ class BanController extends Controller
         if (\App\Policy::isModerator($user) || auth()->user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
+            $v = validator($request->all(), [
+                'reason' => 'required',
+                'role' => 'required'
+            ]);
+
+            if (!$v->passes()) {
+                Toastr::error("You need to fill out all the fields!");
+                return redirect()->route('home');
+            }
+
             $user->roles()->delete();
             $user->addRole($request->input('role'));
             $user->setMainRole($request->input('role'));
 
             $staff = auth()->user();
-            $v = validator($request->all(), [
-            'unban_reason' => 'required',
-            'removed_at' => 'required'
-            ]);
 
             $ban = new Ban();
             $ban->owned_by = $user->id;
@@ -104,11 +109,7 @@ class BanController extends Controller
             $ban->removed_at = Carbon::now();
             $ban->save();
 
-            // Activity Log
             \LogActivity::addToLog("Staff Member {$staff->username} has unbanned member {$user->username}.");
-
-            // Send Email
-            Mail::to($user->email)->send(new UnbanUser($user));
 
             return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
         }

@@ -62,10 +62,6 @@
       @endif
 
       @if(\App\Policy::isModerator(auth()->user()))
-        <button class="btn btn-light">
-          <i class="fas fa-ban"></i>
-          Ban User
-        </button>
 
         <a href="{{ route('user_setting', ['id' => $user->id]) }}">
           <button class="btn btn-light">
@@ -73,11 +69,6 @@
             Edit User
           </button>
         </a>
-
-        <button class="btn btn-light">
-          <i class="fas fa-eraser"></i>
-          Delete User
-        </button>
       @endif
     </div>
   </div>
@@ -102,6 +93,8 @@
       </div>
     </div>
   @endif
+
+
 
   <div class="block mbox mbox--small-bottom">
     <div class="block__title">
@@ -337,7 +330,7 @@
       </div>
     </div>
 
-    <div class="block">
+    <div class="block mbox mbox--small-bottom">
       <div class="block__title">H&Rs</div>
       <div class="block__content">
         <table class="table">
@@ -376,6 +369,79 @@
         {{ $hitrun->links() }}
       </div>
     </div>
+
+    @if (\App\Policy::isModerator(auth()->user()) && !\App\Policy::isBanned($user))
+      <div class="block mbox mbox--small-bottom">
+        <div class="block__title">Ban User</div>
+        <div class="block__content">
+          <form action="{{ route('ban', ['id' => $user->id]) }}" method="POST">
+            @csrf
+            <p>If you're sure that you want to ban that user, you need to specify a reason.</p>
+            <div class="flex">
+              <div class="badge badge col col--small badge--centered mbox mbox--mini-right">
+                Reason
+              </div>
+              <input type="text" name="reason"/>
+            </div>
+            <button class="btn">
+              <i class="fas fa-ban"></i>
+              Ban User
+            </button>
+          </form>
+        </div>
+      </div>
+    @elseif (\App\Policy::isModerator(auth()->user()))
+      <div class="block mbox mbox--small-bottom">
+        <div class="block__title">Unban User</div>
+        <div class="block__content">
+          <form action="{{ route('unban', ['id' => $user->id]) }}" method="POST">
+            @csrf
+            <p>If you're sure that you want to unban that user, you need to specify a reason and a new role.</p>
+            <div class="flex mbox mbox--small-bottom">
+              <div class="badge badge col col--small badge--centered mbox mbox--mini-right">
+                Reason
+              </div>
+              <input type="text" name="reason"/>
+            </div>
+            <div class="flex">
+              <div class="badge badge col col--small badge--centered mbox mbox--mini-right">
+                Role
+              </div>
+
+              <input type="text" name="role"/>
+            </div>
+
+            <button class="btn">
+              <i class="fas fa-ban"></i>
+              Unban User
+            </button>
+          </form>
+        </div>
+      </div>
+    @endif
+
+    @if (\App\Policy::isModerator(auth()->user()))
+      <div class="block mbox mbox--small-bottom">
+        <div class="block__title">Delete User</div>
+        <div class="block__content">
+          <form>
+            <p>If you're sure that you want to delete that user, type DELETE in the textbox.</p>
+            <div class="flex">
+              <div class="badge badge col col--small badge--centered mbox mbox--mini-right">
+                Confirm
+              </div>
+
+              <input type="text" name="role"/>
+            </div>
+            <button class="btn">
+              <i class="fas fa-eraser"></i>
+              Delete
+            </button>
+          </form>
+
+        </div>
+      </div>
+    @endif
 
     <div class="buttons flex flex__centered">
       <a href="{{ route('user_settings', ['id' => $user->id]) }}">

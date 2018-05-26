@@ -340,8 +340,8 @@ Route::group(['middleware' => 'language'], function () {
 
         // Ban
         Route::any('/bans', 'BanController@getBans')->name('getBans');
-        Route::any('/ban/user/{id}', 'BanController@ban')->name('ban');
-        Route::any('/unban/user/{id}', 'BanController@unban')->name('unban');
+        Route::post('/ban/user/{id}', 'BanController@ban')->name('ban');
+        Route::post('/unban/user/{id}', 'BanController@unban')->name('unban');
 
         // Flush Ghost Peers
         Route::any('/flush', 'FlushController@deleteOldPeers')->name('flush');
@@ -352,7 +352,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/user_edit/{id}', 'UserController@userSettings')->name('user_setting');
         Route::any('/user_edit/{id}/edit', 'UserController@userEdit')->name('user_edit');
         Route::any('/user_edit/{id}/permissions', 'UserController@userPermissions')->name('user_permissions');
-        Route::any('/user_delete/{id}', 'UserController@userDelete')->name('user_delete');
+        Route::post('/user_delete/{id}', 'UserController@userDelete')->name('user_delete');
         Route::any('/user_edit/{id}/password', 'UserController@userPassword')->name('user_password');
 
         // Moderation

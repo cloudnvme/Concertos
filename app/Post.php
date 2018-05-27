@@ -154,10 +154,6 @@ class Post extends Model
     public function getPreview()
     {
         $result = preg_replace('#\[[^\]]+\]#', '', $this->content);
-        $suffix = "";
-        if (strlen($result) > self::PREVIEW_MAX) {
-            $suffix = "...";
-        }
-        return str_limit($result, self::PREVIEW_MAX) . $suffix;
+        return str_limit($result, self::PREVIEW_MAX);
     }
 }

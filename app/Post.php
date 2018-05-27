@@ -130,7 +130,7 @@ class Post extends Model
 
     public function getPermalink()
     {
-        return route('postPermalink', ['id' => $this->id]);
+        return route('goToPost', ['id' => $this->id]);
     }
 
     public function quote()

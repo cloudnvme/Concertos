@@ -14,6 +14,7 @@ namespace App\Helpers;
 
 use Decoda\Decoda;
 use App\Hook\ClickableHook;
+use App\Filter\QuoteFilter;
 use Illuminate\Database\Eloquent\Model;
 
 use Config;
@@ -31,6 +32,8 @@ class Bbcode
         $code->removeHook('Censor');
         $code->removeHook('Clickable');
         $code->addHook(new ClickableHook());
+        $code->removeFilter('Quote');
+        $code->addFilter(new QuoteFilter());
         $code->setXhtml(false);
         $code->setStrict(false);
         $code->setLineBreaks(true);

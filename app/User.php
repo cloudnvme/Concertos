@@ -54,6 +54,16 @@ class User extends Authenticatable
 
     protected $dates = ['last_login'];
 
+    public static function getSystemUser()
+    {
+        return self::where('username', 'System')->first();
+    }
+
+    public static function getDefaultUser()
+    {
+        return self::getSystemUser();
+    }
+
     /**
      * Thanks Given
      *
@@ -583,5 +593,10 @@ class User extends Authenticatable
     public function getColoredFullName()
     {
         return view('user.title', ['user' => $this, 'colored' => true])->render();
+    }
+
+    public function getName()
+    {
+        return $this->username;
     }
 }

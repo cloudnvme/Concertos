@@ -119,6 +119,19 @@ class Post extends Model
 
     public function quote()
     {
-        return "[quote]" . $this->content . "[/quote]";
+        return "[quote=#{$this->id}]{$this->content}[/quote]";
+    }
+
+    public static function resolveReference($ref)
+    {
+        $hasId = strlen($ref) >= 2 && strpos($ref, "#") == 0;
+        if ($hasId) {
+            $id = substr($ref, 1);
+            $post = self::where('id', $id)->first();
+            $user = $post !== null ? $post->user : User::getDefaultUser();
+            return $user->getName();
+        }
+
+        return ref;
     }
 }

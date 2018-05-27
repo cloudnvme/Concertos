@@ -381,7 +381,7 @@
               <div class="badge badge col col--small badge--centered mbox mbox--mini-right">
                 Reason
               </div>
-              <input type="text" name="reason"/>
+              <input class="flex__expanded" type="text" name="reason"/>
             </div>
             <button class="btn">
               <i class="fas fa-ban"></i>
@@ -401,14 +401,14 @@
               <div class="badge badge col col--small badge--centered mbox mbox--mini-right">
                 Reason
               </div>
-              <input type="text" name="reason"/>
+              <input class="flex__expanded" type="text" name="reason"/>
             </div>
             <div class="flex">
               <div class="badge badge col col--small badge--centered mbox mbox--mini-right">
                 Role
               </div>
 
-              <input type="text" name="role"/>
+              <input class="flex__expanded" type="text" name="role"/>
             </div>
 
             <button class="btn">
@@ -431,12 +431,15 @@
                 Confirm
               </div>
 
-              <input type="text" name="role"/>
+              <input class="flex__expanded" type="text" name="reason"/>
             </div>
-            <button class="btn">
-              <i class="fas fa-eraser"></i>
-              Delete
-            </button>
+            <div class="flex">
+              <button class="btn">
+                <i class="fas fa-eraser"></i>
+                Delete
+              </button>
+            </div>
+
           </form>
 
         </div>

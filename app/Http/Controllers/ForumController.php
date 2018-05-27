@@ -218,7 +218,7 @@ class ForumController extends Controller
             // Post To ShoutBox
             $appurl = config('app.url');
             $user_url = route('profile', ['id' => $user->id]);
-            $topic_url = route('forum_topic', ['id' => $topic->id, 'page' => $post->getPageNumber()]) . "#post-{$post->id}";
+            $topic_url = $post->getPermalink();
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$user_url}]" . $user->username . "[/url] has left a reply on topic [url={$topic_url}]" . $topic->name . "[/url]"]);
             cache()->forget('shoutbox_messages');
 
@@ -241,9 +241,11 @@ class ForumController extends Controller
             $user->addProgress(new UserMade800Posts(), 1);
             $user->addProgress(new UserMade900Posts(), 1);
 
-            return redirect()->route('forum_topic', ['id' => $topic->id])->with(Toastr::success('Post Successfully Posted', 'Yay!', ['options']));
+            Toastr::success('Post Successfully Posted');
+            return redirect($topic_url);
         } else {
-            return redirect()->route('forum_topic', ['id' => $topic->id])->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
+            Toastr::error('You Cannot Reply To This Topic!');
+            return redirect()->route('forum_topic', ['id' => $topic->id]);
         }
     }
 

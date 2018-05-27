@@ -91,6 +91,7 @@
         <div class="section">
           <span class="section__title">Account</span>
           <a href="{{ route('profile', ['id' => auth()->user()->id ]) }}" class="section__link">My Profile</a>
+          <a href="{{ route('logout') }}" class="section__link">Logout</a>
         </div>
 
         <div class="section">

@@ -671,4 +671,15 @@ class ForumController extends Controller
             'data' => $post->quote()
         ]);
     }
+
+    public function goToPost($id)
+    {
+        $post = Post::where('id', $id)->first();
+        if ($post === null) {
+            Toastr::error("The post couldn\\'t be found, maybe it was deleted or has never existed");
+            return redirect()->route('home');
+        }
+
+        return redirect($post->getLink());
+    }
 }

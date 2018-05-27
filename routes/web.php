@@ -154,6 +154,7 @@ Route::group(['middleware' => 'language'], function () {
 
         //Post
         Route::get('/post/{id}/quote', 'ForumController@quotePost')->name('quotePost');
+        Route::get('/post/{id}', 'ForumController@goToPost')->name('goToPost');
 
         // Private Messages System
         Route::get('/user/{id}/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');

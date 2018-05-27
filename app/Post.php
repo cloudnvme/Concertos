@@ -23,6 +23,7 @@ use App\Helpers\Bbcode;
 class Post extends Model
 {
     const PAGINATION_MAX = 15;
+    const PREVIEW_MAX = 80;
 
     /**
      * Rules
@@ -105,16 +106,31 @@ class Post extends Model
         return $trimmed_text;
     }
 
-    public function getPostNumber()
+    private function getPostNumber()
     {
         return $this->topic->postNumberFromId($this->id);
     }
 
-    public function getPageNumber()
+    private function getPageNumber()
     {
         $result = ($this->getPostNumber() - 1) / self::PAGINATION_MAX + 1;
         $result = floor($result);
         return $result;
+    }
+
+    public function getLink()
+    {
+        $map = [
+            'id' => $this->topic->id,
+            'page' => $this->getPageNumber()
+        ];
+        $post_ref = "#post-{$this->id}";
+        return route('forum_topic', $map) . "{$post_ref}";
+    }
+
+    public function getPermalink()
+    {
+        return route('postPermalink', ['id' => $this->id]);
     }
 
     public function quote()
@@ -133,5 +149,15 @@ class Post extends Model
         }
 
         return ref;
+    }
+
+    public function getPreview()
+    {
+        $result = preg_replace('#\[[^\]]+\]#', '', $this->content);
+        $suffix = "";
+        if (strlen($result) > self::PREVIEW_MAX) {
+            $suffix = "...";
+        }
+        return str_limit($result, self::PREVIEW_MAX) . $suffix;
     }
 }

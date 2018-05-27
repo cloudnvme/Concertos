@@ -75,7 +75,7 @@
               {{ date('M d Y', $p->created_at->getTimestamp()) }} ({{ $p->created_at->diffForHumans() }})
             </div>
             <a class="text-bold permalink"
-               href="{{ route('forum_topic', array('id' => $p->topic->id)) }}?page={{$p->getPageNumber()}}#post-{{$p->id}}">Permalink</a>
+               href="{{ $p->getPermalink() }}">Permalink</a>
           </div>
 
           <div class="flex">

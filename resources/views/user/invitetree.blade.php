@@ -20,7 +20,7 @@
   <hr>
   <div class="row">
   <div class="col-sm-12">
-  <h2>{{ trans('user.invites-send') }}</h2>
+  <h2>{{ trans('user.invites-sent') }}</h2>
   <table class="table table-condensed table-striped table-bordered table-hover">
     <thead>
       <tr>

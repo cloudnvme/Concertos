@@ -222,11 +222,6 @@ class ForumController extends Controller
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$user_url}]" . $user->username . "[/url] has left a reply on topic [url={$topic_url}]" . $topic->name . "[/url]"]);
             cache()->forget('shoutbox_messages');
 
-            // Mail Topic Creator Of New Reply
-            if ($post->user_id != $topic->first_post_user_id) {
-                Mail::to($topicCreator->email)->send(new NewReply($user, $topic));
-            }
-
             //Achievements
             $user->unlock(new UserMadeFirstPost(), 1);
             $user->addProgress(new UserMade25Posts(), 1);

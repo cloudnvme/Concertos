@@ -44,7 +44,7 @@ function updateTorrentName() {
 }
 
 document.querySelector("#add").addEventListener("click", () => {
-    var optionHTML = '<div class="flex flex--fluid"><div class="heading">Mediainfo</div><textarea rows="2" class="textarea" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>';
+    var optionHTML = '<div class="flex flex--fluid"><div class="heading">MediaInfo</div><textarea rows="2" class="textarea textarea--vertical" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>';
     document.querySelector(".parser").innerHTML = optionHTML;
     //$('.parser').append(optionHTML);
 });

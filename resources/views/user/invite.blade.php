@@ -24,7 +24,7 @@
           <input class="flex__expanded" name="email" type="email" id="email" size="10" required>
         </div>
 
-        <h3>{{ trans('common.message') }}</h3>
+        <div class="badge badge--centered col col--small mbox mbox--mini-bottom">{{ trans('common.message') }}</div>
         <textarea class="textarea textarea--vertical" name="message" cols="50" rows="10" id="message"></textarea>
         <button type="submit" class="btn">
           <i class="far fa-paper-plane"></i>

@@ -216,8 +216,8 @@
                 @endif
               </div>
             </td>
-            <td>{{ $torrent->getAge() }}</td>
-            <td>{{ \App\Helpers\StringHelper::formatBytes($torrent->size) }}</td>
+            <td class="torrents__age">{{ $torrent->getAge() }}</td>
+            <td class="torrents__size">{{ \App\Helpers\StringHelper::formatBytes($torrent->size) }}</td>
             <td>{{ $torrent->seeders }}</td>
             <td>{{ $torrent->leechers }}</td>
             <td>{{ $torrent->times_completed }}</td>

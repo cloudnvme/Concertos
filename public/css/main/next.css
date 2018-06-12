@@ -476,11 +476,20 @@ html {
 
 .torrents__title {
     font-weight: bold;
-    font-size: 1.25rem;
 }
 
 .torrents__row > td {
-    padding-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.torrents__age {
+    white-space: nowrap;
+}
+
+.torrents__size {
+    white-space: nowrap;
 }
 
 .torrents__header > th {

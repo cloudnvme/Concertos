@@ -40,12 +40,12 @@
       <form role="form" method="POST" action="{{ route('send-pm') }}">
         {{ csrf_field() }}
         <div class="flex mbox mbox--mini-bottom">
-          <div class="badge col col--small mbox mbox--mini-right">To</div>
+          <div class="badge col col--small mbox mbox--mini-right badge--centered">To</div>
           <input name="receiver" class="flex__expanded" type="text" value="{{ $to }}" required/>
         </div>
 
         <div class="flex mbox mbox--small-bottom">
-          <div class="badge col col--small mbox mbox--mini-right">Subject</div>
+          <div class="badge col col--small mbox mbox--mini-right badge--centered">Subject</div>
           <input name="subject" class="flex__expanded" type="text" required/>
         </div>
 

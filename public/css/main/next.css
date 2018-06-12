@@ -231,7 +231,6 @@ html {
 
 .table tr {
     text-align: left;
-    border-bottom: 3px dashed #CCC;
 }
 
 .table td {
@@ -477,6 +476,10 @@ html {
 
 .torrents__title {
     font-weight: bold;
+}
+
+.torrents_row {
+    border-bottom: 3px dashed #CCC;
 }
 
 .torrents__row > td {

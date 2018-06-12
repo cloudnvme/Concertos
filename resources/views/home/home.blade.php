@@ -27,7 +27,7 @@
   <div class="block">
     <div class="block__title">Featured Torrents</div>
     <div class="block__content">
-      <table class="table">
+      <table class="table table--bordered">
         <thead>
         <tr>
           <th>Name</th>
@@ -66,7 +66,7 @@
   <div class="block">
     <div class="block__title">Latest Posts</div>
     <div class="block__content">
-      <table class="table latest-posts">
+      <table class="table table--bordered latest-posts">
         <thead>
         <tr>
           <th class="latest-posts__header-post">{{ trans('forum.post') }}</th>
@@ -97,7 +97,7 @@
   <div class="block">
     <div class="block__title">Latest Topics</div>
     <div class="block__content">
-      <table class="table table-condensed table-striped table-bordered">
+      <table class="table table--bordered">
         <thead>
         <tr>
           <th class="torrents-filename">{{ trans('forum.topic') }}</th>

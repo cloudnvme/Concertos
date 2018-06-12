@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.next')
 
 @section('breadcrumb')
   <li>
@@ -10,12 +10,8 @@
 @endsection
 
 @section('content')
-  <div class="container box">
-    <div class="col-md-12 page">
-      <h1 class="title">{{ $page->name }}</h1>
-      <article class="page-content">
-        @emojione($page->getContentHtml())
-      </article>
-    </div>
-  </div>
+  <h1 class="title">{{ $page->name }}</h1>
+  <article class="page-content">
+    {!! $page->getContentHtml() !!}
+  </article>
 @endsection

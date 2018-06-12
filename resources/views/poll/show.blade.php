@@ -11,7 +11,7 @@
   </a>
 </li>
 <li>
-  <a href="{{ route('poll', ['slug' => $poll->slug]) }}" itemprop="url" class="l-breadcrumb-item-link">
+  <a href="{{ route('poll', ['id' => $poll->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('poll.poll') }}</span>
   </a>
 </li>

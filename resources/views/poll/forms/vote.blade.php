@@ -40,6 +40,6 @@
         <div class="col-md-12">
             <button type="submit" class="btn btn-primary">{{ trans('poll.vote') }}</button>
             </form>
-            <a class="btn btn-success" href="{{ route('poll_results', array('slug' => $poll->slug)) }}" role="button"><i class="fa fa-bar-chart" aria-hidden="true"> {{ trans('poll.results') }}</i></a>
+            <a class="btn btn-success" href="{{ route('poll_results', array('id' => $poll->id)) }}" role="button"><i class="fa fa-bar-chart" aria-hidden="true"> {{ trans('poll.results') }}</i></a>
         </div>
     </div>

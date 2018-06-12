@@ -231,6 +231,7 @@ html {
 
 .table tr {
     text-align: left;
+    border-bottom: 3px dashed #CCC;
 }
 
 .table td {

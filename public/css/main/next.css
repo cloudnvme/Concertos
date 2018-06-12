@@ -479,7 +479,7 @@ html {
 }
 
 .torrents__row {
-    border-bottom: 3px dashed #CCC;
+    border-top: 3px dashed #CCC;
 }
 
 .torrents__row > td {

@@ -31,7 +31,7 @@
   <div class="block">
     <div class="block__title">Forum - {{ $forum->name }}</div>
     <div class="block__content">
-      <table class="table">
+      <table class="table table--bordered">
         <thead>
         <tr>
           <th></th>

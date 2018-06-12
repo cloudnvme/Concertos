@@ -105,7 +105,7 @@
       </div>
     </form>
 
-    <table class="requests table">
+    <table class="requests table table--bordered">
       <thead>
         <tr>
           <th class="category">Category</th>

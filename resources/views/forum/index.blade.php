@@ -24,7 +24,7 @@
         <div class="block__title">{{ $category->name }}</div>
         <div class="block__content">
 
-          <table class="table">
+          <table class="table table--bordered">
             <thead class="head">
             <tr>
               <td>{{ strtoupper(trans('forum.name')) }}</td>

@@ -229,12 +229,23 @@ html {
     border-collapse: collapse;
 }
 
+.table--bordered tbody > tr {
+    border-top: 3px dashed #CCC;
+}
+
+.table--bordered tbody tr > td {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
+}
+
 .table tr {
     text-align: left;
 }
 
 .table td {
     margin-left: 1rem;
+    padding-right: 0.5rem;
 }
 
 .btn {
@@ -476,16 +487,6 @@ html {
 
 .torrents__title {
     font-weight: bold;
-}
-
-.torrents__row {
-    border-top: 3px dashed #CCC;
-}
-
-.torrents__row > td {
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
-    padding-right: 0.5rem;
 }
 
 .torrents__age {

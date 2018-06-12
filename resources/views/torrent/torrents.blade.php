@@ -137,7 +137,7 @@
     </div>
 
     <div class="block">
-      <table class="table torrents">
+      <table class="table table--bordered torrents">
         <thead>
         <tr class="torrents__header">
           <th class="torrents__header-category">Category</th>

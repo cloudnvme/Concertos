@@ -20,10 +20,7 @@
       <form action="{{ route('invite') }}" method="post">
         {{ csrf_field() }}
         <div class="flex mbox mbox--small-bottom">
-          <span for="email" class="badge col col--small badge--centered mbox mbox--mini-right">
-            <i class="far fa-envelope mbox mbox--mini-right"></i>
-            {{ trans('common.email') }}
-          </span>
+          <span for="email" class="badge col col--small badge--centered mbox mbox--mini-right">{{ trans('common.email') }}</span>
           <input class="flex__expanded" name="email" type="email" id="email" size="10" required>
         </div>
 

@@ -724,3 +724,7 @@ html {
 .decoda-image {
     max-width: 100%;
 }
+
+.decoda-olist {
+    padding-left: 1rem;
+}

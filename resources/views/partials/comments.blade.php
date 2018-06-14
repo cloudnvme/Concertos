@@ -28,6 +28,6 @@
 
       <div class="message__time">{{ $comment->created_at }}</div>
     </div>
-    <div class="message__text">@emojione($comment->getContentHtml())</div>
+    <div class="message__text">{!! $comment->getContentHtml() !!}</div>
   </div>
 @endforeach

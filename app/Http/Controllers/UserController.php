@@ -112,31 +112,31 @@ class UserController extends Controller
         $user = auth()->user();
         if ($request->isMethod('POST')) {
             // General Settings
-            $user->censor = $request->input('censor');
-            $user->chat_hidden = $request->input('chat_hidden');
+            $user->censor = $request->input('censor') == 'on';
+            $user->chat_hidden = $request->input('chat_hidden') == 'on';
 
             // Style Settings
-            $user->style = (int)$request->input('theme');
+            //$user->style = (int)$request->input('theme');
             $css_url = $request->input('custom_css');
             if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
                 return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Whoops!', ['options']));
             } else {
                 $user->custom_css = $css_url;
             }
-            $user->nav = $request->input('sidenav');
+            //$user->nav = $request->input('sidenav');
 
             // Privacy Settings
-            $user->hidden = $request->input('onlinehide');
-            $user->private_profile = $request->input('private_profile');
-            $user->peer_hidden = $request->input('peer_hidden');
+            $user->hidden = $request->input('onlinehide') == 'on';
+            $user->private_profile = $request->input('private_profile') == 'on';
+            $user->peer_hidden = $request->input('peer_hidden') == 'on';
 
             // Torrent Settings
-            $user->show_poster = $request->input('show_poster');
-            $user->ratings = $request->input('ratings');
+            $user->show_poster = $request->input('show_poster') == 'on';
+            //$user->ratings = $request->input('ratings');
 
             // Security Settings
             if (config('auth.TwoStepEnabled') == true) {
-                $user->twostep = $request->input('twostep');
+                $user->twostep = $request->input('twostep') == 'on';
             }
             $user->save();
 

@@ -728,3 +728,31 @@ html {
 .decoda-olist {
     padding-left: 1rem;
 }
+
+.textbar {
+    display: flex;
+    align-items: center;
+}
+
+.textbar__input {
+    flex-grow: 1;
+}
+
+.reset-password__col {
+    min-width: 11rem;
+}
+
+.change-email__col {
+    min-width: 11rem;
+    display: inline-block;
+}
+
+.reset-pid__col {
+    min-width: 11rem;
+    display: inline-block;
+}
+
+.settings__col {
+    min-width: 12rem;
+    display: inline-block;
+}

@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.next')
 
 @section('title')
 <title>{{ trans('forum.create-new-topic') }} - {{ config('other.title') }}</title>
@@ -31,28 +31,33 @@
 @endsection
 
 @section('content')
-<div class="forum box container">
-	@if(isset($parsedContent))
-        <div id="content-preview" class="preview col-md-12">@emojione($parsedContent)</div><hr>
-	@endif
+  <div class="block">
+    <div class="block__title">Create New Topic</div>
+    <div class="block__content">
+      <form role="form" method="POST" action="{{ route('forum_new_topic',['slug' => $forum->slug, 'id' => $forum->id]) }}">
+        @csrf
+        <div class="mbox mbox--small-bottom flex">
+          <input id="input-thread-title" type="text" name="title" maxlength="75" class="flex__expanded" placeholder="{{ trans('forum.topic-title') }}" value="{{ $title }}">
+        </div>
 
-	<div class="col-md-12">
-		<h2><span>{{ trans('forum.create-new-topic') }}</span><span id="thread-title">{{ $title }}</span></h2>
-        <form role="form" method="POST" action="{{ route('forum_new_topic',['slug' => $forum->slug, 'id' => $forum->id]) }}">
-        {{ csrf_field() }}
-			<div class="form-group">
-				<input id="input-thread-title" type="text" name="title" maxlength="75" class="form-control" placeholder="{{ trans('forum.topic-title') }}" value="{{ $title }}">
-			</div>
+        <div>
+          <textarea id="new-thread-content" name="content" class="textarea textarea--vertical textarea--large">{{ $content }}</textarea>
+        </div>
 
-			<div class="form-group">
-				<textarea id="new-thread-content" name="content" cols="30" rows="10" class="form-control">{{ $content }}</textarea>
-			</div>
+        <button type="submit" name="post" value="true" id="post" class="btn btn-primary">{{ trans('forum.send-new-topic') }}</button>
+        <button type="submit" name="preview" value="true" id="preview" class="btn btn-default">{{ trans('common.preview') }}</button>
+      </form>
+    </div>
+  </div>
 
-			<button type="submit" name="post" value="true" id="post" class="btn btn-primary">{{ trans('forum.send-new-topic') }}</button>
-			<button type="submit" name="preview" value="true" id="preview" class="btn btn-default">{{ trans('common.preview') }}</button>
-		</form>
-	</div>
-</div>
+  @if(isset($parsedContent))
+    <div class="block mbox mbox--small-top">
+      <div class="block__title">Preview</div>
+      <div class="block__content">
+        <div id="content-preview" class="preview col-md-12">@emojione($parsedContent)</div>
+      </div>
+    </div>
+  @endif
 @endsection
 
 @section('javascripts')

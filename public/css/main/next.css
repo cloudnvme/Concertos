@@ -286,6 +286,10 @@ html {
     resize: vertical;
 }
 
+.textarea--large {
+    height: 30rem;
+}
+
 .v-sep {
     height: 1rem;
 }

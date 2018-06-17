@@ -14,7 +14,7 @@
 
 @section('content')
   <h1>{{ trans('user.torrents-history') }}</h1>
-  <table class="table table-condensed table-striped table-bordered">
+  <table class="table table--bordered">
     <thead>
     <th>@sortablelink('name', trans('torrent.name'))</th>
     <th>@sortablelink('agent', trans('torrent.agent'))</th>

@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.next')
 
 @section('title')
 <title>{{ trans('common.edit') }} {{ trans('forum.post') }} - {{ $topic->name }} - {{ config('other.title') }}</title>
@@ -41,25 +41,32 @@
 @endsection
 
 @section('content')
-<div class="forum box container">
-	@if(isset($parsedContent))
-		<div class="preview col-md-12">
-			{{ $parsedContent }}
-		</div><hr>
-	@endif
+  <div class="block">
+    <div class="block__title">
+      {{ trans('common.edit') }} {{ trans('forum.post') }} - {{ $topic->name }} - {{ config('other.title') }}
+    </div>
 
-	<div class="col-md-12">
-		<h2>{{ trans('common.edit') }} {{ trans('forum.post') }} {{ strtolower(trans('forum.in')) }}: {{ $forum->name }}</h2>
-        <form role="form" method="POST" action="{{ route('forum_post_edit',['slug' => $topic->slug, 'id' => $topic->id, 'post_id' => $post->id]) }}">
-        {{ csrf_field() }}
-			<div class="form-group">
-				<textarea id="content" name="content" cols="30" rows="10" class="form-control">{{ $post->content }}</textarea>
-			</div>
-			<button type="submit" name="post" value="true" class="btn btn-primary">{{ trans('common.submit') }}</button>
-			<button type="submit" name="preview" value="true" class="btn btn-default">{{ trans('common.preview') }}</button>
-		</form>
-	</div>
-</div>
+    <div class="block__content">
+      <form role="form" method="POST" action="{{ route('forum_post_edit',['slug' => $topic->slug, 'id' => $topic->id, 'post_id' => $post->id]) }}">
+        @csrf
+        <div>
+          <textarea id="content" name="content" class="textarea textarea--vertical textarea--large">{{ $post->content }}</textarea>
+        </div>
+
+        <button type="submit" name="post" value="true" class="btn btn-primary">{{ trans('common.submit') }}</button>
+        <button type="submit" name="preview" value="true" class="btn btn-default">{{ trans('common.preview') }}</button>
+      </form>
+    </div>
+  </div>
+
+  @if(isset($parsedContent))
+    <div class="block mbox mbox--small-top">
+      <div class="block__title">Preview</div>
+      <div class="block__content">
+        {{ $parsedContent }}
+      </div>
+    </div>
+  @endif
 @endsection
 
 @section('javascripts')

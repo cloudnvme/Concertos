@@ -333,6 +333,7 @@ html {
     width: 12rem;
     padding-left: 0.5rem;
     border-right: 3px dashed #CCC;
+    flex-shrink: 0;
 }
 
 .scrollable-y {

@@ -82,6 +82,8 @@
         @endforeach
         </tbody>
       </table>
+
+      {{ $pms->links() }}
     </div>
   </div>
 

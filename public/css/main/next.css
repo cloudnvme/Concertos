@@ -18,6 +18,7 @@ a {
 html {
     background-color: rgb(207, 207, 207);
     font-family: 'Nimbus Sans';
+    font-size: 16px;
 }
 
 :root {
@@ -120,7 +121,7 @@ html {
 
 .content {
     background-color: rgb(239, 239, 239);
-    width: 70rem;
+    width: 80rem;
     padding: 1rem;
     max-width: 100%;
     grid-column: start / end;

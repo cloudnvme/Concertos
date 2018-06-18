@@ -134,7 +134,7 @@ class RequestController extends Controller
             $requests = $requests->where('filled_hash', '!=', null)->where('approved_by', '!=', null);
         }
 
-        $requests = $requests->paginate(25);
+        $requests = $requests->orderBy('created_at', 'desc')->paginate(25);
         $repository = $this->repository;
         $map = [
             'requests' => $requests,

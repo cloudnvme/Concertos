@@ -119,20 +119,17 @@
 
     <div class="block mbox mbox--bottom" id="stats">
       <strong>Stats:</strong>
-      <span class="stats__item badge badge--extra text-bold">
-        <i class="fa fa-file text-thin">
-          {{ $count }} Torrents
-        </i>
+      <span class="stats__item badge badge--extra">
+        <i class="fa fa-file text-thin"></i>
+        {{ $count }} Torrents
       </span>
       <span class="stats__item badge badge--extra">
-        <i class="fa fa-smile text-thin">
-          {{ $alive }} Alive
-        </i>
+        <i class="fa fa-smile text-thin"></i>
+        {{ $alive }} Alive
       </span>
       <span class="stats__item badge badge--extra">
-        <i class="fa fa-frown text-thin">
-          {{ $dead }} Dead
-        </i>
+        <i class="fa fa-frown text-thin"></i>
+        {{ $dead }} Dead
       </span>
     </div>
 

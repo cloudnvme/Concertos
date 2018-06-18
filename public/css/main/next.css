@@ -44,7 +44,7 @@ html {
     grid-template-columns: [start] auto [nav-left] 1fr [nav-right] auto [end];
     grid-template-rows: [nav-top] 3rem [info-bar-top] auto [content-top] 1fr [footer-top] auto [footer-bottom];
     width: auto;
-    height: auto;
+    height: 100vh;
     max-width: 100%;
 }
 

@@ -43,8 +43,8 @@ html {
     display: grid;
     grid-template-columns: [start] auto [nav-left] 1fr [nav-right] auto [end];
     grid-template-rows: [nav-top] 3rem [info-bar-top] auto [content-top] 1fr [footer-top] auto [footer-bottom];
-    width: 100vw;
-    height: 100vh;
+    width: auto;
+    height: auto;
     max-width: 100%;
 }
 

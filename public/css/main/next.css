@@ -243,8 +243,8 @@ html {
 
 .table--bordered tbody tr > td,
 .table--bordered-big tbody tr > td {
-    padding-bottom: 0.25rem;
-    padding-top: 0.25rem;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
     padding-right: 0.5rem;
 }
 

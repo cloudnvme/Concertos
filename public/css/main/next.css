@@ -236,23 +236,15 @@ html {
     border-collapse: collapse;
 }
 
-.table--bordered tbody > tr {
-    border-top: 3px dashed #CCC;
-}
-
-.table--bordered tbody tr > td {
-    padding-bottom: 0.25rem;
-    padding-top: 0.25rem;
-    padding-right: 0.5rem;
-}
-
+.table--bordered tbody > tr,
 .table--bordered-big tbody > tr {
     border-top: 3px dashed #CCC;
 }
 
+.table--bordered tbody tr > td,
 .table--bordered-big tbody tr > td {
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
     padding-right: 0.5rem;
 }
 
@@ -708,7 +700,6 @@ html {
     display: flex;
     align-items: center;
 }
-
 
 .profile-block__title {
     font-size: 1.5rem;

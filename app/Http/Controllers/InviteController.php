@@ -24,7 +24,6 @@ use App\Policy;
 
 class InviteController extends Controller
 {
-
     public function invite()
     {
         $user = auth()->user();
@@ -58,8 +57,8 @@ class InviteController extends Controller
 
         $unlimited = Policy::hasUnlimitedInvites($user);
         if ($user->invites > 0 || $unlimited) {
-            // Generate a version 4, truly random, UUID
-            $code = Uuid::uuid4()->toString();
+            $bytes = random_bytes(32);
+            $code = strtr(base64_encode($bytes), '+/', '-_');
 
             //create a new invite record
             $invite = Invite::create([

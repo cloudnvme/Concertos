@@ -32,6 +32,7 @@ html {
     --nav-background-color: #272634;
     --danger--background--color: #b45555;
     --danger--color: #3b1717;
+    --main-border: 2px dashed #CCC;
 }
 
 .grid-wrapper {
@@ -238,7 +239,7 @@ html {
 
 .table--bordered tbody > tr,
 .table--bordered-big tbody > tr {
-    border-top: 3px dashed #CCC;
+    border-top: var(--main-border);
 }
 
 .table--bordered tbody tr > td,
@@ -341,7 +342,7 @@ html {
     align-items: center;
     width: 12rem;
     padding-left: 0.5rem;
-    border-right: 3px dashed #CCC;
+    border-right: var(--main-border);
     flex-shrink: 0;
 }
 

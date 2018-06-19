@@ -238,7 +238,7 @@
       </div>
 
       <div class="block__content">
-        <table class="table private-info">
+        <table class="private-info">
           <tbody>
           <tr>
             <td>PID</td>

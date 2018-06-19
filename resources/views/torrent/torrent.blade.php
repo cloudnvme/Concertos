@@ -32,7 +32,7 @@
     <div class="block mbox mbox--small-bottom">
       <div class="block__title">Info</div>
       <div class="block__content">
-        <table class="table">
+        <table class="props">
           <tbody>
           <tr>
             <td class="torrent__meta-title">Name</td>

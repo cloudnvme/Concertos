@@ -21,10 +21,10 @@
   <div class="block mbox mbox--small-bottom">
     <div class="block__title">Info</div>
     <div class="block__content">
-      <table class="props">
+      <table class="table table--2">
         <tbody>
         <tr>
-          <td>Title</td>
+          <td class="table--2__title">Title</td>
           <td>
             {{ $torrentRequest->name }}
             <button class="btn"><i class="fa fa-eye"></i> {{ trans('request.report') }}</button>
@@ -55,25 +55,25 @@
           </td>
         </tr>
         <tr>
-          <td>Category</td>
+          <td class="table--2__title">Category</td>
           <td>{{ $torrentRequest->category->name }}</td>
         </tr>
         <tr>
-          <td>Type</td>
+          <td class="table--2__title">Type</td>
           <td>{{ $torrentRequest->type->name }}</td>
         </tr>
         <tr>
-          <td>Description</td>
+          <td class="table--2__title">Description</td>
           <td>{!! $torrentRequest->getDescriptionHtml() !!}</td>
         </tr>
         <tr>
-          <td>Requested by</td>
+          <td class="table--2__title">Requested by</td>
           <td>{!! $torrentRequest->user->getFullName() !!}</td>
         </tr>
 
         @if ($torrentRequest->filled_hash === null)
           <tr>
-            <td>Vote up</td>
+            <td class="table--2__title">Vote up</td>
             <td>
               <form action="{{ route('add_votes', ['id' => $torrentRequest->id]) }}" method="post">
                 @csrf
@@ -87,7 +87,7 @@
 
         @if($torrentRequest->filled_hash == null)
         <tr>
-          <td>Fullfill</td>
+          <td class="table--2__title">Fullfill</td>
           <td>
               @if($torrentRequest->claimed == 0 || ($torrentRequest->claimed == 1 && $torrentRequestClaim->username == $user->username || \App\Policy::isModerator($user)))
                 <form action="{{ route('fill_request', ['id' => $torrentRequest->id]) }}" method="post">
@@ -105,7 +105,7 @@
         @endif
 
         <tr>
-          <td>Claim this Request</td>
+          <td class="table--2__title">Claim this Request</td>
           <td>
             @if ($torrentRequest->claimed == null && $torrentRequest->filled_hash == null)
               <button class="btn btn-md btn-success btn-vote-request" data-toggle="modal" data-target="#claim">
@@ -164,7 +164,7 @@
 
         @if ($torrentRequest->filled_hash != null && $torrentRequest->approved_by !== null)
           <tr>
-            <td>Torrent</td>
+            <td class="table--2__title">Torrent</td>
             <td>
               <a class="link" href="{{ route('torrent', ['id' => $torrentRequest->torrent->id]) }}">
                 {{ $torrentRequest->torrent->name }}

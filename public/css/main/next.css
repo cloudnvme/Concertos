@@ -553,6 +553,11 @@ html {
     font-size: 1.5rem;
 }
 
+.torrent td:first-child {
+    width: 8rem;
+    padding-bottom: 0.5rem;
+}
+
 .torrent__meta-title {
     font-weight: bold;
 }
@@ -715,15 +720,11 @@ html {
     height: 10rem;
 }
 
+.public-info td:first-child,
+.private-info td:first-child,
 .site-stats td:first-child,
 .moderation-tools td:first-child {
     width: 15rem;
-    font-weight: bold;
-    padding-bottom: 0.5rem;
-}
-
-.props td:first-child {
-    padding-right: 1rem;
     font-weight: bold;
     padding-bottom: 0.5rem;
 }

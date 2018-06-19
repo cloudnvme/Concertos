@@ -101,7 +101,7 @@
       Public Info
     </div>
     <div class="block__content">
-      <table class="props public-info">
+      <table class="public-info">
         <tbody>
         <tr>
           <td>Name</td>
@@ -238,7 +238,7 @@
       </div>
 
       <div class="block__content">
-        <table class="props">
+        <table class="table private-info">
           <tbody>
           <tr>
             <td>PID</td>

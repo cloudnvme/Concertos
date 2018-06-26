@@ -301,7 +301,7 @@
             </td>
           </tr>
 
-          @if ($tmdb_link !== null && $imdb_link !== null)
+          @if ($tmdb_link !== null || $imdb_link !== null)
             <tr>
               <td class="torrent__meta-title">Links</td>
               <td>

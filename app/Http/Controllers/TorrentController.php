@@ -683,9 +683,33 @@ class TorrentController extends Controller
             $text_crumbs = $view_crumbs['text'];
         }
 
-        return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar, 'personal_freeleech' => $personal_freeleech, 'freeleech_token' => $freeleech_token,
-            'total_tips' => $total_tips, 'user_tips' => $user_tips, 'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs, 'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
-            'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings, 'uploader' => $uploader, 'last_seed_activity' => $last_seed_activity]);
+        $map = [
+            'torrent' => $torrent,
+            'comments' => $comments,
+            'thanks' => $thanks,
+            'user' => $user,
+            'similar' => $similar,
+            'personal_freeleech' => $personal_freeleech,
+            'freeleech_token' => $freeleech_token,
+            'total_tips' => $total_tips,
+            'user_tips' => $user_tips,
+            'featured' => $featured,
+            'general' => $general,
+            'general_crumbs' => $general_crumbs,
+            'video_crumbs' => $video_crumbs,
+            'audio_crumbs' => $audio_crumbs,
+            'text_crumbs' => $text_crumbs,
+            'video' => $video,
+            'audio' => $audio,
+            'subtitle' => $subtitle,
+            'settings' => $settings,
+            'uploader' => $uploader,
+            'last_seed_activity' => $last_seed_activity,
+            'tmdb_link' => $torrent->getTmdbLink(),
+            'imdb_link' => $torrent->getImdbLink()
+        ];
+
+        return view('torrent.torrent', $map);
     }
 
     /**

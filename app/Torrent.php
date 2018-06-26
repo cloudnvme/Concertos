@@ -244,7 +244,7 @@ class Torrent extends Model
             return null;
         }
 
-        $id = str_pad($this->tmdb, 7, "0",STR_PAD_LEFT);
+        $id = str_pad($this->imdb, 7, "0",STR_PAD_LEFT);
         return "https://www.imdb.com/title/tt{$id}";
     }
 

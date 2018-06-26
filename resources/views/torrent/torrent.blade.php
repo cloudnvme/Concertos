@@ -300,6 +300,22 @@
               </span>
             </td>
           </tr>
+
+          @if ($tmdb_link !== null && $imdb_link !== null)
+            <tr>
+              <td class="torrent__meta-title">Links</td>
+              <td>
+                @if ($tmdb_link !== null)
+                  <a class="link" href="{{ $tmdb_link }}">TMDB</a>
+                @endif
+
+                @if ($imdb_link != null)
+                  <a class="link" href="{{ $imdb_link }}">IMDB</a>
+                @endif
+
+              </td>
+            </tr>
+          @endif
           </tbody>
         </table>
       </div>

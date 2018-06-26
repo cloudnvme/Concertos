@@ -238,4 +238,21 @@ class Torrent extends Model
     public function renderComments() {
         return view('partials.comments', ['comments' => $this->comments])->render();
     }
+
+    public function getImdbLink() {
+        if ($this->imdb == 0) {
+            return null;
+        }
+
+        $id = str_pad($this->tmdb, 7, "0",STR_PAD_LEFT);
+        return "https://www.imdb.com/title/tt{$id}";
+    }
+
+    public function getTmdbLink() {
+        if ($this->tmdb == 0) {
+            return null;
+        }
+
+        return "https://www.themoviedb.org/movie/{$this->tmdb}";
+    }
 }

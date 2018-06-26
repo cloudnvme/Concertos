@@ -284,18 +284,20 @@
           <tr>
             <td class="torrent__meta-title">Peers</td>
             <td>
-          <span class="badge badge--extra text-bold mbox mbox--mini-right">
-            <i class="fa fa-arrow-up"></i>
-            {{ $torrent->seeders }} Seeders
-          </span>
               <span class="badge badge--extra text-bold mbox mbox--mini-right">
-            <i class="fa fa-arrow-down"></i>
+              <i class="fa fa-arrow-up"></i>
+              {{ $torrent->seeders }} Seeders
+              </span>
+
+              <span class="badge badge--extra text-bold mbox mbox--mini-right">
+                <i class="fa fa-arrow-down"></i>
                 {{ $torrent->leechers }} Leechers
-          </span>
+              </span>
+
               <span class="badge badge--extra text-bold mbox mbox--mini-right">
-            <i class="fa fa-download"></i>
+                <i class="fa fa-download"></i>
                 {{ $torrent->times_completed }} Times Completed
-          </span>
+              </span>
             </td>
           </tr>
           </tbody>

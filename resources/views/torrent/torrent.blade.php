@@ -29,6 +29,145 @@
 
 @section('content')
   <div class="torrent">
+    <div class="buttons mbox mbox--small-bottom">
+      <a href="{{ route('download', ['id' => $torrent->id]) }}">
+        <button class="btn">
+          <i class="fa fa-download"></i>
+          Download
+        </button>
+      </a>
+
+      <a href="{{ route('torrentThank', ['id' => $torrent->id]) }}">
+        <button class="btn">
+          <i class="fas fa-hand-holding-heart"></i>
+          Thank Uploader
+        </button>
+      </a>
+
+      @if (auth()->user()->hasBookmarked($torrent->id))
+        <a href="{{ route('unbookmark', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fa fa-bookmark"></i>
+            Remove Bookmark
+          </button>
+        </a>
+      @else
+        <a href="{{ route('bookmark', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fa fa-bookmark"></i>
+            Bookmark
+          </button>
+        </a>
+      @endif
+      @if (!\App\Policy::isModerator($user) && $user->id === $torrent->user->id)
+        <a href="{{ route('edit', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+        </a>
+
+        <a href="{{ route('confirm_delete', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fas fa-eraser"></i>
+            Delete
+          </button>
+        </a>
+      @endif
+
+      @if (\App\Policy::isModerator($user))
+        @if ($torrent->free)
+          <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}">
+            <button class="btn">
+              <i class="fa fa-star"></i>
+              Revoke Freeleech
+            </button>
+          </a>
+        @else
+          <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}">
+            <button class="btn">
+              <i class="fa fa-star"></i>
+              Grant Freeleech
+            </button>
+          </a>
+        @endif
+
+        @if ($torrent->doubleup)
+          <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}">
+            <button class="btn">
+              <i class="fa fa-gem"></i>
+              Revoke Double Upload
+            </button>
+          </a>
+        @else
+          <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}">
+            <button class="btn">
+              <i class="fa fa-gem"></i>
+              Grant Double Upload
+            </button>
+          </a>
+        @endif
+
+        <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fas fa-thumbtack"></i>
+            Sticky
+          </button>
+        </a>
+
+        <a href="{{ route('bumpTorrent', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fas fa-fire"></i>
+            Bump
+          </button>
+        </a>
+
+        @if ($torrent->featured)
+          <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}">
+            <button class="btn">
+              <i class="fa fa-certificate"></i>
+              Revoke Feature
+            </button>
+          </a>
+        @else
+          <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}">
+            <button class="btn">
+              <i class="fa fa-certificate"></i>
+              Feature
+            </button>
+          </a>
+        @endif
+
+        <a href="{{ route('edit', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+        </a>
+
+        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fas fa-users"></i>
+            Peers
+          </button>
+        </a>
+
+        <a href="{{ route('history', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fas fa-history"></i>
+            History
+          </button>
+        </a>
+
+        <a href="{{ route('confirm_delete', ['id' => $torrent->id]) }}">
+          <button class="btn">
+            <i class="fas fa-eraser"></i>
+            Delete
+          </button>
+        </a>
+      @endif
+    </div>
+
     <div class="block mbox mbox--small-bottom">
       <div class="block__title">Info</div>
       <div class="block__content">
@@ -38,37 +177,7 @@
             <td class="torrent__meta-title">Name</td>
             <td>
               {{ $torrent->name }}
-              <a href="{{ route('download', ['id' => $torrent->id]) }}">
-                <button class="btn">
-                  <i class="fa fa-download"></i>
-                  Download
-                </button>
-              </a>
 
-              @if (auth()->user()->hasBookmarked($torrent->id))
-                <a href="{{ route('unbookmark', ['id' => $torrent->id]) }}">
-                  <button class="btn">
-                    <i class="fa fa-bookmark"></i>
-                    Remove Bookmark
-                  </button>
-                </a>
-              @else
-                <a href="{{ route('bookmark', ['id' => $torrent->id]) }}">
-                  <button class="btn">
-                    <i class="fa fa-bookmark"></i>
-                    Bookmark
-                  </button>
-                </a>
-              @endif
-              @if (!\App\Policy::isModerator($user) && $user->id === $torrent->user->id)
-                <a href="{{ route('edit', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="Edit"/>
-                </a>
-
-                <a href="{{ route('confirm_delete', ['id' => $torrent->id]) }}">
-                  <input type="button" class="btn" value="Delete"/>
-                </a>
-              @endif
             </td>
           </tr>
           <tr>
@@ -121,12 +230,7 @@
                 <a class="link"
                    href="{{ route('profile', ['id' => $torrent->user->id]) }}">{{ $torrent->user->username }}</a>
               @endif
-              <a href="{{ route('torrentThank', ['id' => $torrent->id]) }}">
-                <button class="btn">
-                  <i class="fas fa-hand-holding-heart"></i>
-                  Thank Uploader
-                </button>
-              </a>
+
               <span class="badge badge--extra text-bold">
             <i class="fa fa-heart"></i>
                 {{ $torrent->thanks->count() }} Thanks
@@ -194,102 +298,6 @@
           </span>
             </td>
           </tr>
-          @if (\App\Policy::isModerator($user))
-            <tr>
-              <td class="torrent__meta-title">Moderation</td>
-              <td>
-                @if ($torrent->free)
-                  <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}">
-                    <button class="btn">
-                      <i class="fa fa-star"></i>
-                      Revoke Freeleech
-                    </button>
-                  </a>
-                @else
-                  <a href="{{ route('torrent_fl', ['id' => $torrent->id]) }}">
-                    <button class="btn">
-                      <i class="fa fa-star"></i>
-                      Grant Freeleech
-                    </button>
-                  </a>
-                @endif
-
-                @if ($torrent->doubleup)
-                  <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}">
-                    <button class="btn">
-                      <i class="fa fa-gem"></i>
-                      Revoke Double Upload
-                    </button>
-                  </a>
-                @else
-                  <a href="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}">
-                    <button class="btn">
-                      <i class="fa fa-gem"></i>
-                      Grant Double Upload
-                    </button>
-                  </a>
-                @endif
-
-                <a href="{{ route('torrent_sticky', ['id' => $torrent->id]) }}">
-                  <button class="btn">
-                    <i class="fas fa-thumbtack"></i>
-                    Sticky
-                  </button>
-                </a>
-
-                <a href="{{ route('bumpTorrent', ['id' => $torrent->id]) }}">
-                  <button class="btn">
-                    <i class="fas fa-fire"></i>
-                    Bump
-                  </button>
-                </a>
-
-                @if ($torrent->featured)
-                  <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}">
-                    <button class="btn">
-                      <i class="fa fa-certificate"></i>
-                      Revoke Feature
-                    </button>
-                  </a>
-                @else
-                  <a href="{{ route('torrent_feature', ['id' => $torrent->id]) }}">
-                    <button class="btn">
-                      <i class="fa fa-certificate"></i>
-                      Feature
-                    </button>
-                  </a>
-                @endif
-
-                <a href="{{ route('edit', ['id' => $torrent->id]) }}">
-                  <button class="btn">
-                    <i class="fas fa-edit"></i>
-                    Edit
-                  </button>
-                </a>
-
-                <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-                  <button class="btn">
-                    <i class="fas fa-users"></i>
-                    Peers
-                  </button>
-                </a>
-
-                <a href="{{ route('history', ['id' => $torrent->id]) }}">
-                  <button class="btn">
-                    <i class="fas fa-history"></i>
-                    History
-                  </button>
-                </a>
-
-                <a href="{{ route('confirm_delete', ['id' => $torrent->id]) }}">
-                  <button class="btn">
-                    <i class="fas fa-eraser"></i>
-                    Delete
-                  </button>
-                </a>
-              </td>
-            </tr>
-          @endif
           </tbody>
         </table>
       </div>

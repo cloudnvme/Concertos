@@ -43,6 +43,7 @@ use App\Bots\IRCAnnounceBot;
 use Carbon\Carbon;
 use Decoda\Decoda;
 use App\Tag;
+use App\Path;
 use \Toastr;
 
 /**
@@ -264,7 +265,8 @@ class TorrentController extends Controller
             $infohash = Bencode::get_infohash($decodedTorrent);
             $meta = Bencode::get_meta($decodedTorrent);
             $fileName = $infohash . '.torrent';
-            file_put_contents(getcwd() . '/files/torrents/' . $fileName, Bencode::bencode($decodedTorrent));
+            $torrents_path = Path::getTorrentsPath();
+            file_put_contents($torrents_path . '/' . $fileName, Bencode::bencode($decodedTorrent));
 
             // Find the right category
             $category = Category::findOrFail($request->input('category_id'));
@@ -296,8 +298,8 @@ class TorrentController extends Controller
             // Validation
             $v = validator($torrent->toArray(), $torrent->rules);
             if ($v->fails()) {
-                if (file_exists(getcwd() . '/files/torrents/' . $fileName)) {
-                    unlink(getcwd() . '/files/torrents/' . $fileName);
+                if (file_exists($torrents_path . '/' . $fileName)) {
+                    unlink($torrents_path . '/' . $fileName);
                 }
                 Toastr::error('Did You Fill In All The Fields? If so then torrent hash is already on site. Dupe upload attempt was found.', 'Whoops!', ['options']);
             } else {
@@ -906,19 +908,21 @@ class TorrentController extends Controller
 
         // Define the filename for the download
         $tmpFileName = $torrent->slug . '.torrent';
+        $torrents_path = Path::getTorrentsPath();
+        $tmp_path = Path::getTmpPath();
 
         // The torrent file exist ?
-        if (!file_exists(getcwd() . '/files/torrents/' . $torrent->file_name)) {
+        if (!file_exists($torrents_path . '/' .  $torrent->file_name)) {
             return redirect()->route('torrent', ['id' => $torrent->id])
                 ->with(Toastr::error('Torrent File Not Found! Please Report This Torrent!', 'Error!', ['options']));
         } else {
             // Delete the last torrent tmp file
-            if (file_exists(getcwd() . '/files/tmp/' . $tmpFileName)) {
-                unlink(getcwd() . '/files/tmp/' . $tmpFileName);
+            if (file_exists($tmp_path . '/' . $tmpFileName)) {
+                unlink($tmp_path . '/' . $tmpFileName);
             }
         }
         // Get the content of the torrent
-        $dict = Bencode::bdecode(file_get_contents(getcwd() . '/files/torrents/' . $torrent->file_name));
+        $dict = Bencode::bdecode(file_get_contents($torrents_path . '/' .  $torrent->file_name));
         if (auth()->check()) {
             // Set the announce key and add the user passkey
             $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
@@ -929,8 +933,8 @@ class TorrentController extends Controller
         }
 
         $fileToDownload = Bencode::bencode($dict);
-        file_put_contents(getcwd() . '/files/tmp/' . $tmpFileName, $fileToDownload);
-        return response()->download(getcwd() . '/files/tmp/' . $tmpFileName)->deleteFileAfterSend(true);
+        file_put_contents($tmp_path . '/' . $tmpFileName, $fileToDownload);
+        return response()->download($tmp_path . '/' . $tmpFileName)->deleteFileAfterSend(true);
     }
 
     /**

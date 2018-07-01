@@ -16,7 +16,7 @@
   <div class="block">
     <div class="block__title">Invite a User</div>
     <div class="block__content">
-      <p>{{ trans('user.invites-count', ['count' => $user->invites]) }}</p>
+      <p>{{ trans('user.invites-count', ['count' => $user->getInvitesCount()]) }}</p>
       <form action="{{ route('invite') }}" method="post">
         {{ csrf_field() }}
         <div class="flex mbox mbox--small-bottom">

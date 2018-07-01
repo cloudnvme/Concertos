@@ -604,4 +604,12 @@ class User extends Authenticatable
     {
         $this->passkey = StringHelper::makeSecureToken();
     }
+
+    public function getInvitesCount() {
+        if (\App\Policy::hasUnlimitedInvites($this)) {
+            return "∞";
+        }
+
+        return (string)($user->invites);
+    }
 }

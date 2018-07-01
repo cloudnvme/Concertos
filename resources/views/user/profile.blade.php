@@ -306,23 +306,13 @@
           <tr>
             <td>Invites</td>
             <td>
-              @if (\App\Policy::hasUnlimitedInvites($user))
-                <span>∞</span>
-                <a href="{{ route('inviteTree', ['id' => $user->id]) }}">
-                  <button class="btn">
-                    <i class="fas fa-users"></i>
-                    {{ trans('user.invite-tree') }}
-                  </button>
-                </a>
-              @else
-                <span> {{ $user->invites }}</span>
-                <a href="{{ route('inviteTree', ['id' => $user->id]) }}">
-                  <button class="btn">
-                    <i class="fas fa-users"></i>
-                    {{ trans('user.invite-tree') }}
-                  </button>
-                </a>
-              @endif
+              <span> {{ $user->getInvitesCount() }}</span>
+              <a href="{{ route('inviteTree', ['id' => $user->id]) }}">
+                <button class="btn">
+                  <i class="fas fa-users"></i>
+                  {{ trans('user.invite-tree') }}
+                </button>
+              </a>
             </td>
           </tr>
           </tbody>

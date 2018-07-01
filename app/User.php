@@ -610,6 +610,6 @@ class User extends Authenticatable
             return "∞";
         }
 
-        return (string)($user->invites);
+        return (string)($this->invites);
     }
 }

@@ -194,7 +194,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
         if ($request->isMethod('post')) {
-            $user->passkey = md5(uniqid() . time() . microtime());
+            $user->resetPasskey();
             $user->save();
             return redirect()->route('profile', ['id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
         }

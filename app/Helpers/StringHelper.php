@@ -129,4 +129,11 @@ class StringHelper
         $client = new Client(new Ruleset());
         return $client->shortnameToUnicode($string);
     }
+
+    public static function makeSecureToken($length = 32) {
+        $bytes = random_bytes($length);
+        $code = strtr(base64_encode($bytes), '+/', '-_');
+        $code = rtrim($code, "=");
+        return $code;
+    }
 }

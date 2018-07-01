@@ -599,4 +599,9 @@ class User extends Authenticatable
     {
         return $this->username;
     }
+
+    public function resetPasskey()
+    {
+        $this->passkey = StringHelper::makeSecureToken();
+    }
 }

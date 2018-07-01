@@ -64,10 +64,10 @@ class RegisterController extends Controller
                 $user->email = $request->input('email');
                 $user->password = Hash::make($request->input('password'));
                 $user->passkey = md5(uniqid() . time() . microtime());
-                $user->rsskey = md5(uniqid() . time() . microtime() . $user->password);
                 $user->uploaded = config('other.default_upload');
                 $user->downloaded = config('other.default_download');
                 $user->style = config('other.default_style', 0);
+                $user->resetPasskey();
                 $user->save();
                 $user->addRole('Validating');
                 $user->setMainRole('Validating');

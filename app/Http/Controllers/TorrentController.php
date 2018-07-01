@@ -266,7 +266,6 @@ class TorrentController extends Controller
             $meta = Bencode::get_meta($decodedTorrent);
             $fileName = $infohash . '.torrent';
             $torrents_path = Path::getTorrentsPath();
-            file_put_contents($torrents_path . '/' . $fileName, Bencode::bencode($decodedTorrent));
 
             // Find the right category
             $category = Category::findOrFail($request->input('category_id'));
@@ -298,13 +297,11 @@ class TorrentController extends Controller
             // Validation
             $v = validator($torrent->toArray(), $torrent->rules);
             if ($v->fails()) {
-                if (file_exists($torrents_path . '/' . $fileName)) {
-                    unlink($torrents_path . '/' . $fileName);
-                }
                 Toastr::error('Did You Fill In All The Fields? If so then torrent hash is already on site. Dupe upload attempt was found.', 'Whoops!', ['options']);
             } else {
                 // Save The Torrent
                 $torrent->save();
+                file_put_contents($torrents_path . '/' . $fileName, Bencode::bencode($decodedTorrent));
 
                 // Count and save the torrent number in this category
                 $category->num_torrent = Torrent::where('category_id', $category->id)->count();

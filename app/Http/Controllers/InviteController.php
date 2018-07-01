@@ -21,6 +21,7 @@ use \Toastr;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use App\Policy;
+use App\Helpers\StringHelper;
 
 class InviteController extends Controller
 {
@@ -57,8 +58,7 @@ class InviteController extends Controller
 
         $unlimited = Policy::hasUnlimitedInvites($user);
         if ($user->invites > 0 || $unlimited) {
-            $bytes = random_bytes(32);
-            $code = strtr(base64_encode($bytes), '+/', '-_');
+            $code = StringHelper::makeSecureToken();
 
             //create a new invite record
             $invite = Invite::create([

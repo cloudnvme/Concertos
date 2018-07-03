@@ -1,16 +1,16 @@
 <?php
-/**
- * NOTICE OF LICENSE
- *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
- * The details is bundled with this project in the file LICENSE.txt.
- *
- * @project    UNIT3D
- * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
- */
 
 return [
+
+    /*
+     * Server
+     *
+     * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server
+     *
+     * Note: when server is empty string, it will not add to response header
+     */
+
+    'server' => '',
 
     /*
      * X-Content-Type-Options
@@ -71,7 +71,27 @@ return [
      *                  'same-origin', 'strict-origin', 'strict-origin-when-cross-origin', 'unsafe-url'
      */
 
-    'referrer-policy' => 'same-origin',
+    'referrer-policy' => 'no-referrer',
+
+    /*
+     * Clear-Site-Data
+     *
+     * Reference: https://w3c.github.io/webappsec-clear-site-data/
+     */
+
+    'clear-site-data' => [
+        'enable' => false,
+
+        'all' => false,
+
+        'cache' => true,
+
+        'cookies' => true,
+
+        'storage' => true,
+
+        'executionContexts' => true,
+    ],
 
     /*
      * HTTP Strict Transport Security
@@ -90,6 +110,22 @@ return [
     ],
 
     /*
+     * Expect-CT
+     *
+     * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT
+     */
+
+    'expect-ct' => [
+        'enable' => false,
+
+        'max-age' => 2147483648,
+
+        'enforce' => false,
+
+        'report-uri' => null,
+    ],
+
+    /*
      * Public Key Pinning
      *
      * Reference: https://developer.mozilla.org/en-US/docs/Web/Security/Public_Key_Pinning
@@ -99,10 +135,7 @@ return [
 
     'hpkp' => [
         'hashes' => [
-            // [
-            //     'algo' => 'sha256',
-            //     'hash' => 'hash-value',
-            // ],
+            // 'sha256-hash-value',
         ],
 
         'include-sub-domains' => false,
@@ -123,20 +156,84 @@ return [
      *
      * Note: custom-csp does not support report-only.
      */
-    'custom-csp' => '',
+
+    'custom-csp' => null,
 
     'csp' => [
         'report-only' => false,
 
         'report-uri' => null,
 
-        'upgrade-insecure-requests' => false,
+        'block-all-mixed-content' => true,
 
-        // enable or disable the automatic conversion of sources to https
-        'https-transform-on-https-connections' => true,
-        'httpsTransformOnHttpsConnections' => true,
+        'upgrade-insecure-requests' => true,
 
-        'base-uri' => [
+        /*
+         * Please references script-src directive for available values, only `script-src` and `style-src`
+         * supports `add-generated-nonce`.
+         *
+         * Note: when directive value is empty, it will use `none` for that directive.
+         */
+
+        'script-src' => [
+            'allow' => [
+                // 'url',
+            ],
+
+            'hashes' => [
+                // 'sha256' => [
+                //     'hash-value',
+                // ],
+            ],
+
+            'nonces' => [
+                // 'base64-encoded',
+            ],
+
+            'schemes' => [
+                // 'https:',
+            ],
+
+            'self' => false,
+
+            'unsafe-inline' => false,
+
+            'unsafe-eval' => false,
+
+            'strict-dynamic' => false,
+
+            'unsafe-hashed-attributes' => false,
+
+            'add-generated-nonce' => false,
+        ],
+
+        'style-src' => [
+            'allow' => [
+                //
+            ],
+
+            'hashes' => [
+                // 'sha256' => [
+                //     'hash-value',
+                // ],
+            ],
+
+            'nonces' => [
+                //
+            ],
+
+            'schemes' => [
+                // 'https:',
+            ],
+
+            'self' => false,
+
+            'unsafe-inline' => false,
+
+            'add-generated-nonce' => false,
+        ],
+
+        'img-src' => [
             //
         ],
 
@@ -144,111 +241,54 @@ return [
             //
         ],
 
-        'child-src' => [
-            'allow' => [
-                'https://www.youtube.com',
-            ],
-        ],
-
-        'script-src' => [
-            'allow' => [
-                //
-            ],
-
-            'hashes' => [
-                // ['sha256' => 'hash-value'],
-            ],
-
-            'nonces' => [
-                //
-            ],
-
-            'self' => true,
-
-            'unsafe-inline' => false,
-
-            'unsafe-eval' => false,
-        ],
-
-        'style-src' => [
-            'allow' => [
-                'https://fonts.googleapis.com',
-            ],
-
-            'self' => true,
-
-            'unsafe-inline' => true,
-        ],
-
-        'img-src' => [
-            'allow' => [
-                '*.imgur.com',
-                'imgbox.com',
-                '*.imgbox.com',
-                'assets.fanart.tv',
-                '*.imagebam.com',
-                'ultraimg.com',
-                'https://cdn.jsdelivr.net',
-                'https://image.tmdb.org',
-                'https://thetvdb.com',
-                'https://www.themoviedb.org',
-                'https://www.thetvdb.com',
-                'http://thumbs2.imagebam.com',
-            ],
-
-            'types' => [
-            ],
-
-            'self' => true,
-
-            'data' => false,
-        ],
-
-        /*
-         * The following directives are all use 'allow' and 'self' flag.
-         *
-         * Note: default value of 'self' flag is false.
-         */
-
-        'font-src' => [
-            'allow' => [
-                'https://fonts.googleapis.com',
-                'https://fonts.gstatic.com',
-            ],
-            'self' => true,
+        'base-uri' => [
+            //
         ],
 
         'connect-src' => [
-            'allow' => [
-                'www.omdbapi.com',
-                'https://api.themoviedb.org',
-            ],
-            'self' => true,
+            //
+        ],
+
+        'font-src' => [
+            //
         ],
 
         'form-action' => [
-            'self' => true,
+            //
         ],
 
         'frame-ancestors' => [
-            'self' => true,
+            //
+        ],
+
+        'frame-src' => [
+            //
+        ],
+
+        'manifest-src' => [
+            //
         ],
 
         'media-src' => [
-            'self' => true,
+            //
         ],
 
         'object-src' => [
-            'self' => false,
-        ],
-
-        /*
-         * plugin-types only support 'allow'.
-         */
-
-        'plugin-types' => [
             //
         ],
+
+        'worker-src' => [
+            //
+        ],
+
+        'plugin-types' => [
+            // 'application/x-shockwave-flash',
+        ],
+
+        'require-sri-for' => '',
+
+        'sandbox' => '',
+
     ],
 
 ];

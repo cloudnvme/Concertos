@@ -166,7 +166,7 @@ return [
 
         'block-all-mixed-content' => true,
 
-        'upgrade-insecure-requests' => true,
+        'upgrade-insecure-requests' => false,
 
         /*
          * Please references script-src directive for available values, only `script-src` and `style-src`
@@ -194,7 +194,7 @@ return [
                 // 'https:',
             ],
 
-            'self' => false,
+            'self' => true,
 
             'unsafe-inline' => false,
 
@@ -209,7 +209,8 @@ return [
 
         'style-src' => [
             'allow' => [
-                //
+                'https://use.fontawesome.com',
+                'https://googleapis.com'
             ],
 
             'hashes' => [
@@ -226,19 +227,23 @@ return [
                 // 'https:',
             ],
 
-            'self' => false,
+            'self' => true,
 
-            'unsafe-inline' => false,
+            'unsafe-inline' => true,
 
             'add-generated-nonce' => false,
         ],
 
         'img-src' => [
-            //
+            'allow' => [
+                'https://*'
+            ],
+
+            'self' => true,
         ],
 
         'default-src' => [
-            //
+            'self' => true,
         ],
 
         'base-uri' => [
@@ -246,15 +251,19 @@ return [
         ],
 
         'connect-src' => [
-            //
+            'self' => true,
         ],
 
         'font-src' => [
-            //
+            'allow' => [
+                'https://use.fontawesome.com'
+            ],
+
+            'self' => true,
         ],
 
         'form-action' => [
-            //
+            'self' => true,
         ],
 
         'frame-ancestors' => [
@@ -274,7 +283,7 @@ return [
         ],
 
         'object-src' => [
-            //
+            'self' => true,
         ],
 
         'worker-src' => [

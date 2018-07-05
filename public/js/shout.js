@@ -88,9 +88,13 @@ let controller = new ChatboxController();
 window.onload = () => {
     controller.scrollDown();
 };
+
 let sendButton = document.querySelector("#send-message");
 let messageText = document.querySelector("#chat-message");
+let editor = makeEditor(messageText);
+
 sendButton.addEventListener("click", (e) => {
+    editor.updateOriginal();
     controller.sendMessage(messageText.value);
     messageText.value = "";
 });

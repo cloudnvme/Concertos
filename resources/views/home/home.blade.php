@@ -2,6 +2,7 @@
 
 @section('head-bottom')
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  @include('partials.bb')
 @endsection
 
 @section('content')
@@ -14,7 +15,7 @@
     </div>
     <div class="block__footer">
       <div id="chat-error"></div>
-      <textarea id="chat-message" class="textarea textarea--vertical" rows="10"></textarea>
+      <textarea id="chat-message" class="textarea textarea--vertical bbcode-editor" rows="10"></textarea>
       <button id="send-message" class="btn">
         <i class="far fa-paper-plane"></i>
         Send

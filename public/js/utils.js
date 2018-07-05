@@ -1,6 +1,7 @@
 function makeEditor(elm, extra = {}) {
     let options = {
         toolbarExclude: 'emoticon',
+        style: '/css/main/bbcode.css',
         icons: 'monocons',
         format: 'bbcode',
         emoticonsEnabled: false,

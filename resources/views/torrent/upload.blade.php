@@ -4,8 +4,8 @@
   <title>Upload - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-  <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
+@section('head-bottom')
+  @include('partials.bb')
 @endsection
 
 @section('breadcrumb')

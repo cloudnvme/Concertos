@@ -52,3 +52,11 @@ document.querySelector("#add").addEventListener("click", () => {
 document.querySelector("#torrent").addEventListener("input", () => {
     updateTorrentName();
 });
+
+let description = document.querySelector("#upload-form-description");
+let editor = makeEditor(description);
+let submitButton = document.querySelector("#post");
+
+submitButton.addEventListener("click", () => {
+    editor.updateOriginal();
+});

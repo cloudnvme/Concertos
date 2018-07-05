@@ -95,14 +95,14 @@ let editor = makeEditor(messageText);
 
 sendButton.addEventListener("click", (e) => {
     editor.updateOriginal();
-    controller.sendMessage(messageText.value);
-    messageText.value = "";
+    controller.sendMessage(editor.val());
+    editor.val('');
 });
 
-messageText.addEventListener("keyup", (e) => {
+editor.keyUp((e) => {
     if (e.key == "Enter" && !e.shiftKey) {
-        controller.sendMessage(messageText.value);
-        messageText.value = "";
+        controller.sendMessage(editor.val());
+        editor.val('');
     }
 });
 controller.autoUpdate();

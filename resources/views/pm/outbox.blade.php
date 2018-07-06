@@ -33,7 +33,7 @@
   <div class="block">
     <div class="block__title">Messages</div>
     <div class="block__content">
-      <table class="table">
+      <table class="table table--bordered">
         <thead>
         <tr>
           <th>

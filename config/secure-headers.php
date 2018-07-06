@@ -274,7 +274,7 @@ return [
 
         'frame-src' => [
             'allow' => [
-                'https://youtube.com'
+                'https://www.youtube.com'
             ],
         ],
 

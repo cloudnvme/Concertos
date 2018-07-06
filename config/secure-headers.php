@@ -196,7 +196,7 @@ return [
 
             'self' => true,
 
-            'unsafe-inline' => false,
+            'unsafe-inline' => true,
 
             'unsafe-eval' => false,
 
@@ -240,6 +240,8 @@ return [
             ],
 
             'self' => true,
+            'data' => true,
+            'blob' => true,
         ],
 
         'default-src' => [

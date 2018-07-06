@@ -1,7 +1,8 @@
 @extends('layout.next')
 
-@section('stylesheets')
-<link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
+@section('head-bottom')
+  @include('partials.bbcode')
+  <script src="{{ url('js/bbcode/editor.js') }}"></script>
 @endsection
 
 @section('breadcrumb')
@@ -49,9 +50,9 @@
           <input name="subject" class="flex__expanded" type="text" required/>
         </div>
 
-        <textarea id="message" name="message" class="textarea textarea--vertical" rows=20></textarea>
+        <textarea id="bbcode-editor" name="message" class="textarea textarea--vertical"></textarea>
 
-        <button class="btn col col--medium">
+        <button id="bbcode-button" class="btn col col--medium">
           <i class="far fa-paper-plane"></i>
           Send
         </button>

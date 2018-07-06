@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     let posts = document.querySelectorAll(".post");
-    let editor = document.querySelector("#topic-response");
+    let textarea = document.querySelector("#bbcode-editor");
+    let editor = sceditor.instance(textarea);
     let token = document.querySelector("meta[name=csrf-token]").getAttribute("content");
     let headers = new Headers({
         "X-CSRF-TOKEN": token
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 credentials: "same-origin"
             });
             let j = await rsp.json();
-            editor.value = j.data;
+            editor.insert(j.data);
         });
     }
 });

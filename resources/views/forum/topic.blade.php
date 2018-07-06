@@ -4,8 +4,11 @@
   <title>{{ $topic->name }} - Forums - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-  <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
+@section('head-bottom')
+  @include('partials.bbcode')
+  <script src="{{ url('js/bbcode/editor.js') }}"></script>
+  <script src="{{ url('js/topic.js') }}"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('breadcrumb')
@@ -136,15 +139,10 @@
               being {{auth()->user()->roleName()}}.
             </div>
           @endif
-          <textarea class="textarea textarea--vertical" name="content" id="topic-response" cols="30"
-                    rows="10"></textarea>
-          <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+          <textarea id="bbcode-editor" class="textarea textarea--vertical" name="content" cols="30" rows="10"></textarea>
+          <button id="bbcode-button" type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
         </form>
       </div>
     </div>
   @endif
-@endsection
-
-@section('javascripts')
-  <script src="{{ url('js/topic.js') }}"></script>
 @endsection

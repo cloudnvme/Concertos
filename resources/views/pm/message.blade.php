@@ -1,7 +1,8 @@
 @extends('layout.next')
 
-@section('stylesheets')
-  <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
+@section('head-bottom')
+  @include('partials.bbcode')
+  <script src="{{ url('js/bbcode/editor.js') }}"></script>
 @endsection
 
 @section('breadcrumb')
@@ -59,8 +60,8 @@
     <div class="block__content">
       <form role="form" method="POST" action="{{ route('reply-pm',['pmid' => $pm->id]) }}">
         {{ csrf_field() }}
-        <textarea name="message" class="textarea textarea--vertical" cols="30" rows="10"></textarea>
-        <button type="submit" class="btn">
+        <textarea id="bbcode-editor" name="message" class="textarea textarea--vertical"></textarea>
+        <button id="bbcode-button" type="submit" class="btn">
           <i class="fas fa-reply"></i>
           {{ trans('pm.reply') }}
         </button>

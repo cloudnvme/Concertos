@@ -4,6 +4,11 @@
   <title>Request - {{ config('other.title') }}</title>
 @endsection
 
+@section('head-bottom')
+  @include('partials.bbcode')
+  <script src="{{ url('js/bbcode/editor.js') }}"></script>
+@endsection
+
 @section('breadcrumb')
   <li>
     <a href="{{ route('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
@@ -215,8 +220,8 @@
   <form class="comment-editor block" action="{{ route('comment_request', ['id' => $torrentRequest->id]) }}">
     <div class="block__title">Your Comment</div>
     <div class="block__content">
-      <textarea class="textarea textarea--vertical" id="content" name="content" cols="30" rows="5"></textarea>
-      <button type="submit" class="btn">{{ trans('common.submit') }}</button>
+      <textarea class="textarea textarea--vertical" id="bbcode-editor" name="content" cols="30" rows="5"></textarea>
+      <button id="bbcode-button" type="submit" class="btn">{{ trans('common.submit') }}</button>
       <label class="v-checkbox">
         <input type="checkbox" name="anonymous"/>
         <span></span>

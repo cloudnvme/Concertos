@@ -4,8 +4,9 @@
   <title>{{ $torrent->name }} - {{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-  <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
+@section('head-bottom')
+  @include('partials.bbcode')
+  <script src="{{ url('js/bbcode/editor.js') }}"></script>
 @endsection
 
 @section('meta')
@@ -371,8 +372,8 @@
     <form class="comment-editor block" action="{{ route('comment_torrent', ['id' => $torrent->id]) }}">
       <div class="block__title">Your Comment</div>
       <div class="block__content">
-        <textarea class="textarea textarea--vertical" id="content" name="content" cols="30" rows="5"></textarea>
-        <button type="submit" class="btn">
+        <textarea id="bbcode-editor" class="textarea textarea--vertical" name="content" cols="30" rows="5"></textarea>
+        <button id="bbcode-button" type="submit" class="btn">
           <i class="fa fa-paper-plane"></i>
           {{ trans('common.submit') }}
         </button>

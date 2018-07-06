@@ -315,6 +315,7 @@ html {
 
 .message__text {
     padding: 0.5em;
+    width: 100%;
 }
 
 .message a {
@@ -775,4 +776,12 @@ html {
 .settings__col {
     min-width: 12rem;
     display: inline-block;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-center {
+    text-align: center;
 }

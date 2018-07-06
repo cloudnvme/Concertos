@@ -5,7 +5,7 @@
 @endsection
 
 @section('head-bottom')
-  @include('partials.bb')
+  @include('partials.bbcode')
 @endsection
 
 @section('breadcrumb')

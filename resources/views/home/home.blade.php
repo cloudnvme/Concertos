@@ -2,7 +2,7 @@
 
 @section('head-bottom')
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  @include('partials.bb')
+  @include('partials.bbcode')
 @endsection
 
 @section('content')

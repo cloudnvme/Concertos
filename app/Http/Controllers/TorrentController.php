@@ -457,7 +457,8 @@ class TorrentController extends Controller
             'created_at',
             'seeders',
             'leechers',
-            'times_completed'
+            'times_completed',
+            'size'
         ];
 
         if (in_array($request->input('direction'), $allowed_directions)) {

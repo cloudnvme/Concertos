@@ -104,6 +104,7 @@
           <option value="seeders">Seeders</option>
           <option value="leechers">Leechers</option>
           <option value="times_completed">Completed</option>
+          <option value="size">Size</option>
         </select>
         <select name="direction">
           <option value="desc">Descending</option>

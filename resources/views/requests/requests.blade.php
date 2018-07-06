@@ -133,7 +133,7 @@
               </a>
             </td>
             <td>
-              <a class="text-bold view-torrent" href="/{{ $request->user->username }}.{{ $request->user->id }}">
+              <a class="text-bold view-torrent" href="{{ route('profile', ['id' => $request->user->id])}}">
                 {{ $request->user->username }}
               </a>
             </td>

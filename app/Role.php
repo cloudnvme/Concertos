@@ -44,6 +44,10 @@ class Role extends Model
             return '#4ECDC4';
         }
 
+        if ($this->name == 'Administrator') {
+            return '#F92672';
+        }
+
         return "#7289DA";
     }
 

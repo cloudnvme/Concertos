@@ -102,13 +102,6 @@ class BanController extends Controller
 
             $staff = auth()->user();
 
-            $ban = new Ban();
-            $ban->owned_by = $user->id;
-            $ban->created_by = $staff->id;
-            $ban->unban_reason = $request->input('unban_reason');
-            $ban->removed_at = Carbon::now();
-            $ban->save();
-
             \LogActivity::addToLog("Staff Member {$staff->username} has unbanned member {$user->username}.");
 
             return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));

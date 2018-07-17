@@ -1,0 +1,1 @@
+You're banned. Reason: {{ $reason }}

@@ -386,6 +386,11 @@ class User extends Authenticatable
         return $this->hasMany(\App\Ban::class, "owned_by");
     }
 
+    public function bans()
+    {
+        return $this->userban();
+    }
+
     /*
     * Get all the bans a staff member has actioned.
     */
@@ -598,6 +603,14 @@ class User extends Authenticatable
     public function getName()
     {
         return $this->username;
+    }
+
+    public function getBanReason()
+    {
+        return $this->bans()
+               ->orderBy('id', 'desc')
+               ->first()
+               ->getReason();
     }
 
     public function resetPasskey()

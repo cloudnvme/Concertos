@@ -62,4 +62,9 @@ class Ban extends Model
     {
         return $this->belongsTo(\App\User::class, "created_by");
     }
+
+    public function getReason()
+    {
+        return $this->ban_reason;
+    }
 }

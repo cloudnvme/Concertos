@@ -29,9 +29,9 @@ class CheckIfBanned
     {
         $user = auth()->user();
         if ($user and \App\Policy::isBanned($user)) {
-            auth()->logout();
+            $reason = $user->getBanReason();
             $request->session()->flush();
-            return redirect('login')->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
+            return response()->view('user.ban', ['reason' => $reason], 200);
         }
 
         return $next($request);

@@ -267,6 +267,13 @@
           </tr>
 
           <tr>
+            <td>Invited By</td>
+            <td>
+              {!! $user->getInviter()->getFullName() !!}
+            </td>
+          </tr>
+
+          <tr>
             <td>Permissions</td>
             <td>
               @if (\App\Policy::canInvite($user))

@@ -17,6 +17,7 @@ use App\Warning;
 use App\Peer;
 use App\History;
 use App\Roles;
+use App\Invite;
 use Cache;
 use Gstt\Achievements\Achiever;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -628,5 +629,14 @@ class User extends Authenticatable
 
     public function getStylesheetUrl() {
         return $this->custom_css;
+    }
+
+    public function getInviter() {
+        $invite = Invite::where('accepted_by', $this->id)->first();
+        if ($invite == null) {
+            return self::getSystemUser();
+        } else {
+            return $invite->sender;
+        }
     }
 }

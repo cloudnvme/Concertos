@@ -160,7 +160,7 @@
      | the cookie from being sent to you if it can not be done securely.
      |
      */
-     'secure' => env('SESSION_SECURE_COOKIE', true),
+     'secure' => env('SESSION_SECURE_COOKIE', false),
 
      /*
      |--------------------------------------------------------------------------
@@ -173,7 +173,7 @@
      |
      */
      'http_only' => true,
-
+     
      /*
      |--------------------------------------------------------------------------
      | Same-Site Cookies

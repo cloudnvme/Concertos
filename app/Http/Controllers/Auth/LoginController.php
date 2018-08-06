@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use \Toastr;
 
 class LoginController extends Controller
@@ -23,8 +24,10 @@ class LoginController extends Controller
 
     protected $redirectTo = '/';
 
-    public $maxAttempts = 5; // Max Attempts Until Lockout
-    public $decayMinutes = 30; // Minutes
+    // Max attempts until lockout
+    public const MAX_ATTEMPTS = 2;
+    // Expiration time for lockout (8 hours)
+    public const LOCKOUT_DURATION = 8 * 60;
 
     public function __construct()
     {
@@ -36,8 +39,15 @@ class LoginController extends Controller
         return 'username';
     }
 
+    private static function throttleKey(Request $request) {
+        $ip = $request->ip();
+        $key = "ip:tries#{$ip}";
+        return $key;
+    }
+
     protected function authenticated(Request $request, $user)
     {
+        Redis::del(self::getRedisKey($request));
         if (!\App\Policy::isActivated($user)) {
             auth()->logout();
             $request->session()->flush();
@@ -49,5 +59,19 @@ class LoginController extends Controller
             return redirect()->route('login')->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
         }
         return redirect('/');
+    }
+
+    protected function hasTooManyLoginAttempts(Request $request)
+    {
+        return $this->limiter()->tooManyAttempts($this->throttleKey($request),
+                                                 self::MAX_ATTEMPTS,
+                                                 self::LOCKOUT_DURATION
+        );
+    }
+
+    protected function incrementLoginAttempts(Request $request)
+    {
+        $this->limiter()->hit($this->throttleKey($request),
+                              self::LOCKOUT_DURATION);
     }
 }

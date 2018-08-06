@@ -47,7 +47,6 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        Redis::del(self::getRedisKey($request));
         if (!\App\Policy::isActivated($user)) {
             auth()->logout();
             $request->session()->flush();

@@ -625,4 +625,8 @@ class User extends Authenticatable
 
         return (string)($this->invites);
     }
+
+    public function getStylesheetUrl() {
+        return $this->custom_css;
+    }
 }

@@ -209,8 +209,7 @@ return [
 
         'style-src' => [
             'allow' => [
-                'https://use.fontawesome.com',
-                'https://googleapis.com'
+                'https://*',
             ],
 
             'hashes' => [
